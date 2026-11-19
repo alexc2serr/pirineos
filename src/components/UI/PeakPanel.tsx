@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Country, Difficulty, Peak, Route } from '../../data/pyrenees'
 import type { ViewMode } from '../../lib/views'
+import { MountainWeatherCard } from './MountainWeatherCard'
 import { RouteSelector } from './RouteSelector'
 
 interface PeakPanelProps {
@@ -121,6 +122,15 @@ export function PeakPanel({
               <p className="mt-2 font-mono text-[10px] tracking-wider text-sky-200/80">
                 ARRASTRA PARA GIRAR 360º · LOS PICOS VISIBLES MUESTRAN DISTANCIA Y RUMBO
               </p>
+            )}
+
+            {open && (
+              <MountainWeatherCard
+                cacheKey={`peak-${shown.id}`}
+                lat={shown.coordinates.lat}
+                lon={shown.coordinates.lon}
+                elevation={shown.elevation}
+              />
             )}
 
             <RouteSelector

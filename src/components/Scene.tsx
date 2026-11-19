@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useState } from 'react'
 import * as THREE from 'three'
 import type { Hut, Peak, Route } from '../data/pyrenees'
-import type { TimeOfDay } from '../lib/atmosphere'
+import type { SeasonMode, TimeOfDay } from '../lib/atmosphere'
 import type { HeightField } from '../lib/heightField'
 import type { ReplayTarget } from '../lib/replayState'
 import { INITIAL_VIEW, type ViewMode } from '../lib/views'
@@ -25,6 +25,7 @@ interface SceneProps {
   replayRunId: number
   mode: ViewMode
   timeOfDay: TimeOfDay
+  seasonMode: SeasonMode
   viewRequest: ViewRequest | null
   routeViewRequest: RouteViewRequest | null
   showPeaks: boolean
@@ -48,6 +49,7 @@ export function Scene({
   replayRunId,
   mode,
   timeOfDay,
+  seasonMode,
   viewRequest,
   routeViewRequest,
   showPeaks,
@@ -78,7 +80,7 @@ export function Scene({
         onCreated={({ gl }) => onCanvasReady(gl.domElement)}
         style={{ width: '100vw', height: '100vh', display: 'block' }}
       >
-        <Atmosphere timeOfDay={timeOfDay} />
+        <Atmosphere timeOfDay={timeOfDay} seasonMode={seasonMode} />
 
         <PyreneesTerrain onLoaded={setHeightField} onError={(e) => setError(e.message)} />
 

@@ -2,6 +2,7 @@ import gsap from 'gsap'
 import * as THREE from 'three'
 
 export type TimeOfDay = 'dawn' | 'noon' | 'sunset'
+export type SeasonMode = 'summer' | 'winter'
 
 export const TIME_ORDER: TimeOfDay[] = ['dawn', 'noon', 'sunset']
 export const TIME_LABEL: Record<TimeOfDay, string> = {
@@ -69,10 +70,29 @@ function targets(t: TimeOfDay) {
  * Estado atmosférico compartido (mutable a propósito: GSAP lo anima y los
  * componentes lo leen cada frame sin provocar renders de React).
  */
-export const atmosphere = targets('dawn')
+export const atmosphere = {
+  ...targets('dawn'),
+  /** Cota de nieve en metros (Verano ~2750 m, Invierno ~1450 m). */
+  snowLine: 2750,
+  /** Factor estacional 0 = Verano Alpino, 1 = Invierno / Nieve. */
+  winterFactor: 0,
+}
 
 let current: TimeOfDay = 'dawn'
 let timeline: gsap.core.Timeline | null = null
+let seasonTween: gsap.core.Tween | null = null
+
+/** Anima suavemente la cota de nieve y el ambiente estacional (Verano ↔ Invierno). */
+export function setSeasonMode(season: SeasonMode) {
+  seasonTween?.kill()
+  const isWinter = season === 'winter'
+  seasonTween = gsap.to(atmosphere, {
+    snowLine: isWinter ? 1450 : 2750,
+    winterFactor: isWinter ? 1 : 0,
+    duration: 1.8,
+    ease: 'power2.inOut',
+  })
+}
 
 /** Anima suavemente el sol y la atmósfera; amanecer ↔ atardecer pasa por el mediodía. */
 export function setTimeOfDay(next: TimeOfDay) {

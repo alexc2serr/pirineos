@@ -179,7 +179,7 @@ export function PyreneesTerrain({ onLoaded, onError }: PyreneesTerrainProps) {
 
   useEffect(() => () => material.dispose(), [material])
 
-  // Sincroniza los uniforms con el estado atmosférico animado
+  // Sincroniza los uniforms con el estado atmosférico y estacional animado
   useFrame(() => {
     const u = material.uniforms
     u.uSunDir.value.copy(sunDirection(atmosphere.az, atmosphere.el, sunScratch))
@@ -187,6 +187,8 @@ export function PyreneesTerrain({ onLoaded, onError }: PyreneesTerrainProps) {
     u.uShadowW.value.set(atmosphere.w0, atmosphere.w1, atmosphere.w2)
     u.uHaze.value.set(atmosphere.hazeR, atmosphere.hazeG, atmosphere.hazeB)
     u.uAmbient.value = atmosphere.ambient
+    u.uSnowLine.value = atmosphere.snowLine
+    u.uWinterFactor.value = atmosphere.winterFactor
   })
 
   if (!geometry) return null

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Country, Hut, HutServices, Route } from '../../data/pyrenees'
+import { MountainWeatherCard } from './MountainWeatherCard'
 import { RouteSelector } from './RouteSelector'
 
 interface HutPanelProps {
@@ -107,6 +108,15 @@ export function HutPanel({
                 </div>
               </div>
             </div>
+
+            {open && (
+              <MountainWeatherCard
+                cacheKey={`hut-${shown.id}`}
+                lat={shown.coordinates.lat}
+                lon={shown.coordinates.lon}
+                elevation={shown.elevation}
+              />
+            )}
 
             <h3 className="mt-6 font-mono text-[10px] tracking-[0.25em] text-white/50">
               SERVICIOS E INSTALACIONES

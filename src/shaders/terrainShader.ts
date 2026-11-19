@@ -30,6 +30,8 @@ export const terrainFragmentShader = /* glsl */ `
   uniform vec3 uHaze;        // color de bruma en espacio de pantalla (sRGB)
   uniform float uAmbient;
   uniform float uContourStep;
+  uniform float uSnowLine;
+  uniform float uWinterFactor;
   #include <fog_pars_fragment>
   varying vec3 vNormalW;
   varying float vElevation;
@@ -56,8 +58,10 @@ export const terrainFragmentShader = /* glsl */ `
     vec3 snow        = vec3(1.0);
 
     vec3 low = mix(forestDeep, forestSlate, smoothstep(200.0, 1500.0, h));
-    low = mix(low, meadow, smoothstep(1300.0, 1850.0, h) * (1.0 - smoothstep(0.18, 0.4, slope)));
+    low = mix(low, meadow, smoothstep(1300.0, 1850.0, h) * (1.0 - smoothstep(0.18, 0.4, slope)) * (1.0 - uWinterFactor * 0.55));
     low = mix(low, forestSlate * 0.8, smoothstep(0.35, 0.6, slope));
+    // En invierno los valles bajos se enfrían ligeramente hacia pino oscuro / pizarra
+    low = mix(low, low * vec3(0.84, 0.9, 0.98), uWinterFactor * 0.55);
 
     float rockVar = 0.5 + 0.5 * sin(h * 0.012 + n.x * 7.0 + n.z * 6.0);
     vec3 rock = mix(granite, limestone, rockVar);
@@ -65,9 +69,13 @@ export const terrainFragmentShader = /* glsl */ `
 
     vec3 base = mix(low, rock, smoothstep(1650.0, 2050.0, h));
 
-    float snowMaxSlope = mix(0.30, 0.52, smoothstep(2300.0, 3000.0, h));
-    float snowAmount = smoothstep(2300.0, 2650.0, h)
-                     * (1.0 - smoothstep(snowMaxSlope - 0.12, snowMaxSlope, slope));
+    // Cota de nieve dinámica (uSnowLine: ~2750 m en Verano, ~1450 m en Invierno)
+    // En caras norte (-n.z > 0) la nieve aguanta unos metros más abajo
+    float aspectBias = clamp(-n.z, -1.0, 1.0) * 120.0;
+    float snowStart = uSnowLine - aspectBias;
+    float snowMaxSlope = mix(0.28, 0.54, smoothstep(snowStart, snowStart + 700.0, h)) + uWinterFactor * 0.05;
+    float snowAmount = smoothstep(snowStart, snowStart + 340.0, h)
+                     * (1.0 - smoothstep(snowMaxSlope - 0.13, snowMaxSlope, slope));
     base = mix(base, snow, snowAmount);
 
     // Iluminación: la sombra proyectada se mezcla entre los tres mapas precalculados
@@ -118,6 +126,8 @@ export function createTerrainMaterial(): THREE.ShaderMaterial {
         uHaze: { value: new THREE.Vector3(0.7, 0.8, 0.9) },
         uAmbient: { value: 1 },
         uContourStep: { value: 100 },
+        uSnowLine: { value: 2750 },
+        uWinterFactor: { value: 0 },
       },
     ]),
     vertexShader: terrainVertexShader,

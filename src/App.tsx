@@ -10,7 +10,7 @@ import { PeakPanel } from './components/UI/PeakPanel'
 import { RouteReplayOverlay } from './components/UI/RouteReplayOverlay'
 import { TelemetryHUD } from './components/UI/TelemetryHUD'
 import { hutsById, peaksById, type Route } from './data/pyrenees'
-import type { TimeOfDay } from './lib/atmosphere'
+import type { SeasonMode, TimeOfDay } from './lib/atmosphere'
 import {
   DEFAULT_FILTERS,
   DEFAULT_HUT_FILTERS,
@@ -40,6 +40,7 @@ export default function App() {
   const [activeRoute, setActiveRoute] = useState<Route | null>(null)
   const [mode, setMode] = useState<ViewMode>('aerial')
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('dawn')
+  const [seasonMode, setSeasonMode] = useState<SeasonMode>('summer')
   const [viewRequest, setViewRequest] = useState<ViewRequest | null>(null)
   const [routeViewRequest, setRouteViewRequest] = useState<RouteViewRequest | null>(null)
   const [showPeaks, setShowPeaks] = useState(true)
@@ -435,6 +436,7 @@ export default function App() {
         replayRunId={replayRunId}
         mode={mode}
         timeOfDay={timeOfDay}
+        seasonMode={seasonMode}
         viewRequest={viewRequest}
         routeViewRequest={routeViewRequest}
         showPeaks={showPeaks}
@@ -478,6 +480,8 @@ export default function App() {
             hutCount={visibleHuts.length}
             timeOfDay={timeOfDay}
             onTimeChange={setTimeOfDay}
+            seasonMode={seasonMode}
+            onSeasonChange={setSeasonMode}
             showHuts={showHuts}
             onToggleHuts={() => setShowHuts((v) => !v)}
             showPeaks={showPeaks}

@@ -2,7 +2,15 @@ import { useEffect, useMemo, useRef, type ComponentRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Sky } from '@react-three/drei'
 import * as THREE from 'three'
-import { PRESETS, atmosphere, setTimeOfDay, sunDirection, type TimeOfDay } from '../lib/atmosphere'
+import {
+  PRESETS,
+  atmosphere,
+  setSeasonMode,
+  setTimeOfDay,
+  sunDirection,
+  type SeasonMode,
+  type TimeOfDay,
+} from '../lib/atmosphere'
 
 /** Bruma baja: el cielo se funde con el color de niebla justo en el horizonte. */
 const hazeFragment = /* glsl */ `
@@ -19,13 +27,14 @@ const FOG_FAR = 320
 
 interface AtmosphereProps {
   timeOfDay: TimeOfDay
+  seasonMode: SeasonMode
 }
 
 /**
- * Cielo, niebla, suelo infinito y bruma del horizonte, animados por la hora del día.
+ * Cielo, niebla, suelo infinito y bruma del horizonte, animados por la hora del día y estación.
  * El suelo plano extiende el terreno más allá del DEM para que nunca se vea su borde.
  */
-export function Atmosphere({ timeOfDay }: AtmosphereProps) {
+export function Atmosphere({ timeOfDay, seasonMode }: AtmosphereProps) {
   const scene = useThree((s) => s.scene)
   const skyRef = useRef<ComponentRef<typeof Sky>>(null)
   const hazeRef = useRef<THREE.Mesh>(null)
@@ -54,6 +63,10 @@ export function Atmosphere({ timeOfDay }: AtmosphereProps) {
   useEffect(() => {
     setTimeOfDay(timeOfDay)
   }, [timeOfDay])
+
+  useEffect(() => {
+    setSeasonMode(seasonMode)
+  }, [seasonMode])
 
   useEffect(() => () => hazeMaterial.dispose(), [hazeMaterial])
 

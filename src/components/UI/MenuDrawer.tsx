@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { HUTS, peaks } from '../../data/pyrenees'
-import { TIME_LABEL, TIME_ORDER, type TimeOfDay } from '../../lib/atmosphere'
+import { TIME_LABEL, TIME_ORDER, type SeasonMode, type TimeOfDay } from '../../lib/atmosphere'
 import {
   DIFFICULTIES,
   type AltitudeFilter,
@@ -29,6 +29,8 @@ interface MenuDrawerProps {
   hutCount: number
   timeOfDay: TimeOfDay
   onTimeChange: (time: TimeOfDay) => void
+  seasonMode: SeasonMode
+  onSeasonChange: (season: SeasonMode) => void
   showHuts: boolean
   onToggleHuts: () => void
   showPeaks: boolean
@@ -129,6 +131,8 @@ export function MenuDrawer({
   hutCount,
   timeOfDay,
   onTimeChange,
+  seasonMode,
+  onSeasonChange,
   showHuts,
   onToggleHuts,
   showPeaks,
@@ -335,6 +339,36 @@ export function MenuDrawer({
 
         {tab === 'visual' && (
           <div className="space-y-4">
+            <div>
+              <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
+                ESTACIÓN · PAQUETE DE NIEVE
+              </p>
+              <div className="mt-2 grid grid-cols-2 gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => onSeasonChange('summer')}
+                  className={`flex items-center justify-center gap-1.5 rounded-xl border py-2.5 font-mono text-[11px] font-semibold transition-colors ${
+                    seasonMode === 'summer'
+                      ? 'border-amber-300/60 bg-amber-300/95 text-slate-950 shadow'
+                      : 'border-white/10 bg-white/5 text-white/75 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  ☀ Verano Alpino
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onSeasonChange('winter')}
+                  className={`flex items-center justify-center gap-1.5 rounded-xl border py-2.5 font-mono text-[11px] font-semibold transition-colors ${
+                    seasonMode === 'winter'
+                      ? 'border-sky-200/70 bg-sky-200 text-slate-950 shadow'
+                      : 'border-white/10 bg-white/5 text-white/75 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  ❄ Invierno / Nieve
+                </button>
+              </div>
+            </div>
+
             <div>
               <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
                 ILUMINACIÓN · HORA DEL DÍA
