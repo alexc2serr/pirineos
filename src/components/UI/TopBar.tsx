@@ -124,6 +124,7 @@ export function TopBar({
   onToggleTour,
 }: TopBarProps) {
   const [focused, setFocused] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   const query = tab === 'peaks' ? filters.query : hutFilters.query
   const setQuery = (q: string) => {
@@ -145,94 +146,129 @@ export function TopBar({
     return HUTS.filter((h) => norm(`${h.name} ${h.massif}`).includes(q)).slice(0, 6)
   }, [tab, hutFilters.query])
 
+  const handlePickPeak = (id: string) => {
+    onSelectPeak(id)
+    setFocused(false)
+    setMobileOpen(false)
+  }
+
+  const handlePickHut = (id: string) => {
+    onSelectHut(id)
+    setFocused(false)
+    setMobileOpen(false)
+  }
+
   return (
-    <div className="pointer-events-auto absolute right-4 top-4 z-40 w-[min(92vw,440px)] rounded-xl border border-white/10 bg-slate-950/65 p-3 text-white shadow-xl backdrop-blur-md sm:right-8 sm:top-7">
-      {/* Pestañas Picos / Refugios + Pantalla completa */}
-      <div className="flex items-center gap-2">
-        <div className="grid flex-1 grid-cols-2 gap-1 rounded-lg border border-white/10 bg-white/5 p-0.5">
-          <button
-            type="button"
-            onClick={() => onTabChange('peaks')}
-            className={`rounded-md py-1 font-mono text-[11px] tracking-wider transition-colors ${
-              tab === 'peaks' ? 'bg-white/90 font-semibold text-slate-900' : 'text-white/70 hover:text-white'
-            }`}
-          >
-            PICOS ({peakCount}/{peaks.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => onTabChange('huts')}
-            className={`rounded-md py-1 font-mono text-[11px] tracking-wider transition-colors ${
-              tab === 'huts'
-                ? 'bg-amber-300/95 font-semibold text-slate-950'
-                : 'text-white/70 hover:text-white'
-            }`}
-          >
-            REFUGIOS ({hutCount}/{HUTS.length})
-          </button>
-        </div>
+    <>
+      {/* Botón compacto móvil (< md) arriba a la derecha */}
+      <div className="pointer-events-auto fixed right-3 top-3 z-50 flex items-center gap-1.5 md:hidden">
+        <button
+          type="button"
+          onClick={() => setMobileOpen((v) => !v)}
+          aria-expanded={mobileOpen}
+          className="flex h-8 items-center gap-1.5 rounded-lg border border-white/15 bg-slate-950/75 px-3 font-mono text-[11px] font-medium text-white shadow-lg backdrop-blur-md transition-colors hover:bg-slate-900"
+        >
+          <span>{mobileOpen ? '✕ Cerrar' : '🔍 Explorar / Filtros'}</span>
+        </button>
         <FullscreenButton />
       </div>
 
-      {/* Buscador rápido */}
-      <div className="relative mt-2">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setTimeout(() => setFocused(false), 120)}
-          placeholder={
-            tab === 'peaks'
-              ? 'Buscar pico o macizo (ej. Aneto, Estiva, Telera)…'
-              : 'Buscar refugio (ej. Estiva, La Larri, Góriz)…'
-          }
-          className="h-8 w-full rounded-lg border border-white/10 bg-white/5 px-3 font-sans text-xs text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+      {/* Fondo semitransparente para cerrar el cajón en móvil */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[2px] md:hidden"
+          onClick={() => setMobileOpen(false)}
         />
-        {focused && tab === 'peaks' && peakSuggestions.length > 0 && (
-          <ul className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-white/10 bg-slate-950/95 backdrop-blur-md">
-            {peakSuggestions.map((p) => (
-              <li key={p.id}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    onSelectPeak(p.id)
-                    setFocused(false)
-                  }}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-xs hover:bg-white/10"
-                >
-                  <span className="truncate font-medium">{p.name}</span>
-                  <span className="ml-2 shrink-0 font-mono text-[11px] text-white/60">
-                    {p.elevation.toLocaleString('es-ES')} m
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-        {focused && tab === 'huts' && hutSuggestions.length > 0 && (
-          <ul className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-amber-200/20 bg-slate-950/95 backdrop-blur-md">
-            {hutSuggestions.map((h) => (
-              <li key={h.id}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => {
-                    onSelectHut(h.id)
-                    setFocused(false)
-                  }}
-                  className="flex w-full items-center justify-between px-3 py-2 text-left text-xs hover:bg-white/10"
-                >
-                  <span className="truncate font-medium text-amber-100">{h.name}</span>
-                  <span className="ml-2 shrink-0 font-mono text-[10px] text-white/60">
-                    {h.elevation.toLocaleString('es-ES')} m · {h.type === 'Guardado' ? 'Guard.' : 'Libre'}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      )}
+
+      {/* Panel de filtros: desplegable modal en móvil, fijo arriba a la derecha en md+ */}
+      <div
+        className={`pointer-events-auto fixed inset-x-3 top-14 z-50 max-h-[78vh] overflow-y-auto rounded-xl border border-white/10 bg-slate-950/85 p-3 text-white shadow-2xl backdrop-blur-md md:inset-x-auto md:right-8 md:top-7 md:z-40 md:block md:max-h-none md:w-[440px] md:overflow-visible md:bg-slate-950/65 ${
+          mobileOpen ? 'block' : 'hidden'
+        }`}
+      >
+        {/* Pestañas Picos / Refugios + Pantalla completa (en desktop) */}
+        <div className="flex items-center gap-2">
+          <div className="grid flex-1 grid-cols-2 gap-1 rounded-lg border border-white/10 bg-white/5 p-0.5">
+            <button
+              type="button"
+              onClick={() => onTabChange('peaks')}
+              className={`rounded-md py-1 font-mono text-[11px] tracking-wider transition-colors ${
+                tab === 'peaks' ? 'bg-white/90 font-semibold text-slate-900' : 'text-white/70 hover:text-white'
+              }`}
+            >
+              PICOS ({peakCount}/{peaks.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => onTabChange('huts')}
+              className={`rounded-md py-1 font-mono text-[11px] tracking-wider transition-colors ${
+                tab === 'huts'
+                  ? 'bg-amber-300/95 font-semibold text-slate-950'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              REFUGIOS ({hutCount}/{HUTS.length})
+            </button>
+          </div>
+          <div className="hidden md:block">
+            <FullscreenButton />
+          </div>
+        </div>
+
+        {/* Buscador rápido */}
+        <div className="relative mt-2">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setTimeout(() => setFocused(false), 120)}
+            placeholder={
+              tab === 'peaks'
+                ? 'Buscar pico o macizo (ej. Aneto, Estiva, Telera)…'
+                : 'Buscar refugio (ej. Estiva, La Larri, Góriz)…'
+            }
+            className="h-8 w-full rounded-lg border border-white/10 bg-white/5 px-3 font-sans text-xs text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+          />
+          {focused && tab === 'peaks' && peakSuggestions.length > 0 && (
+            <ul className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-white/10 bg-slate-950/95 backdrop-blur-md">
+              {peakSuggestions.map((p) => (
+                <li key={p.id}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => handlePickPeak(p.id)}
+                    className="flex w-full items-center justify-between px-3 py-2 text-left text-xs hover:bg-white/10"
+                  >
+                    <span className="truncate font-medium">{p.name}</span>
+                    <span className="ml-2 shrink-0 font-mono text-[11px] text-white/60">
+                      {p.elevation.toLocaleString('es-ES')} m
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          {focused && tab === 'huts' && hutSuggestions.length > 0 && (
+            <ul className="absolute inset-x-0 top-full z-50 mt-1 overflow-hidden rounded-lg border border-amber-200/20 bg-slate-950/95 backdrop-blur-md">
+              {hutSuggestions.map((h) => (
+                <li key={h.id}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => handlePickHut(h.id)}
+                    className="flex w-full items-center justify-between px-3 py-2 text-left text-xs hover:bg-white/10"
+                  >
+                    <span className="truncate font-medium text-amber-100">{h.name}</span>
+                    <span className="ml-2 shrink-0 font-mono text-[10px] text-white/60">
+                      {h.elevation.toLocaleString('es-ES')} m · {h.type === 'Guardado' ? 'Guard.' : 'Libre'}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
       {/* Filtros dinámicos según pestaña */}
       {tab === 'peaks' ? (
@@ -389,5 +425,6 @@ export function TopBar({
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -63,7 +63,7 @@ export function Scene({
   const isReplaying = replayTarget !== null
 
   return (
-    <div className="fixed inset-0 h-screen w-screen overflow-hidden">
+    <div className="fixed inset-0 h-screen w-screen touch-none overflow-hidden">
       <Canvas
         dpr={[1, 2]}
         camera={{

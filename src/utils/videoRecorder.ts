@@ -217,24 +217,24 @@ export class CozyVideoRecorder {
       ctx.restore()
     }
 
-    // 5. Tarjeta resumen cozy en la cumbre
+    // 5. Tarjeta resumen cozy compacta (a la derecha en horizontal o abajo en vertical para dejar visible al montañero)
     if (replayState.phase === 'celebrating' || replayState.phase === 'done') {
       const alpha = replayState.phase === 'done' ? 1 : Math.min(1, replayState.celebrationT * 2.5)
-      const cardW = Math.round(480 * s)
-      const cardH = Math.round(255 * s)
-      const cx = (w - cardW) / 2
-      const cy = h - cardH - Math.round(44 * s)
+      const isLandscape = w >= h
+      const cardW = Math.round((isLandscape ? 380 : Math.min(w * 0.88, 380)) * (isLandscape ? s : 1))
+      const cardH = Math.round(230 * (isLandscape ? s : Math.min(w / 420, 1)))
+      const cs = isLandscape ? s : Math.min(w / 420, 1)
+      const cx = isLandscape ? w - cardW - Math.round(36 * s) : (w - cardW) / 2
+      const cy = isLandscape ? (h - cardH) / 2 : h - cardH - Math.round(32 * cs)
 
       ctx.save()
       ctx.globalAlpha = alpha
 
-      // Sombra suave
       ctx.shadowColor = 'rgba(15, 23, 42, 0.55)'
-      ctx.shadowBlur = 32 * s
-      ctx.shadowOffsetY = 12 * s
+      ctx.shadowBlur = 28 * cs
+      ctx.shadowOffsetY = 10 * cs
 
-      // Fondo crema/azul noche cálido
-      roundRect(ctx, cx, cy, cardW, cardH, 22 * s)
+      roundRect(ctx, cx, cy, cardW, cardH, 20 * cs)
       const bg = ctx.createLinearGradient(cx, cy, cx, cy + cardH)
       bg.addColorStop(0, 'rgba(254, 249, 239, 0.96)')
       bg.addColorStop(1, 'rgba(247, 237, 219, 0.96)')
@@ -243,61 +243,57 @@ export class CozyVideoRecorder {
       ctx.shadowColor = 'transparent'
 
       ctx.strokeStyle = 'rgba(180, 83, 9, 0.35)'
-      ctx.lineWidth = Math.max(1.5, 2 * s)
+      ctx.lineWidth = Math.max(1.5, 2 * cs)
       ctx.stroke()
 
-      // Badge "¡CUMBRE ALCANZADA!"
       const badgeText = target.kind === 'peak' ? '¡CUMBRE ALCANZADA!' : '¡REFUGIO ALCANZADO!'
-      const badgeW = 190 * s
-      const badgeH = 26 * s
-      roundRect(ctx, cx + (cardW - badgeW) / 2, cy + 20 * s, badgeW, badgeH, 13 * s)
+      const badgeW = 175 * cs
+      const badgeH = 24 * cs
+      roundRect(ctx, cx + (cardW - badgeW) / 2, cy + 16 * cs, badgeW, badgeH, 12 * cs)
       ctx.fillStyle = '#0f172a'
       ctx.fill()
       ctx.fillStyle = '#fbbf24'
-      ctx.font = `700 ${Math.round(11 * s)}px "JetBrains Mono", monospace`
+      ctx.font = `700 ${Math.round(10 * cs)}px "JetBrains Mono", monospace`
       ctx.textAlign = 'center'
-      ctx.fillText(badgeText, cx + cardW / 2, cy + 37 * s)
+      ctx.fillText(badgeText, cx + cardW / 2, cy + 32 * cs)
 
-      // Nombre y altitud
       ctx.fillStyle = '#0f172a'
-      ctx.font = `700 ${Math.round(26 * s)}px "Cinzel", Georgia, serif`
-      ctx.fillText(target.name, cx + cardW / 2, cy + 82 * s)
+      ctx.font = `700 ${Math.round(21 * cs)}px "Cinzel", Georgia, serif`
+      ctx.fillText(target.name, cx + cardW / 2, cy + 70 * cs)
 
       ctx.fillStyle = '#b45309'
-      ctx.font = `700 ${Math.round(18 * s)}px "JetBrains Mono", monospace`
-      ctx.fillText(`${target.elevation.toLocaleString('es-ES')} m · ${target.massif}`, cx + cardW / 2, cy + 110 * s)
+      ctx.font = `700 ${Math.round(14 * cs)}px "JetBrains Mono", monospace`
+      ctx.fillText(`${target.elevation.toLocaleString('es-ES')} m · ${target.massif}`, cx + cardW / 2, cy + 94 * cs)
 
-      // 3 métricas (Duración, Distancia, Desnivel)
       const metrics = [
         { label: 'DURACIÓN', value: target.route.estimatedTime },
         { label: 'DISTANCIA', value: `${target.route.distanceKm.toLocaleString('es-ES')} km` },
         { label: 'DESNIVEL', value: `+${target.route.elevationGain.toLocaleString('es-ES')} m` },
       ]
-      const colW = (cardW - 48 * s) / 3
+      const colW = (cardW - 36 * cs) / 3
       metrics.forEach((m, i) => {
-        const mx = cx + 24 * s + colW * i + colW / 2
-        const my = cy + 132 * s
-        roundRect(ctx, cx + 24 * s + colW * i + 4 * s, my, colW - 8 * s, 56 * s, 12 * s)
+        const mx = cx + 18 * cs + colW * i + colW / 2
+        const my = cy + 114 * cs
+        roundRect(ctx, cx + 18 * cs + colW * i + 3 * cs, my, colW - 6 * cs, 50 * cs, 10 * cs)
         ctx.fillStyle = 'rgba(15, 23, 42, 0.06)'
         ctx.fill()
 
         ctx.fillStyle = '#64748b'
-        ctx.font = `600 ${Math.round(9.5 * s)}px "JetBrains Mono", monospace`
-        ctx.fillText(m.label, mx, my + 20 * s)
+        ctx.font = `600 ${Math.round(8.5 * cs)}px "JetBrains Mono", monospace`
+        ctx.fillText(m.label, mx, my + 18 * cs)
 
         ctx.fillStyle = '#0f172a'
-        ctx.font = `700 ${Math.round(15 * s)}px "JetBrains Mono", monospace`
-        ctx.fillText(m.value, mx, my + 43 * s)
+        ctx.font = `700 ${Math.round(13 * cs)}px "JetBrains Mono", monospace`
+        ctx.fillText(m.value, mx, my + 38 * cs)
       })
 
-      // Salida y marca de agua inferior
       ctx.fillStyle = '#475569'
-      ctx.font = `500 ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`
-      ctx.fillText(`Salida: ${target.originLabel}`, cx + cardW / 2, cy + 216 * s)
+      ctx.font = `500 ${Math.round(10.5 * cs)}px "Plus Jakarta Sans", sans-serif`
+      ctx.fillText(`Salida: ${target.originLabel}`, cx + cardW / 2, cy + 190 * cs)
 
       ctx.fillStyle = 'rgba(120, 53, 15, 0.55)'
-      ctx.font = `600 ${Math.round(9.5 * s)}px "JetBrains Mono", monospace`
-      ctx.fillText('PIRINEOS 3D', cx + cardW / 2, cy + 238 * s)
+      ctx.font = `600 ${Math.round(9 * cs)}px "JetBrains Mono", monospace`
+      ctx.fillText('PIRINEOS 3D', cx + cardW / 2, cy + 212 * cs)
 
       ctx.restore()
     }

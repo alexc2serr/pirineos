@@ -279,15 +279,15 @@ export default function App() {
       {!isReplaying ? (
         <>
           {/* Degradado superior para legibilidad */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-[#050b1c]/85 via-[#050b1c]/35 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#050b1c]/85 via-[#050b1c]/35 to-transparent sm:h-56" />
 
-          <header className="pointer-events-none absolute left-8 top-7 select-none sm:left-12 sm:top-9">
-            <h1 className="font-display text-5xl font-semibold tracking-[0.28em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] sm:text-7xl">
+          <header className="pointer-events-none absolute left-4 top-3.5 select-none sm:left-8 sm:top-7 md:left-12 md:top-9">
+            <h1 className="font-display text-2xl font-semibold tracking-[0.22em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] sm:text-4xl sm:tracking-[0.26em] md:text-6xl">
               PIRINEOS
             </h1>
-            <div className="mt-3 flex items-center gap-4">
-              <span className="h-px w-14 bg-white/60" />
-              <p className="font-mono text-[11px] tracking-[0.22em] text-white/80 sm:text-xs">
+            <div className="mt-2 hidden items-center gap-3 sm:flex sm:mt-3 sm:gap-4">
+              <span className="h-px w-10 bg-white/60 md:w-14" />
+              <p className="font-mono text-[10px] tracking-[0.2em] text-white/80 md:text-xs">
                 CORDILLERA TRANSFRONTERIZA · ES / FR · 3.404M MAX
               </p>
             </div>
@@ -333,7 +333,11 @@ export default function App() {
             onBack={back}
           />
 
-          <div className="pointer-events-none fixed bottom-4 left-4 right-4 z-30 flex flex-col gap-2 sm:bottom-6 sm:left-8 sm:right-8 lg:flex-row lg:items-end lg:justify-between lg:gap-4">
+          <div
+            className={`pointer-events-none fixed bottom-3 left-3 right-3 z-30 flex-col gap-1.5 sm:bottom-6 sm:left-8 sm:right-8 sm:gap-2 lg:flex-row lg:items-end lg:justify-between lg:gap-4 ${
+              selectedPeak || selectedHut ? 'hidden md:flex' : 'flex'
+            }`}
+          >
             <MassifBar onGo={goToView} />
             <TelemetryHUD />
           </div>

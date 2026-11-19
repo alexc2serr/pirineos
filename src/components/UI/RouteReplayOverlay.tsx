@@ -105,84 +105,86 @@ export function RouteReplayOverlay({
         </button>
       </div>
 
-      {/* Tarjeta resumen cozy al alcanzar la cima */}
+      {/* Tarjeta resumen cozy posicionada abajo en móvil y a la derecha en escritorio para no tapar al montañero */}
       {showSummitCard && (
-        <div className="pointer-events-auto w-[min(92vw,470px)] rounded-3xl border-2 border-amber-700/30 bg-gradient-to-b from-[#fef9ef]/95 to-[#f6ebd7]/95 p-6 text-center text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.55)] backdrop-blur-md">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-1 font-mono text-[11px] font-bold tracking-[0.18em] text-amber-300">
-            {target.kind === 'peak' ? '¡CUMBRE ALCANZADA!' : '¡REFUGIO ALCANZADO!'}
-          </span>
+        <div className="pointer-events-none flex w-full flex-1 items-end justify-center pb-2 md:items-center md:justify-end md:pb-0 md:pr-4">
+          <div className="pointer-events-auto w-full max-w-sm rounded-3xl border-2 border-amber-700/30 bg-gradient-to-b from-[#fef9ef]/95 to-[#f6ebd7]/95 p-4 text-center text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.55)] backdrop-blur-md sm:p-5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3 py-0.5 font-mono text-[10px] font-bold tracking-[0.18em] text-amber-300">
+              {target.kind === 'peak' ? '¡CUMBRE ALCANZADA!' : '¡REFUGIO ALCANZADO!'}
+            </span>
 
-          <h2 className="mt-3 font-display text-2xl font-bold tracking-wide text-slate-900 sm:text-3xl">
-            {target.name}
-          </h2>
-          <p className="mt-1 font-mono text-base font-bold text-amber-700">
-            {target.elevation.toLocaleString('es-ES')} m · {target.massif}
-          </p>
+            <h2 className="mt-2.5 font-display text-xl font-bold tracking-wide text-slate-900 sm:text-2xl">
+              {target.name}
+            </h2>
+            <p className="mt-0.5 font-mono text-sm font-bold text-amber-700">
+              {target.elevation.toLocaleString('es-ES')} m · {target.massif}
+            </p>
 
-          <div className="mt-4 grid grid-cols-3 gap-2 font-mono">
-            <div className="rounded-xl bg-slate-900/[0.06] px-2 py-2.5">
-              <span className="block text-[9px] font-semibold tracking-[0.15em] text-slate-500">
-                DURACIÓN
-              </span>
-              <span className="mt-0.5 block text-sm font-bold text-slate-900">
-                {target.route.estimatedTime}
-              </span>
+            <div className="mt-3 grid grid-cols-3 gap-1.5 font-mono">
+              <div className="rounded-xl bg-slate-900/[0.06] px-1.5 py-2">
+                <span className="block text-[8.5px] font-semibold tracking-[0.12em] text-slate-500">
+                  DURACIÓN
+                </span>
+                <span className="mt-0.5 block text-xs font-bold text-slate-900 sm:text-sm">
+                  {target.route.estimatedTime}
+                </span>
+              </div>
+              <div className="rounded-xl bg-slate-900/[0.06] px-1.5 py-2">
+                <span className="block text-[8.5px] font-semibold tracking-[0.12em] text-slate-500">
+                  DISTANCIA
+                </span>
+                <span className="mt-0.5 block text-xs font-bold text-slate-900 sm:text-sm">
+                  {target.route.distanceKm.toLocaleString('es-ES')} km
+                </span>
+              </div>
+              <div className="rounded-xl bg-slate-900/[0.06] px-1.5 py-2">
+                <span className="block text-[8.5px] font-semibold tracking-[0.12em] text-slate-500">
+                  DESNIVEL
+                </span>
+                <span className="mt-0.5 block text-xs font-bold text-slate-900 sm:text-sm">
+                  +{target.route.elevationGain.toLocaleString('es-ES')} m
+                </span>
+              </div>
             </div>
-            <div className="rounded-xl bg-slate-900/[0.06] px-2 py-2.5">
-              <span className="block text-[9px] font-semibold tracking-[0.15em] text-slate-500">
-                DISTANCIA
-              </span>
-              <span className="mt-0.5 block text-sm font-bold text-slate-900">
-                {target.route.distanceKm.toLocaleString('es-ES')} km
-              </span>
-            </div>
-            <div className="rounded-xl bg-slate-900/[0.06] px-2 py-2.5">
-              <span className="block text-[9px] font-semibold tracking-[0.15em] text-slate-500">
-                DESNIVEL
-              </span>
-              <span className="mt-0.5 block text-sm font-bold text-slate-900">
-                +{target.route.elevationGain.toLocaleString('es-ES')} m
-              </span>
-            </div>
-          </div>
 
-          <p className="mt-3.5 text-xs font-medium text-slate-600">
-            Salida: <span className="text-slate-800">{target.originLabel}</span>
-          </p>
+            <p className="mt-2.5 truncate text-[11px] font-medium text-slate-600">
+              Salida: <span className="text-slate-800">{target.originLabel}</span>
+            </p>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-            {recordedVideo ? (
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-1.5">
+              {recordedVideo ? (
+                <button
+                  type="button"
+                  onClick={() => triggerVideoDownload(recordedVideo)}
+                  className="flex items-center gap-1.5 rounded-xl bg-slate-900 px-3.5 py-2 font-mono text-[11px] font-semibold text-amber-300 shadow-md transition-colors hover:bg-slate-800"
+                >
+                  Descargar {recordedVideo.filename.endsWith('.mp4') ? 'MP4' : 'Vídeo'}
+                </button>
+              ) : (
+                <span className="rounded-xl bg-amber-900/10 px-3 py-2 font-mono text-[10px] font-medium text-amber-900">
+                  Finalizando vídeo…
+                </span>
+              )}
               <button
                 type="button"
-                onClick={() => triggerVideoDownload(recordedVideo)}
-                className="flex items-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 font-mono text-xs font-semibold text-amber-300 shadow-md transition-colors hover:bg-slate-800"
+                onClick={onReplayAgain}
+                className="rounded-xl border border-slate-900/20 bg-white/75 px-3 py-2 font-mono text-[11px] font-semibold text-slate-800 transition-colors hover:bg-white"
               >
-                Descargar {recordedVideo.filename.endsWith('.mp4') ? 'MP4' : 'Vídeo'} de nuevo
+                Repetir
               </button>
-            ) : (
-              <span className="rounded-xl bg-amber-900/10 px-3.5 py-2 font-mono text-[11px] font-medium text-amber-900">
-                Finalizando vídeo…
-              </span>
-            )}
-            <button
-              type="button"
-              onClick={onReplayAgain}
-              className="rounded-xl border border-slate-900/20 bg-white/70 px-3.5 py-2.5 font-mono text-xs font-semibold text-slate-800 transition-colors hover:bg-white"
-            >
-              Repetir
-            </button>
-            <button
-              type="button"
-              onClick={onExit}
-              className="rounded-xl border border-slate-900/15 bg-slate-900/10 px-3.5 py-2.5 font-mono text-xs font-semibold text-slate-800 transition-colors hover:bg-slate-900/20"
-            >
-              Salir del modo vídeo
-            </button>
-          </div>
+              <button
+                type="button"
+                onClick={onExit}
+                className="rounded-xl border border-slate-900/15 bg-slate-900/10 px-3 py-2 font-mono text-[11px] font-semibold text-slate-800 transition-colors hover:bg-slate-900/20"
+              >
+                Salir
+              </button>
+            </div>
 
-          <p className="mt-3 font-mono text-[9px] font-semibold tracking-[0.25em] text-amber-900/55">
-            PIRINEOS 3D
-          </p>
+            <p className="mt-2.5 font-mono text-[8.5px] font-semibold tracking-[0.25em] text-amber-900/55">
+              PIRINEOS 3D
+            </p>
+          </div>
         </div>
       )}
     </div>

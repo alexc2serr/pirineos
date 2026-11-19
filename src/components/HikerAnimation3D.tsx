@@ -193,29 +193,30 @@ export function HikerAnimation3D({ target, heightField, runId, onComplete }: Hik
       trailGeo?.setDrawRange(0, totalIndexCount)
       trailHaloGeo?.setDrawRange(0, totalIndexCount)
 
-      // Pequeño salto de alegría repetido durante los 3 primeros segundos
-      const jump = celT < 0.85 ? Math.abs(Math.sin(celElapsed * Math.PI * 2.8)) * 0.1 : 0
+      // Pequeño salto de alegría expresivo y bien visible en la cumbre
+      const jump = Math.abs(Math.sin(celElapsed * Math.PI * 2.4)) * 0.2
       hikerRef.current.position.set(summit.x, summitY + jump, summit.z)
-      hikerRef.current.rotation.y += dt * 1.1
+      hikerRef.current.rotation.y += dt * 1.35
 
-      // Brazos arriba celebrando
-      if (leftLegRef.current) leftLegRef.current.rotation.x = 0
-      if (rightLegRef.current) rightLegRef.current.rotation.x = 0
-      if (leftArmRef.current) leftArmRef.current.rotation.x = -2.2
-      if (rightArmRef.current) rightArmRef.current.rotation.x = -2.2
+      // Brazos arriba agitando los bastones de celebración
+      const cheer = Math.sin(celElapsed * Math.PI * 4.8) * 0.32
+      if (leftLegRef.current) leftLegRef.current.rotation.x = jump * 1.8
+      if (rightLegRef.current) rightLegRef.current.rotation.x = -jump * 1.8
+      if (leftArmRef.current) leftArmRef.current.rotation.x = -2.45 + cheer
+      if (rightArmRef.current) rightArmRef.current.rotation.x = -2.45 - cheer
 
-      // Giro orbital suave alrededor de la cumbre
-      orbitAngleRef.current += dt * 0.45
-      const radius = 1.95
+      // Plano cercano y rasante en la cima: encuadra al montañero saltando y el horizonte de picos detrás
+      orbitAngleRef.current += dt * 0.42
+      const radius = 0.88
       desiredCam.set(
         summit.x + Math.sin(orbitAngleRef.current) * radius,
-        summitY + 0.95,
+        summitY + 0.3,
         summit.z + Math.cos(orbitAngleRef.current) * radius,
       )
-      desiredCam.y = Math.max(desiredCam.y, heightField.sampleWorld(desiredCam.x, desiredCam.z) + 0.45)
-      desiredLook.set(summit.x, summitY + 0.12, summit.z)
+      desiredCam.y = Math.max(desiredCam.y, heightField.sampleWorld(desiredCam.x, desiredCam.z) + 0.18)
+      desiredLook.set(summit.x, summitY + 0.28, summit.z)
 
-      const smooth = 1 - Math.exp(-dt * 3.5)
+      const smooth = 1 - Math.exp(-dt * 4.0)
       camera.position.lerp(desiredCam, smooth)
       lookTargetRef.current.lerp(desiredLook, smooth)
       camera.lookAt(lookTargetRef.current)

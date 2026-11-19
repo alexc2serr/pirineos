@@ -35,23 +35,23 @@ export function TelemetryHUD() {
   return (
     <div
       aria-label="Telemetría de cámara"
-      className="pointer-events-auto flex shrink-0 select-none items-center gap-3.5 self-end rounded-xl border border-white/10 bg-slate-950/60 px-3.5 py-2 font-mono text-white shadow-xl backdrop-blur-md"
+      className="pointer-events-auto flex shrink-0 select-none items-center gap-3 self-end rounded-xl border border-white/10 bg-slate-950/65 px-3 py-1.5 font-mono text-white shadow-xl backdrop-blur-md sm:gap-3.5 sm:px-3.5 sm:py-2"
     >
       <div>
-        <span className="block text-[9px] tracking-[0.18em] text-white/45">ALT CAM</span>
-        <span ref={altRef} className="block text-xs font-medium tabular-nums text-white/90">
+        <span className="block text-[8.5px] tracking-[0.16em] text-white/45 sm:text-[9px]">ALT CAM</span>
+        <span ref={altRef} className="block text-[11px] font-medium tabular-nums text-white/90 sm:text-xs">
           2.800 m
         </span>
       </div>
-      <span className="h-6 w-px bg-white/10" />
-      <div>
+      <span className="hidden h-6 w-px bg-white/10 sm:block" />
+      <div className="hidden sm:block">
         <span className="block text-[9px] tracking-[0.18em] text-white/45">OBJETIVO GPS</span>
         <span ref={coordsRef} className="block text-xs font-medium tabular-nums text-white/90">
           42.6400°N · 0.5500°E
         </span>
       </div>
-      <span className="h-6 w-px bg-white/10" />
-      <div className="min-w-[3.5rem] text-right">
+      <span className="hidden h-6 w-px bg-white/10 sm:block" />
+      <div className="hidden min-w-[3.5rem] text-right sm:block">
         <span className="block text-[9px] tracking-[0.18em] text-white/45">RUMBO</span>
         <span className="block text-xs font-medium tabular-nums">
           <span ref={compassRef} className="text-amber-200">
