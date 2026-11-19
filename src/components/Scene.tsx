@@ -27,6 +27,7 @@ interface SceneProps {
   timeOfDay: TimeOfDay
   viewRequest: ViewRequest | null
   routeViewRequest: RouteViewRequest | null
+  showPeaks: boolean
   showHuts: boolean
   hasHutFilter: boolean
   tourActive: boolean
@@ -49,6 +50,7 @@ export function Scene({
   timeOfDay,
   viewRequest,
   routeViewRequest,
+  showPeaks,
   showHuts,
   hasHutFilter,
   tourActive,
@@ -82,13 +84,15 @@ export function Scene({
 
         {heightField && !isReplaying && (
           <>
-            <PeakMarkers
-              visiblePeaks={visiblePeaks}
-              heightField={heightField}
-              selectedId={selected?.id ?? null}
-              mode={mode}
-              onSelect={onSelectPeak}
-            />
+            {(showPeaks || selected !== null) && (
+              <PeakMarkers
+                visiblePeaks={visiblePeaks}
+                heightField={heightField}
+                selectedId={selected?.id ?? null}
+                mode={mode}
+                onSelect={onSelectPeak}
+              />
+            )}
             {(showHuts || selectedHut !== null) && (
               <HutMarkers
                 visibleHuts={visibleHuts}

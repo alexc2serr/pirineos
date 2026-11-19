@@ -1,6 +1,6 @@
 import type { Difficulty, Hut } from './pyrenees'
 
-export type RouteOriginType = 'parking' | 'hut'
+export type RouteOriginType = 'parking' | 'hut' | 'gpx'
 
 export interface ParkingInfo {
   name: string

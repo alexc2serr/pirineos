@@ -50,7 +50,7 @@ export function HutPanel({
   return (
     <aside
       aria-hidden={!open}
-      className={`pointer-events-auto fixed inset-x-0 bottom-0 z-40 flex max-h-[55vh] flex-col overflow-hidden rounded-t-2xl border border-b-0 border-amber-200/25 bg-slate-950/85 text-white shadow-2xl backdrop-blur-md transition-transform duration-500 ease-out md:inset-x-auto md:bottom-24 md:right-8 md:top-[16.5rem] md:max-h-none md:w-[400px] md:rounded-2xl md:border-b md:bg-slate-950/70 ${
+      className={`pointer-events-auto fixed inset-x-0 bottom-0 z-40 flex max-h-[55vh] flex-col overflow-hidden rounded-t-2xl border border-b-0 border-amber-200/25 bg-slate-950/85 text-white shadow-2xl backdrop-blur-md transition-transform duration-500 ease-out md:inset-x-auto md:bottom-24 md:right-4 md:top-20 md:max-h-none md:w-[390px] md:rounded-2xl md:border-b md:bg-slate-950/75 ${
         open ? 'translate-y-0 md:translate-x-0' : 'translate-y-full md:translate-x-[120%] md:translate-y-0'
       }`}
     >

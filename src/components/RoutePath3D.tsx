@@ -35,10 +35,13 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
   const start = points[0]
   const end = points[points.length - 1]
   const isParking = route.originType === 'parking'
-  const mainColor = isParking ? '#38bdf8' : '#f59e0b'
-  const startLabel = isParking
-    ? (route.parkingInfo?.name ?? 'Parking de acceso')
-    : (route.hutId ? hutsById[route.hutId]?.name : undefined) ?? 'Refugio de salida'
+  const isGpx = route.originType === 'gpx'
+  const mainColor = isGpx ? '#2dd4bf' : isParking ? '#38bdf8' : '#f59e0b'
+  const startLabel = isGpx
+    ? route.name
+    : isParking
+      ? (route.parkingInfo?.name ?? 'Parking de acceso')
+      : (route.hutId ? hutsById[route.hutId]?.name : undefined) ?? 'Refugio de salida'
 
   return (
     <group>
@@ -69,7 +72,7 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
         lineWidth={2}
       />
 
-      {/* Pin de Inicio (Parking azul P o Refugio ámbar) */}
+      {/* Pin de Inicio (GPX turquesa, Parking azul P o Refugio ámbar) */}
       <Html
         position={[start.x, start.y + PIN_STEM_HEIGHT, start.z]}
         center
@@ -78,17 +81,21 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
       >
         <div
           className={`flex -translate-y-1/2 select-none items-center gap-2 rounded-full border py-1 pl-1.5 pr-3 shadow-xl backdrop-blur-md ${
-            isParking
-              ? 'border-sky-300/50 bg-slate-950/85 text-white'
-              : 'border-amber-300/50 bg-slate-950/85 text-white'
+            isGpx
+              ? 'border-teal-300/50 bg-slate-950/85 text-white'
+              : isParking
+                ? 'border-sky-300/50 bg-slate-950/85 text-white'
+                : 'border-amber-300/50 bg-slate-950/85 text-white'
           }`}
         >
           <span
-            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[11px] font-bold text-slate-950 ${
-              isParking ? 'bg-sky-400' : 'bg-amber-400'
+            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-bold text-slate-950 ${
+              isGpx ? 'bg-teal-300' : isParking ? 'bg-sky-400' : 'bg-amber-400'
             }`}
           >
-            {isParking ? (
+            {isGpx ? (
+              'GPX'
+            ) : isParking ? (
               'P'
             ) : (
               <svg viewBox="0 0 16 16" className="h-3 w-3" fill="currentColor" aria-hidden>
@@ -102,10 +109,10 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
             </span>
             <span
               className={`block font-mono text-[9px] uppercase tracking-wider ${
-                isParking ? 'text-sky-300' : 'text-amber-200'
+                isGpx ? 'text-teal-300' : isParking ? 'text-sky-300' : 'text-amber-200'
               }`}
             >
-              {isParking ? 'Inicio · Parking' : 'Inicio · Refugio'}
+              {isGpx ? 'Inicio · Track GPX' : isParking ? 'Inicio · Parking' : 'Inicio · Refugio'}
             </span>
           </div>
         </div>
