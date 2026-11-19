@@ -1,0 +1,4607 @@
+{
+  "fetchedAt": "2026-11-19T15:03:05.067Z",
+  "source": "OpenStreetMap (Overpass / QLever OSM Planet)",
+  "bbox": [
+    42.25,
+    -1.8,
+    43.15,
+    3.2
+  ],
+  "counts": {
+    "huts": 146,
+    "peaks": 180
+  },
+  "huts": [
+    {
+      "osmId": "node/5078828209",
+      "name": "Refugi Ventosa i Calvell",
+      "elevation": 2214,
+      "lat": 42.60531,
+      "lon": 0.87739,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 70,
+      "winterCapacity": 12,
+      "website": "http://www.refugiventosa.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4040097129",
+      "name": "Refugi del Pla de la Font",
+      "elevation": 2016,
+      "lat": 42.59756,
+      "lon": 1.07273,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 23,
+      "winterCapacity": 12,
+      "phone": "+34 619930771",
+      "website": "http://www.pladelafont.com",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/3114284626",
+      "name": "Refugi forestal del Coll de Midós",
+      "elevation": 2012,
+      "lat": 42.41385,
+      "lon": 1.57471,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/666819668",
+      "name": "Refugi d'Estany Llong",
+      "elevation": 1985,
+      "lat": 42.57259,
+      "lon": 0.94237,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 47,
+      "winterCapacity": 12,
+      "phone": "+34 973299545",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/1141437931",
+      "name": "Chalet - Hôtel Orédon",
+      "elevation": 1870,
+      "lat": 42.82626,
+      "lon": 0.16919,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Guardado",
+      "capacity": 80,
+      "winterCapacity": 12,
+      "phone": "+33 6 38 25 96 42",
+      "website": "https://refuge-pyrenees-oredon.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/968204951",
+      "name": "Refugi forestal del Ras de Conques",
+      "elevation": 1840,
+      "lat": 42.45185,
+      "lon": 1.36469,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 16,
+      "winterCapacity": 12,
+      "phone": "+34 973 091154",
+      "website": "http://www.talim.cat/organitzacio/refugi-ras-de-conques",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/13580195628",
+      "name": "Refuge d'Estom",
+      "elevation": 1804,
+      "lat": 42.80794,
+      "lon": -0.09906,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4299695951",
+      "name": "Refugi de la Pleta del Prat",
+      "elevation": 1722,
+      "lat": 42.67793,
+      "lon": 1.21874,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34 608 03 65 59",
+      "website": "https://refugipletadelprat.net",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/963809815",
+      "name": "la Basseta",
+      "elevation": 1690,
+      "lat": 42.41772,
+      "lon": 1.28729,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34 973 29 81 24",
+      "website": "http://www.santjoandelerm.com/basseta.htm",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/963756954",
+      "name": "Refugi CEC de la Molina",
+      "elevation": 1601,
+      "lat": 42.34052,
+      "lon": 1.95034,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/963763000",
+      "name": "Refuge du Chioula",
+      "elevation": 1600,
+      "lat": 42.75508,
+      "lon": 1.86358,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/10281074364",
+      "name": "Refugi Bassa d'Olles Era Piusa",
+      "elevation": 1599,
+      "lat": 42.7149,
+      "lon": 0.77392,
+      "country": "ES",
+      "massif": "Maladeta / Aneto",
+      "type": "Guardado",
+      "capacity": 40,
+      "winterCapacity": 12,
+      "website": "https://www.catalunya.com/bassa-dolles-era-piusa-17-13006-8?language=ca",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4612362449",
+      "name": "Centre d'Educacion Ambientau - Refugi forestau deth Saut deth Pish",
+      "elevation": 1586,
+      "lat": 42.77754,
+      "lon": 0.83536,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/6703669687",
+      "name": "Cal Tendre Sidró",
+      "elevation": 1585,
+      "lat": 42.404,
+      "lon": 1.76614,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 25,
+      "winterCapacity": 12,
+      "phone": "+34 638 736 690",
+      "website": "https://www.cerdanya.org/cal-pere-sidro/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/5250543968",
+      "name": "Hospice du Rioumajou",
+      "elevation": 1567,
+      "lat": 42.708,
+      "lon": 0.29391,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Guardado",
+      "capacity": 24,
+      "winterCapacity": 12,
+      "phone": "+33 9 88 18 78 93",
+      "website": "https://fr-fr.facebook.com/rioumajou",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/633499249",
+      "name": "Chalet du Clot",
+      "elevation": 1522,
+      "lat": 42.85191,
+      "lon": -0.14725,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 9 70 02 39 32",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/497256257",
+      "name": "Refugi del Serrat de les Esposes",
+      "elevation": 1505,
+      "lat": 42.32504,
+      "lon": 1.82878,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 34,
+      "winterCapacity": 12,
+      "website": "https://www.cavallsdelvent.com/en/project/refugio-el-serrat-de-les-esposes/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/963679065",
+      "name": "Refugi UEC de la Molina",
+      "elevation": 1492,
+      "lat": 42.33953,
+      "lon": 1.95504,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4357661506",
+      "name": "Refugi Cuberes (Casa Miró)",
+      "elevation": 1478,
+      "lat": 42.27397,
+      "lon": 1.13664,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 43,
+      "winterCapacity": 12,
+      "phone": "+34 619847866",
+      "website": "https://www.refugicuberes.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/7425418126",
+      "name": "Refuge de l'Abérouat",
+      "elevation": 1450,
+      "lat": 42.95029,
+      "lon": -0.66604,
+      "country": "FR",
+      "massif": "Valles Occidentales / Aspe",
+      "type": "Guardado",
+      "capacity": 27,
+      "winterCapacity": 12,
+      "phone": "+33 5 59 34 71 67",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4288622187",
+      "name": "Refugi del Fornet",
+      "elevation": 1374,
+      "lat": 42.72575,
+      "lon": 1.10722,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34973091156",
+      "website": "http://refugidelfornet.es",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/9150336738",
+      "name": "Refugi d'Erols",
+      "elevation": 1297,
+      "lat": 42.27239,
+      "lon": 1.95411,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/11053760167",
+      "name": "Refugi d'Alós",
+      "elevation": 1285,
+      "lat": 42.69982,
+      "lon": 1.09766,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34625223987",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4611838268",
+      "name": "Refugi d'Estaon",
+      "elevation": 1260,
+      "lat": 42.58801,
+      "lon": 1.21048,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34 693707981",
+      "website": "http://refugiestaon.com",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4805315062",
+      "name": "Refugi forestau dera Honeria",
+      "elevation": 1013,
+      "lat": 42.8183,
+      "lon": 0.80661,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34 973092354",
+      "website": "http://refugiohoneria.com",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/2977086363",
+      "name": "Refugi Quatre Cases",
+      "elevation": 979,
+      "lat": 42.26217,
+      "lon": 1.98012,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/7916672366",
+      "name": "Abri hivernal du lac d'Aubert",
+      "elevation": 2160,
+      "lat": 42.84009,
+      "lon": 0.1434,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 12,
+      "winterCapacity": 12,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/9134936555",
+      "name": "Refugi del Pradell",
+      "elevation": 2100,
+      "lat": 42.44164,
+      "lon": 1.64665,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 20,
+      "winterCapacity": 20,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/10154233917",
+      "name": "Les planes de Sornas",
+      "elevation": null,
+      "lat": 42.57045,
+      "lon": 1.52825,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/11190742937",
+      "name": "Refuge de Maupas",
+      "elevation": null,
+      "lat": 42.71481,
+      "lon": 0.54912,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/1241687884",
+      "name": "Refuge Pastoral du Callau",
+      "elevation": null,
+      "lat": 42.66919,
+      "lon": 2.25283,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/12466877402",
+      "name": "Albergue de Sin",
+      "elevation": null,
+      "lat": 42.58029,
+      "lon": 0.27673,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/12758124798",
+      "name": "Ancienne Verrerie du Bourrasset",
+      "elevation": null,
+      "lat": 42.90168,
+      "lon": 2.39501,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/13985359901",
+      "name": "Gîte d’étape de la Tuto",
+      "elevation": null,
+      "lat": 42.71784,
+      "lon": 1.44317,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 6 86 95 41 02",
+      "website": "https://www.gite-tuto.fr/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/2117985684",
+      "name": "Refugio El Salvador",
+      "elevation": null,
+      "lat": 42.38459,
+      "lon": -1.79804,
+      "country": "ES",
+      "massif": "Pirineo Navarro",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/3009882506",
+      "name": "Halte Jacquaire",
+      "elevation": null,
+      "lat": 43.00133,
+      "lon": 1.13764,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/3009934191",
+      "name": "Gite Etape Chez Jo",
+      "elevation": null,
+      "lat": 42.93964,
+      "lon": 0.86684,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/3309570503",
+      "name": "Le Maou",
+      "elevation": null,
+      "lat": 42.9685,
+      "lon": 2.67581,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4330496789",
+      "name": "Albergue de Arcusa",
+      "elevation": null,
+      "lat": 42.32051,
+      "lon": 0.07787,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34630847368",
+      "website": "http://www.alberguedearcusa.es",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4357427589",
+      "name": "Refuge de Querigut",
+      "elevation": null,
+      "lat": 42.69061,
+      "lon": 2.10121,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4818056002",
+      "name": "Refugi Espitau de Vielha - Sant Nicolau",
+      "elevation": null,
+      "lat": 42.62705,
+      "lon": 0.7638,
+      "country": "ES",
+      "massif": "Maladeta / Aneto",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/506075082",
+      "name": "Gite d'Aunac",
+      "elevation": null,
+      "lat": 42.85118,
+      "lon": 1.17445,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/527834300",
+      "name": "Refuge des Estanyols",
+      "elevation": null,
+      "lat": 42.62571,
+      "lon": 2.16473,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/5383455522",
+      "name": "Gite de Litbere",
+      "elevation": null,
+      "lat": 42.94577,
+      "lon": 0.22059,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/5582045191",
+      "name": "Albergue Pájaro Loco",
+      "elevation": null,
+      "lat": 42.51228,
+      "lon": 0.4921,
+      "country": "ES",
+      "massif": "Posets / Perdiguero",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+34 974 553 516",
+      "website": "https://www.pajaroloco.net",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/6624776590",
+      "name": "Gîte d'étape GR10",
+      "elevation": null,
+      "lat": 42.8323,
+      "lon": 0.61926,
+      "country": "FR",
+      "massif": "Maladeta / Aneto",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/669919828",
+      "name": "Gîte d'Etape de Lhers",
+      "elevation": null,
+      "lat": 42.91053,
+      "lon": -0.61909,
+      "country": "FR",
+      "massif": "Valles Occidentales / Aspe",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/6736064930",
+      "name": "Refugio Ostacho",
+      "elevation": null,
+      "lat": 42.48204,
+      "lon": 0.23228,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/7809431811",
+      "name": "Refugio Montinier",
+      "elevation": null,
+      "lat": 42.61815,
+      "lon": 0.19032,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/7881339485",
+      "name": "Ferme des cascades",
+      "elevation": null,
+      "lat": 42.88054,
+      "lon": -0.0254,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 6 22 89 79 82",
+      "website": "https://www.fermedescascades.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/8354958607",
+      "name": "Refuge d'Ourtiset",
+      "elevation": null,
+      "lat": 42.76677,
+      "lon": 2.03374,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/8889601318",
+      "name": "Chez Paco",
+      "elevation": null,
+      "lat": 42.46513,
+      "lon": 2.8641,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 613098931",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/892738761",
+      "name": "Auberge de la Munia",
+      "elevation": null,
+      "lat": 42.75079,
+      "lon": 0.08745,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 5 62 92 48 39",
+      "website": "https://aubergedelamunia.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/9105367156",
+      "name": "Gîte Retrouvance de Bertasque",
+      "elevation": null,
+      "lat": 42.75371,
+      "lon": 1.48871,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "website": "https://www.onf.fr/vivre-la-foret/+/20f9::gite-forestier-de-bertasque.html",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/9122820437",
+      "name": "Cabane de Aoueran",
+      "elevation": null,
+      "lat": 42.83944,
+      "lon": 0.82736,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/957015586",
+      "name": "Refuge du Haugarou",
+      "elevation": null,
+      "lat": 43.0007,
+      "lon": -0.21576,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "phone": "+33 5 62 97 25 04",
+      "website": "https://www.haugarou.com/",
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/963809600",
+      "name": "Refugio del Coll del Ventc",
+      "elevation": null,
+      "lat": 42.3129,
+      "lon": 0.62141,
+      "country": "ES",
+      "massif": "Maladeta / Aneto",
+      "type": "Guardado",
+      "capacity": 45,
+      "winterCapacity": 12,
+      "services": {
+        "meals": true,
+        "showers": true,
+        "electricity": true,
+        "wifiOrRadio": true,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/2186955433",
+      "name": "Refugi de Prat Miró",
+      "elevation": 1975,
+      "lat": 42.42377,
+      "lon": 1.61919,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 40,
+      "winterCapacity": 40,
+      "phone": "+34 973515047",
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963756617",
+      "name": "Abri de Coll Roig",
+      "elevation": 2435,
+      "lat": 42.54503,
+      "lon": 1.93025,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/4624219668",
+      "name": "Refugi Nou de Besiberri",
+      "elevation": 2221,
+      "lat": 42.60461,
+      "lon": 0.8092,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 9,
+      "winterCapacity": 9,
+      "phone": "+34 93 412 07 77",
+      "website": "https://www.feec.cat/refugi/refugi-besiberri/",
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12062787783",
+      "name": "Cabana de la Ribera de Boldís",
+      "elevation": 2199,
+      "lat": 42.64175,
+      "lon": 1.29479,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/6816120213",
+      "name": "Refugi lliure d'Estany Gento",
+      "elevation": 2167,
+      "lat": 42.50961,
+      "lon": 0.99676,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4312490413",
+      "name": "Refugi Cortal d'en Vidal",
+      "elevation": 1657,
+      "lat": 42.32603,
+      "lon": 1.84089,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 25,
+      "winterCapacity": 25,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968203151",
+      "name": "Cabane des Espugues",
+      "elevation": 2113,
+      "lat": 42.82066,
+      "lon": 1.0756,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 10,
+      "winterCapacity": 10,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963762788",
+      "name": "Cabane de la Jasse de Brougnic",
+      "elevation": 2065,
+      "lat": 42.60376,
+      "lon": 1.78277,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 5,
+      "winterCapacity": 5,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/8921964585",
+      "name": "Cabana de Guerossos",
+      "elevation": 2046,
+      "lat": 42.69918,
+      "lon": 1.25802,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/5109666824",
+      "name": "Cabane de Léziou",
+      "elevation": 2023,
+      "lat": 42.71865,
+      "lon": 1.16696,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12759860592",
+      "name": "Barraca de Moixeró",
+      "elevation": 1930,
+      "lat": 42.30454,
+      "lon": 1.81921,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4396694244",
+      "name": "Rifugi dels Rasos",
+      "elevation": 1870,
+      "lat": 42.50482,
+      "lon": 1.11794,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968203323",
+      "name": "Refuge du Mont Né",
+      "elevation": 1840,
+      "lat": 42.87346,
+      "lon": 0.48114,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/899526058",
+      "name": "Cabana de la Pleta del Castellar",
+      "elevation": 1838,
+      "lat": 42.63344,
+      "lon": 1.51145,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963763973",
+      "name": "Refugi forestal de les Cases",
+      "elevation": 1833,
+      "lat": 42.47021,
+      "lon": 1.84305,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/536431939",
+      "name": "Cabane de l'Orry",
+      "elevation": 1810,
+      "lat": 42.46064,
+      "lon": 2.17567,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/3449490973",
+      "name": "Cabana deth Horcalh",
+      "elevation": 1807,
+      "lat": 42.76569,
+      "lon": 0.97098,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7832874949",
+      "name": "Refugi Forestal",
+      "elevation": 1795,
+      "lat": 42.54336,
+      "lon": 0.75935,
+      "country": "ES",
+      "massif": "Maladeta / Aneto",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963762780",
+      "name": "Cabane de Bela",
+      "elevation": 1780,
+      "lat": 42.65801,
+      "lon": 1.63069,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963756577",
+      "name": "Abri de Vallserra",
+      "elevation": 1772,
+      "lat": 42.59098,
+      "lon": 2.05374,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 10,
+      "winterCapacity": 10,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4051687327",
+      "name": "Refugi del Prat de la Cot",
+      "elevation": 1770,
+      "lat": 42.42564,
+      "lon": 1.65646,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "phone": "+34 973515047",
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/1935738326",
+      "name": "Refugi de la Covil",
+      "elevation": 1769,
+      "lat": 42.28339,
+      "lon": 2.10469,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7915603641",
+      "name": "Cabane d'Estaubé",
+      "elevation": 1765,
+      "lat": 42.72948,
+      "lon": 0.04926,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 6,
+      "winterCapacity": 6,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/7918937226",
+      "name": "Cabane de Saoubette",
+      "elevation": 1263,
+      "lat": 42.89552,
+      "lon": 0.49803,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 15,
+      "winterCapacity": 15,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7950544651",
+      "name": "Cabane Rieutort de Gascous",
+      "elevation": 1740,
+      "lat": 42.68513,
+      "lon": 1.63632,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/9137490030",
+      "name": "Refugi forestal del Prat Gran",
+      "elevation": 1695,
+      "lat": 42.43227,
+      "lon": 1.24695,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963677768",
+      "name": "Cabane de la Jasse de Sedars",
+      "elevation": 1652,
+      "lat": 42.80923,
+      "lon": 1.75626,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968204742",
+      "name": "Cabane de l'Arech",
+      "elevation": 1638,
+      "lat": 42.82682,
+      "lon": 0.96846,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963678438",
+      "name": "Cabane des Ludines",
+      "elevation": 1630,
+      "lat": 42.70326,
+      "lon": 1.63274,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 6,
+      "winterCapacity": 6,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4039958314",
+      "name": "Cabana del Magre",
+      "elevation": 1628,
+      "lat": 42.55026,
+      "lon": 0.88721,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963679060",
+      "name": "Cabane de Quioulès",
+      "elevation": 1610,
+      "lat": 42.66998,
+      "lon": 1.63645,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/9207100498",
+      "name": "Cabane du Besset",
+      "elevation": 1600,
+      "lat": 42.75603,
+      "lon": 1.62929,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968203999",
+      "name": "Cabane de l'Herbe-Soulette",
+      "elevation": 1600,
+      "lat": 42.88479,
+      "lon": 0.8663,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/3888938327",
+      "name": "Refugi Pla de Prats",
+      "elevation": 1559,
+      "lat": 42.2796,
+      "lon": 2.11908,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968203475",
+      "name": "Cabane du Pic du Gar",
+      "elevation": 1550,
+      "lat": 42.95466,
+      "lon": 0.69233,
+      "country": "FR",
+      "massif": "Maladeta / Aneto",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4838609222",
+      "name": "Refuge d'Enterrada",
+      "elevation": 1540,
+      "lat": 42.63534,
+      "lon": 2.24536,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/9141385486",
+      "name": "Refugi d'Esplà",
+      "elevation": 1528,
+      "lat": 42.28533,
+      "lon": 1.07935,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968204842",
+      "name": "Refuge Forestier ONF de la Fontaine de l'Isard",
+      "elevation": 1410,
+      "lat": 42.85746,
+      "lon": 0.88125,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/2495057830",
+      "name": "Artigole de Bulan",
+      "elevation": 1400,
+      "lat": 42.98669,
+      "lon": 0.26941,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963812524",
+      "name": "Cabane de l'Homme Mort",
+      "elevation": 1390,
+      "lat": 42.91631,
+      "lon": 1.52292,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963763696",
+      "name": "Maison forestière de l'Orri",
+      "elevation": 1385,
+      "lat": 42.85887,
+      "lon": 1.77199,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 3,
+      "winterCapacity": 3,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/5827510369",
+      "name": "Refuge de La Chapelle de l'Isard",
+      "elevation": 1325,
+      "lat": 42.85721,
+      "lon": 0.88828,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 6,
+      "winterCapacity": 6,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963810396",
+      "name": "Abri forestier de Nagot",
+      "elevation": 1320,
+      "lat": 42.76206,
+      "lon": 1.51266,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/519720623",
+      "name": "Refuge forestier de la Mouline",
+      "elevation": 1183,
+      "lat": 42.55061,
+      "lon": 2.4902,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968203480",
+      "name": "Cabane du Courrau d Artigue",
+      "elevation": 1170,
+      "lat": 42.84957,
+      "lon": 0.7745,
+      "country": "FR",
+      "massif": "Maladeta / Aneto",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968205179",
+      "name": "Cabane de Plaede - Luchonais",
+      "elevation": 1090,
+      "lat": 42.95889,
+      "lon": 0.775,
+      "country": "FR",
+      "massif": "Maladeta / Aneto",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/1024048721",
+      "name": "Refugi de les Salines",
+      "elevation": 1080,
+      "lat": 42.42092,
+      "lon": 2.74889,
+      "country": "ES",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "phone": "+34 672 461 884",
+      "website": "https://www.cee.cat/salines.php",
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/11389782270",
+      "name": "Observatorio de aves",
+      "elevation": null,
+      "lat": 42.61293,
+      "lon": 0.09827,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/1141437874",
+      "name": "Cabane d'Artigusse",
+      "elevation": null,
+      "lat": 42.81963,
+      "lon": 0.18954,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/1141437911",
+      "name": "Cabane du Bastan",
+      "elevation": null,
+      "lat": 42.84133,
+      "lon": 0.20512,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/1141437950",
+      "name": "Cabane dets Coubous",
+      "elevation": null,
+      "lat": 42.87722,
+      "lon": 0.1127,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/11578628510",
+      "name": "Cabana del Cortà",
+      "elevation": null,
+      "lat": 42.50863,
+      "lon": 1.48616,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12485176701",
+      "name": "Cabane de Mauvesi",
+      "elevation": null,
+      "lat": 42.92783,
+      "lon": -0.234,
+      "country": "FR",
+      "massif": "Valle de Tena / Ossau / Balaitús",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12498501201",
+      "name": "Cabane de Estom",
+      "elevation": null,
+      "lat": 42.80804,
+      "lon": -0.10123,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12583078401",
+      "name": "Cabane de l'Ayré",
+      "elevation": null,
+      "lat": 42.88619,
+      "lon": 0.07018,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/12770253141",
+      "name": "Refuge des Hautes Commelles",
+      "elevation": null,
+      "lat": 42.56714,
+      "lon": 2.27562,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/13057573101",
+      "name": "Cabane de Groutte",
+      "elevation": null,
+      "lat": 42.74237,
+      "lon": 0.08486,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/13241276977",
+      "name": "Refuge de la Calme nord",
+      "elevation": null,
+      "lat": 42.54068,
+      "lon": 2.00419,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/14141665065",
+      "name": "Cabane de la Jasse de Cutibar",
+      "elevation": null,
+      "lat": 42.66416,
+      "lon": 1.68928,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/2128036177",
+      "name": "Fuendevino",
+      "elevation": null,
+      "lat": 42.38091,
+      "lon": 0.34169,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/2995484999",
+      "name": "Organbideko etxola",
+      "elevation": null,
+      "lat": 43.0499,
+      "lon": -1.21135,
+      "country": "FR",
+      "massif": "Pirineo Navarro",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": false
+      }
+    },
+    {
+      "osmId": "node/3247461162",
+      "name": "Refuge Lacamp",
+      "elevation": null,
+      "lat": 42.99607,
+      "lon": 2.67799,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/3867672671",
+      "name": "Barraca de Rius",
+      "elevation": null,
+      "lat": 42.63956,
+      "lon": 0.80827,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/4644971510",
+      "name": "Refugio Los Sarrios",
+      "elevation": null,
+      "lat": 42.64226,
+      "lon": -0.26807,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/5045942558",
+      "name": "Ancienne Cabane de Bassia",
+      "elevation": null,
+      "lat": 42.94325,
+      "lon": 0.47836,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/652132460",
+      "name": "Cabaña de Cerbillonar",
+      "elevation": null,
+      "lat": 42.74861,
+      "lon": -0.15263,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7783687585",
+      "name": "Four à chaux",
+      "elevation": null,
+      "lat": 42.51613,
+      "lon": 2.65061,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7869248385",
+      "name": "Cabane de Guzettou",
+      "elevation": null,
+      "lat": 42.76459,
+      "lon": 1.34273,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7965883285",
+      "name": "cabane black isard",
+      "elevation": null,
+      "lat": 42.95518,
+      "lon": -0.39686,
+      "country": "FR",
+      "massif": "Valle de Tena / Ossau / Balaitús",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/7985408485",
+      "name": "Cabane Cayolar d’Anhaou",
+      "elevation": null,
+      "lat": 42.97559,
+      "lon": -0.87041,
+      "country": "FR",
+      "massif": "Pirineo Navarro",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/8599702129",
+      "name": "Refugio del Trapal",
+      "elevation": null,
+      "lat": 42.70171,
+      "lon": -0.49588,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/8694108467",
+      "name": "Cabane de Torre",
+      "elevation": null,
+      "lat": 42.87403,
+      "lon": 1.7037,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/8849230551",
+      "name": "Cabane de Salontere Vielle",
+      "elevation": null,
+      "lat": 42.84276,
+      "lon": 0.78406,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/8863109616",
+      "name": "Cabana dels caçadors de Sispony",
+      "elevation": null,
+      "lat": 42.51576,
+      "lon": 1.46545,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963678657",
+      "name": "Cabane de la Jasse de Bretounels",
+      "elevation": null,
+      "lat": 42.70992,
+      "lon": 1.7469,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963678766",
+      "name": "Cabane Serrat del Freser",
+      "elevation": null,
+      "lat": 42.50226,
+      "lon": 1.86336,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963754407",
+      "name": "Refuge des Vigourats",
+      "elevation": null,
+      "lat": 42.48937,
+      "lon": 2.57708,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental",
+      "type": "Libre / Vivac",
+      "capacity": 4,
+      "winterCapacity": 4,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963762282",
+      "name": "Cabane de la Jasse de Sénard",
+      "elevation": null,
+      "lat": 42.68224,
+      "lon": 1.68602,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963762947",
+      "name": "Refuge Pla de Tabe",
+      "elevation": null,
+      "lat": 42.83887,
+      "lon": 1.69908,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí",
+      "type": "Libre / Vivac",
+      "capacity": 2,
+      "winterCapacity": 2,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963809902",
+      "name": "Cabane Fruitiere - cauterets",
+      "elevation": null,
+      "lat": 42.84688,
+      "lon": -0.09602,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/963811986",
+      "name": "Cabane Espigous",
+      "elevation": null,
+      "lat": 42.85979,
+      "lon": 0.26182,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968202925",
+      "name": "Cabane du Pin - Barrousse",
+      "elevation": null,
+      "lat": 42.90131,
+      "lon": 0.47111,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968204217",
+      "name": "Cabane de Camous",
+      "elevation": null,
+      "lat": 42.93699,
+      "lon": 0.41886,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968204501",
+      "name": "Refuge Saint Martin - barousse",
+      "elevation": null,
+      "lat": 43.00509,
+      "lon": 0.64176,
+      "country": "FR",
+      "massif": "Maladeta / Aneto",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968204598",
+      "name": "Cabane de Salontere Neuve",
+      "elevation": null,
+      "lat": 42.84385,
+      "lon": 0.78325,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968205121",
+      "name": "Cabane Douillous - Ustou",
+      "elevation": null,
+      "lat": 42.75582,
+      "lon": 1.21012,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968205264",
+      "name": "Cabane de Lauzeron - Ustou",
+      "elevation": null,
+      "lat": 42.73508,
+      "lon": 1.15102,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/968205326",
+      "name": "Cabane d'lhet",
+      "elevation": null,
+      "lat": 42.93474,
+      "lon": 0.43653,
+      "country": "FR",
+      "massif": "Posets / Perdiguero",
+      "type": "Libre / Vivac",
+      "capacity": 8,
+      "winterCapacity": 8,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": true,
+        "hearth": true
+      }
+    },
+    {
+      "osmId": "node/9804584406",
+      "name": "Cubilar de las Vacas",
+      "elevation": null,
+      "lat": 42.69038,
+      "lon": -0.57736,
+      "country": "ES",
+      "massif": "Valles Occidentales / Aspe",
+      "type": "Libre / Vivac",
+      "capacity": 10,
+      "winterCapacity": 10,
+      "services": {
+        "meals": false,
+        "showers": false,
+        "electricity": false,
+        "wifiOrRadio": false,
+        "water": false,
+        "hearth": true
+      }
+    }
+  ],
+  "peaks": [
+    {
+      "osmId": "node/4252339778",
+      "name": "Tuca d'Aneto / Maladeta de Corones",
+      "elevation": 3404,
+      "lat": 42.63115,
+      "lon": 0.65665,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/26864263",
+      "name": "Tuca de Posets",
+      "elevation": 3369,
+      "lat": 42.65463,
+      "lon": 0.43523,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/948790896",
+      "name": "Punta de Treserols / Monte Perdido",
+      "elevation": 3349,
+      "lat": 42.67555,
+      "lon": 0.03436,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/626639517",
+      "name": "Vignemale",
+      "elevation": 3298,
+      "lat": 42.77394,
+      "lon": -0.14734,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/8280351615",
+      "name": "Pic Perdiguère / Tuca de'l Perdiguero",
+      "elevation": 3222,
+      "lat": 42.69195,
+      "lon": 0.51885,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/26864248",
+      "name": "Pic Long",
+      "elevation": 3192,
+      "lat": 42.80083,
+      "lon": 0.10013,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/26863008",
+      "name": "Bachimala / Schrader",
+      "elevation": 3177,
+      "lat": 42.69857,
+      "lon": 0.39432,
+      "country": "ES/FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/494395635",
+      "name": "Pic du Balaïtous",
+      "elevation": 3146,
+      "lat": 42.83894,
+      "lon": -0.29026,
+      "country": "ES/FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/26864258",
+      "name": "Pica d'Estats / Pique d'Estats",
+      "elevation": 3143,
+      "lat": 42.66695,
+      "lon": 1.3979,
+      "country": "ES/FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1092109785",
+      "name": "Mallo de Marmorés / Cilindro de Marboré",
+      "elevation": 3325,
+      "lat": 42.6848,
+      "lon": 0.02387,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/26862732",
+      "name": "Pic de Comaloforno",
+      "elevation": 3029,
+      "lat": 42.59138,
+      "lon": 0.82783,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1400940495",
+      "name": "Culfreda / Batoua",
+      "elevation": 3034,
+      "lat": 42.7087,
+      "lon": 0.33631,
+      "country": "ES/FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/1825431806",
+      "name": "Pic de Néouvielle",
+      "elevation": 3091,
+      "lat": 42.83537,
+      "lon": 0.11512,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/1250020206",
+      "name": "Punta d'Astorg",
+      "elevation": 3354,
+      "lat": 42.63947,
+      "lon": 0.64263,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/26864384",
+      "name": "Punta Suelsa",
+      "elevation": 2972,
+      "lat": 42.65204,
+      "lon": 0.28982,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/3707866584",
+      "name": "Punta Alta de Comalesbienes",
+      "elevation": 3014,
+      "lat": 42.58576,
+      "lon": 0.88038,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/577086031",
+      "name": "Pic de Peguera",
+      "elevation": 2983,
+      "lat": 42.54054,
+      "lon": 1.01195,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/2192182868",
+      "name": "Punda Negra / Tallón / Taillon",
+      "elevation": 3144,
+      "lat": 42.69364,
+      "lon": -0.05129,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/26864229",
+      "name": "Pic Carlit",
+      "elevation": 2921,
+      "lat": 42.56984,
+      "lon": 1.93209,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/579893382",
+      "name": "Puigpedrós",
+      "elevation": 2915,
+      "lat": 42.48758,
+      "lon": 1.76191,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/26862740",
+      "name": "Cotiella",
+      "elevation": 2912,
+      "lat": 42.51198,
+      "lon": 0.31978,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/11646994234",
+      "name": "Puigmal d'Err",
+      "elevation": 2910,
+      "lat": 42.38327,
+      "lon": 2.11679,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/2287097413",
+      "name": "Pic de Campbieil",
+      "elevation": 3173,
+      "lat": 42.79203,
+      "lon": 0.11971,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/5375778209",
+      "name": "Pic d'Aret",
+      "elevation": 2939,
+      "lat": 42.75429,
+      "lon": 0.27501,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/26864244",
+      "name": "Pic du Midi d'Ossau",
+      "elevation": 2884,
+      "lat": 42.843,
+      "lon": -0.43806,
+      "country": "ES/FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/652132462",
+      "name": "Peña Collarada",
+      "elevation": 2883,
+      "lat": 42.71422,
+      "lon": -0.47063,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/45196117",
+      "name": "Pic de Maubermé / Tuc de Maubèrme",
+      "elevation": 2882,
+      "lat": 42.79375,
+      "lon": 0.91714,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/26864245",
+      "name": "Pic du Midi de Bigorre",
+      "elevation": 2877,
+      "lat": 42.93678,
+      "lon": 0.14161,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/9954135713",
+      "name": "Mont-roig",
+      "elevation": 2864,
+      "lat": 42.71068,
+      "lon": 1.17683,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2188365878",
+      "name": "Pic de l'Estanyó",
+      "elevation": 2915,
+      "lat": 42.60868,
+      "lon": 1.59261,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/733993042",
+      "name": "Pic d'Ardiden",
+      "elevation": 2988,
+      "lat": 42.834,
+      "lon": -0.06763,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/1250040083",
+      "name": "Tuca de Vallibierna / Roca Bllanca",
+      "elevation": 3059,
+      "lat": 42.59404,
+      "lon": 0.65309,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/988137856",
+      "name": "Tuca de Gorgs Bllancs",
+      "elevation": 3129,
+      "lat": 42.70002,
+      "lon": 0.47772,
+      "country": "ES/FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/3208885324",
+      "name": "Tuca d'el Cabo de la Tartera",
+      "elevation": 3266,
+      "lat": 42.64921,
+      "lon": 0.63344,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/901125108",
+      "name": "Pic de Comapedrosa",
+      "elevation": 2943,
+      "lat": 42.5918,
+      "lon": 1.44366,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1089570452",
+      "name": "Pic du Seil de la Baque / Tuca de'l Sellàn de la Vaca",
+      "elevation": 3108,
+      "lat": 42.69235,
+      "lon": 0.49626,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/9827838479",
+      "name": "Pic de Certascan",
+      "elevation": 2853,
+      "lat": 42.71199,
+      "lon": 1.27767,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2192182895",
+      "name": "Pico Plan de Marmorés / Marboré",
+      "elevation": 3251,
+      "lat": 42.69283,
+      "lon": 0.01165,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/986027125",
+      "name": "Mont Valier",
+      "elevation": 2838,
+      "lat": 42.79786,
+      "lon": 1.08573,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/26864260",
+      "name": "Pic de Moredo",
+      "elevation": 2766,
+      "lat": 42.71894,
+      "lon": 1.04992,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/626949753",
+      "name": "Tuca d'el Cap de la Vall",
+      "elevation": 3205,
+      "lat": 42.61852,
+      "lon": 0.67055,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/581803081",
+      "name": "Peña Telera",
+      "elevation": 2762,
+      "lat": 42.69111,
+      "lon": -0.37396,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/575896583",
+      "name": "Grande Fache",
+      "elevation": 3005,
+      "lat": 42.80819,
+      "lon": -0.23787,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/1089570487",
+      "name": "Pic Lézat",
+      "elevation": 3101,
+      "lat": 42.70736,
+      "lon": 0.5167,
+      "country": "ES/FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/2008250724",
+      "name": "Tossa Plana de Lles",
+      "elevation": 2905,
+      "lat": 42.46823,
+      "lon": 1.65655,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1102580806",
+      "name": "Pic de la Font Blanca / Pic du Port",
+      "elevation": 2903,
+      "lat": 42.64969,
+      "lon": 1.53434,
+      "country": "ES/FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1089570448",
+      "name": "Pic des Crabioules / Pico de Crabioules Oriental",
+      "elevation": 3107,
+      "lat": 42.70265,
+      "lon": 0.52999,
+      "country": "ES/FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/576676018",
+      "name": "Pics de Bassiero - Punta Brulle",
+      "elevation": 2904,
+      "lat": 42.60667,
+      "lon": 0.99536,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/988137873",
+      "name": "Pic de Maupas / Pico de Maupás",
+      "elevation": 3109,
+      "lat": 42.70136,
+      "lon": 0.54555,
+      "country": "ES/FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/2411007271",
+      "name": "Tuca d'Alba",
+      "elevation": 3112,
+      "lat": 42.65567,
+      "lon": 0.62097,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/3421804427",
+      "name": "Pic de Salòria",
+      "elevation": 2789,
+      "lat": 42.51445,
+      "lon": 1.38515,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2204964547",
+      "name": "Pic de la Cabaneta",
+      "elevation": 2847,
+      "lat": 42.58877,
+      "lon": 1.73368,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1092110351",
+      "name": "Munia / Almunia Gran",
+      "elevation": 3133,
+      "lat": 42.7149,
+      "lon": 0.13192,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/1103938431",
+      "name": "Pic de la Soucarrane / Pica Roja",
+      "elevation": 2901,
+      "lat": 42.62481,
+      "lon": 1.42061,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/988137855",
+      "name": "Pic de Hourgade",
+      "elevation": 2964,
+      "lat": 42.73384,
+      "lon": 0.44878,
+      "country": "FR",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/4947558534",
+      "name": "Grand Pic de Tapou",
+      "elevation": 3151,
+      "lat": 42.76278,
+      "lon": -0.13584,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/592426256",
+      "name": "Punta Bisaurín",
+      "elevation": 2670,
+      "lat": 42.78849,
+      "lon": -0.64,
+      "country": "ES",
+      "massif": "Valles Occidentales / Aspe"
+    },
+    {
+      "osmId": "node/575756401",
+      "name": "Gran Pic del Pessó",
+      "elevation": 2894,
+      "lat": 42.50948,
+      "lon": 0.92409,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/5204943971",
+      "name": "Pic de Tristagne / Pic de Tristaina",
+      "elevation": 2878,
+      "lat": 42.65346,
+      "lon": 1.49379,
+      "country": "ES/FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2005388000",
+      "name": "Monteixo",
+      "elevation": 2905,
+      "lat": 42.60174,
+      "lon": 1.36165,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/5489349289",
+      "name": "Pic de Cestrede",
+      "elevation": 2947,
+      "lat": 42.80362,
+      "lon": -0.07063,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/5155594499",
+      "name": "Vulturó",
+      "elevation": 2649,
+      "lat": 42.28578,
+      "lon": 1.63643,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/652132535",
+      "name": "Pico d'Arriel / Punta dero Saldiecho",
+      "elevation": 2824,
+      "lat": 42.83412,
+      "lon": -0.3313,
+      "country": "ES/FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/736135862",
+      "name": "Arbizon",
+      "elevation": 2831,
+      "lat": 42.87597,
+      "lon": 0.27264,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/1250023802",
+      "name": "Tucón Royo",
+      "elevation": 3122,
+      "lat": 42.64081,
+      "lon": 0.42393,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/11649674789",
+      "name": "Puig Peric",
+      "elevation": 2810,
+      "lat": 42.61356,
+      "lon": 1.98441,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/11648611960",
+      "name": "Bastiments",
+      "elevation": 2881,
+      "lat": 42.42622,
+      "lon": 2.23286,
+      "country": "ES/FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/733904691",
+      "name": "Moun Né",
+      "elevation": 2724,
+      "lat": 42.89359,
+      "lon": -0.16732,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/575756316",
+      "name": "Gran Tuc de Colomèrs",
+      "elevation": 2933,
+      "lat": 42.58939,
+      "lon": 0.93781,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/575756366",
+      "name": "Pic de Mariolo",
+      "elevation": 2857,
+      "lat": 42.53072,
+      "lon": 0.95763,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/623866309",
+      "name": "Pico de Castanesa",
+      "elevation": 2858,
+      "lat": 42.57198,
+      "lon": 0.60563,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/824527187",
+      "name": "Pic de Garlitz",
+      "elevation": 2798,
+      "lat": 42.74657,
+      "lon": 0.21473,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/652132494",
+      "name": "Infierno Central",
+      "elevation": 3080,
+      "lat": 42.78149,
+      "lon": -0.26056,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/255545199",
+      "name": "Montardo",
+      "elevation": 2833,
+      "lat": 42.63334,
+      "lon": 0.87534,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1660223288",
+      "name": "Alt del Griu",
+      "elevation": 2875,
+      "lat": 42.52541,
+      "lon": 1.65112,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/577180419",
+      "name": "Tuc des Estanhets",
+      "elevation": 2887,
+      "lat": 42.61925,
+      "lon": 0.80699,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/3014258688",
+      "name": "Montorroio",
+      "elevation": 2862,
+      "lat": 42.50311,
+      "lon": 1.03113,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/7837461243",
+      "name": "Pic de Barlonguère / Tuc de Barlonguèra",
+      "elevation": 2802,
+      "lat": 42.78856,
+      "lon": 1.00986,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1060153622",
+      "name": "Pic de Sauvegarde / Pico Salvaguardia",
+      "elevation": 2736,
+      "lat": 42.69497,
+      "lon": 0.63091,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/488467098",
+      "name": "Pic de les Nou Fonts",
+      "elevation": 2861,
+      "lat": 42.4249,
+      "lon": 2.16763,
+      "country": "ES",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/732725482",
+      "name": "L'Escarpu ou Pic de Sesques",
+      "elevation": 2606,
+      "lat": 42.91918,
+      "lon": -0.50377,
+      "country": "FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/576650666",
+      "name": "la Tosa",
+      "elevation": 2536,
+      "lat": 42.32058,
+      "lon": 1.89266,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1250038823",
+      "name": "Pic de Gabiet",
+      "elevation": 2716,
+      "lat": 42.72125,
+      "lon": -0.08745,
+      "country": "ES/FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/1250023524",
+      "name": "Pic Blanc",
+      "elevation": 2826,
+      "lat": 42.70398,
+      "lon": 0.07063,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/733939399",
+      "name": "Grand Barbat",
+      "elevation": 2813,
+      "lat": 42.8651,
+      "lon": -0.1948,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/4210943020",
+      "name": "Peña Retona",
+      "elevation": 2767,
+      "lat": 42.69896,
+      "lon": -0.41552,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/1645536219",
+      "name": "Pic d'Auriol",
+      "elevation": 2695,
+      "lat": 42.61277,
+      "lon": 1.85027,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/26864230",
+      "name": "Pic d'Anie",
+      "elevation": 2504,
+      "lat": 42.94429,
+      "lon": -0.72067,
+      "country": "ES",
+      "massif": "Valles Occidentales / Aspe"
+    },
+    {
+      "osmId": "node/1414634577",
+      "name": "Pic de Rulhe",
+      "elevation": 2785,
+      "lat": 42.62716,
+      "lon": 1.73895,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/948810545",
+      "name": "Turbón",
+      "elevation": 2492,
+      "lat": 42.41691,
+      "lon": 0.50531,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/11646994163",
+      "name": "Pic de Madrès",
+      "elevation": 2469,
+      "lat": 42.65182,
+      "lon": 2.19242,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/2997201322",
+      "name": "Tossal de Paiasso",
+      "elevation": 2772,
+      "lat": 42.47293,
+      "lon": 0.93033,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1091885439",
+      "name": "Tuc dera Pincela",
+      "elevation": 2536,
+      "lat": 42.74286,
+      "lon": 0.8757,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/592395956",
+      "name": "Peña Sabocos",
+      "elevation": 2755,
+      "lat": 42.67922,
+      "lon": -0.25191,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/8247362916",
+      "name": "Mall de l'Artiga / Malh dera Artiga",
+      "elevation": 2710,
+      "lat": 42.65864,
+      "lon": 0.69558,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/26864264",
+      "name": "Torreta de l'Orri",
+      "elevation": 2438,
+      "lat": 42.40873,
+      "lon": 1.2147,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/576601861",
+      "name": "Monturull",
+      "elevation": 2760,
+      "lat": 42.45019,
+      "lon": 1.58121,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/6197624321",
+      "name": "Puig dels Tres Vents",
+      "elevation": 2731,
+      "lat": 42.49211,
+      "lon": 2.46861,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/5948002686",
+      "name": "Pic Près de Puntussan",
+      "elevation": 2699,
+      "lat": 42.72599,
+      "lon": 1.3635,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2189429141",
+      "name": "Pic de l'Angonella / Pic des Langounelles",
+      "elevation": 2819,
+      "lat": 42.61247,
+      "lon": 1.47486,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/3010400600",
+      "name": "Pic Inferior de Subenuix",
+      "elevation": 2882,
+      "lat": 42.55989,
+      "lon": 0.97978,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/2776949611",
+      "name": "Pic de Bastan",
+      "elevation": 2715,
+      "lat": 42.86596,
+      "lon": 0.20073,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/2287097475",
+      "name": "Pic de Bugatet",
+      "elevation": 2877,
+      "lat": 42.8049,
+      "lon": 0.17065,
+      "country": "FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/575755635",
+      "name": "Cap de les Raspes Roies",
+      "elevation": 2759,
+      "lat": 42.47678,
+      "lon": 0.89009,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/4909236436",
+      "name": "Pui de Linya",
+      "elevation": 2870,
+      "lat": 42.56599,
+      "lon": 1.04325,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/590706393",
+      "name": "Pico de Anayet",
+      "elevation": 2574,
+      "lat": 42.78162,
+      "lon": -0.45439,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/2185499000",
+      "name": "Tuc de la Llança",
+      "elevation": 2659,
+      "lat": 42.68407,
+      "lon": 0.99052,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/26864240",
+      "name": "Pic de Soularac",
+      "elevation": 2368,
+      "lat": 42.818,
+      "lon": 1.78111,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/576594062",
+      "name": "les Borregues",
+      "elevation": 2692,
+      "lat": 42.39634,
+      "lon": 2.24773,
+      "country": "ES",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/1304134189",
+      "name": "Tuc des Armèros",
+      "elevation": 2534,
+      "lat": 42.78125,
+      "lon": 0.87691,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/6185638278",
+      "name": "Puig Pedrós Sud",
+      "elevation": 2842,
+      "lat": 42.58856,
+      "lon": 1.87305,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/5029336347",
+      "name": "Pic de Palomer",
+      "elevation": 2829,
+      "lat": 42.59422,
+      "lon": 1.40186,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1250033874",
+      "name": "Punta de Salcorz",
+      "elevation": 2676,
+      "lat": 42.71733,
+      "lon": 0.22694,
+      "country": "ES/FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/6203759296",
+      "name": "Puig de la Grava",
+      "elevation": 2671,
+      "lat": 42.60486,
+      "lon": 1.93348,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/9956415865",
+      "name": "Pic de Mariola / Pic de Montareing",
+      "elevation": 2661,
+      "lat": 42.72004,
+      "lon": 1.21663,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/12107840004",
+      "name": "Pic de Canejan / Pico de Canèjan",
+      "elevation": 2657,
+      "lat": 42.81997,
+      "lon": 0.8637,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/14196694398",
+      "name": "Pic Negre d'Envalira",
+      "elevation": 2816,
+      "lat": 42.51845,
+      "lon": 1.72247,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1304106414",
+      "name": "Tuc de Marimanha",
+      "elevation": 2679,
+      "lat": 42.70922,
+      "lon": 1.01231,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1304111020",
+      "name": "Roca Cigalera",
+      "elevation": 2667,
+      "lat": 42.65098,
+      "lon": 1.33098,
+      "country": "ES/FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/3021851619",
+      "name": "lo Tossal",
+      "elevation": 2494,
+      "lat": 42.43464,
+      "lon": 1.01939,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/577086302",
+      "name": "les Picardes",
+      "elevation": 2802,
+      "lat": 42.52715,
+      "lon": 1.05268,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1304107785",
+      "name": "Roc de Lliçà",
+      "elevation": 2800,
+      "lat": 42.47412,
+      "lon": 1.72337,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1250026636",
+      "name": "Pico Tendeñera",
+      "elevation": 2845,
+      "lat": 42.67984,
+      "lon": -0.19934,
+      "country": "ES",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/652132556",
+      "name": "Pico de Vila",
+      "elevation": 2582,
+      "lat": 42.73563,
+      "lon": -0.17013,
+      "country": "ES/FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/1102580929",
+      "name": "Tuc deth Pòrt de Vielha",
+      "elevation": 2606,
+      "lat": 42.64187,
+      "lon": 0.76553,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/734648028",
+      "name": "Pic de Lustou",
+      "elevation": 3023,
+      "lat": 42.73478,
+      "lon": 0.36,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/575756235",
+      "name": "Tuc de Lluçà",
+      "elevation": 2778,
+      "lat": 42.6103,
+      "lon": 0.90117,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/13703433736",
+      "name": "Pic de la Pala de Jan",
+      "elevation": 2776,
+      "lat": 42.62771,
+      "lon": 1.64447,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/732266081",
+      "name": "Pic de Ger",
+      "elevation": 2613,
+      "lat": 42.93662,
+      "lon": -0.35425,
+      "country": "FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/652132357",
+      "name": "Diens de Batans (S)",
+      "elevation": 2912,
+      "lat": 42.76892,
+      "lon": -0.19913,
+      "country": "FR",
+      "massif": "Vignemale / Panticosa"
+    },
+    {
+      "osmId": "node/4909152749",
+      "name": "Bony Blanc",
+      "elevation": 2756,
+      "lat": 42.53281,
+      "lon": 0.89632,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/13056045371",
+      "name": "Mail de Bulard / Malh de Bolard",
+      "elevation": 2753,
+      "lat": 42.80596,
+      "lon": 0.96006,
+      "country": "FR",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/3706616041",
+      "name": "Cap de Gelada",
+      "elevation": 2449,
+      "lat": 42.52155,
+      "lon": 0.76514,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/948746780",
+      "name": "Punta Llerga",
+      "elevation": 2267,
+      "lat": 42.54435,
+      "lon": 0.22656,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/3707866574",
+      "name": "Cap de les Pales del Planell Gran",
+      "elevation": 2747,
+      "lat": 42.56514,
+      "lon": 0.91191,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/5030725843",
+      "name": "Montlude",
+      "elevation": 2518,
+      "lat": 42.78526,
+      "lon": 0.75871,
+      "country": "FR",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/579893649",
+      "name": "Puig del Coll de Finestrelles",
+      "elevation": 2743,
+      "lat": 42.41126,
+      "lon": 2.12787,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/2295058527",
+      "name": "Pic de Thoumasset",
+      "elevation": 2741,
+      "lat": 42.65396,
+      "lon": 1.58289,
+      "country": "ES/FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1249951736",
+      "name": "Cim de la Coma del Clot",
+      "elevation": 2739,
+      "lat": 42.3966,
+      "lon": 2.18523,
+      "country": "ES",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/11646993809",
+      "name": "Pic de Font Freda",
+      "elevation": 2737,
+      "lat": 42.53608,
+      "lon": 1.79509,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/576594080",
+      "name": "el Balandrau",
+      "elevation": 2585,
+      "lat": 42.37014,
+      "lon": 2.21956,
+      "country": "ES",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/1678253894",
+      "name": "Comabona",
+      "elevation": 2549,
+      "lat": 42.28369,
+      "lon": 1.72629,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/1502698212",
+      "name": "Pic de Broate / Pic de Brougat",
+      "elevation": 2706,
+      "lat": 42.69472,
+      "lon": 1.36496,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/2422331574",
+      "name": "Tuc Gran de Sendrosa",
+      "elevation": 2703,
+      "lat": 42.62392,
+      "lon": 0.94685,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/1718385109",
+      "name": "lo Tésol",
+      "elevation": 2700,
+      "lat": 42.60838,
+      "lon": 1.03926,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/283825973",
+      "name": "Pic dels Llacs",
+      "elevation": 2693,
+      "lat": 42.53539,
+      "lon": 1.41355,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/4323544311",
+      "name": "Dent de Soques",
+      "elevation": 2692,
+      "lat": 42.81888,
+      "lon": -0.36476,
+      "country": "ES",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/3686735590",
+      "name": "Pic de Llats",
+      "elevation": 2689,
+      "lat": 42.64365,
+      "lon": 1.3717,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/575755678",
+      "name": "el Corronco",
+      "elevation": 2543,
+      "lat": 42.46213,
+      "lon": 0.8285,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/3706616066",
+      "name": "Pic del Clot d'Espós",
+      "elevation": 2685,
+      "lat": 42.5562,
+      "lon": 0.79111,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/4347710761",
+      "name": "Pic de la Coma del Forn",
+      "elevation": 2684,
+      "lat": 42.67793,
+      "lon": 1.19015,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/6186107417",
+      "name": "Pic dels Cibollers",
+      "elevation": 2749,
+      "lat": 42.54098,
+      "lon": 0.57206,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/1699934389",
+      "name": "Pic des Trois Seigneurs",
+      "elevation": 2199,
+      "lat": 42.83052,
+      "lon": 1.44011,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1890379568",
+      "name": "Puig Rodon",
+      "elevation": 2677,
+      "lat": 42.46522,
+      "lon": 2.20532,
+      "country": "FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/1794115089",
+      "name": "Pic de Bacanère / Tuc deth Plan deth Òme",
+      "elevation": 2193,
+      "lat": 42.84609,
+      "lon": 0.67521,
+      "country": "FR",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/11951607451",
+      "name": "Tuc de la Tallada",
+      "elevation": 2955,
+      "lat": 42.61677,
+      "lon": 0.7237,
+      "country": "ES",
+      "massif": "Maladeta / Aneto"
+    },
+    {
+      "osmId": "node/5107912842",
+      "name": "Bony de la Pica",
+      "elevation": 2402,
+      "lat": 42.50448,
+      "lon": 1.46033,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/6203746367",
+      "name": "Le Roc Blanc",
+      "elevation": 2542,
+      "lat": 42.67151,
+      "lon": 2.00747,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/11646993828",
+      "name": "Pic de la Serre Gallinière",
+      "elevation": 2663,
+      "lat": 42.45053,
+      "lon": 2.25504,
+      "country": "ES/FR",
+      "massif": "Ripollès / Canigó / Pirineo Oriental"
+    },
+    {
+      "osmId": "node/8734602081",
+      "name": "Pic de Madides",
+      "elevation": 2663,
+      "lat": 42.61649,
+      "lon": 1.8953,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/6221702307",
+      "name": "Puig del Pam",
+      "elevation": 2470,
+      "lat": 42.60485,
+      "lon": 2.03102,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/4000702669",
+      "name": "Tossa del Braibal",
+      "elevation": 2657,
+      "lat": 42.50274,
+      "lon": 1.59855,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/474976107",
+      "name": "Piméné",
+      "elevation": 2801,
+      "lat": 42.73562,
+      "lon": 0.02164,
+      "country": "ES/FR",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/6120960726",
+      "name": "Pic de Pilàs",
+      "elevation": 2652,
+      "lat": 42.68283,
+      "lon": 1.13151,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1678267445",
+      "name": "Puigllançada",
+      "elevation": 2409,
+      "lat": 42.30048,
+      "lon": 1.93551,
+      "country": "ES",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/957125592",
+      "name": "Pic de Gabizos",
+      "elevation": 2639,
+      "lat": 42.9394,
+      "lon": -0.27917,
+      "country": "FR",
+      "massif": "Valle de Tena / Ossau / Balaitús"
+    },
+    {
+      "osmId": "node/1250017266",
+      "name": "Pico Inferior de Añisclo / O Zucón",
+      "elevation": 2802,
+      "lat": 42.6513,
+      "lon": 0.07923,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/1250019278",
+      "name": "Tuca d'els Corvets",
+      "elevation": 2901,
+      "lat": 42.63816,
+      "lon": 0.4754,
+      "country": "ES",
+      "massif": "Posets / Perdiguero"
+    },
+    {
+      "osmId": "node/2995473700",
+      "name": "Tossal de Calma",
+      "elevation": 2621,
+      "lat": 42.44106,
+      "lon": 0.94394,
+      "country": "ES",
+      "massif": "Aigüestortes / Val d'Aran"
+    },
+    {
+      "osmId": "node/7795222519",
+      "name": "Pic de Fontargent / Pic de Fontargente",
+      "elevation": 2618,
+      "lat": 42.622,
+      "lon": 1.69222,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/7797528014",
+      "name": "Puntas Verdes",
+      "elevation": 2617,
+      "lat": 42.63161,
+      "lon": 0.13078,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/571121503",
+      "name": "Pico de Aspe",
+      "elevation": 2640,
+      "lat": 42.76348,
+      "lon": -0.56575,
+      "country": "ES",
+      "massif": "Valles Occidentales / Aspe"
+    },
+    {
+      "osmId": "node/4339921120",
+      "name": "Pic de Soliguera",
+      "elevation": 2592,
+      "lat": 42.68064,
+      "lon": 1.26491,
+      "country": "FR",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/1250039108",
+      "name": "Tobacor",
+      "elevation": 2779,
+      "lat": 42.65565,
+      "lon": -0.01351,
+      "country": "ES",
+      "massif": "Ordesa / Monte Perdido / Pineta"
+    },
+    {
+      "osmId": "node/1203630970",
+      "name": "Pic de Querforc",
+      "elevation": 2585,
+      "lat": 42.58149,
+      "lon": 1.82412,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/11646993845",
+      "name": "El Punxo",
+      "elevation": 2581,
+      "lat": 42.53055,
+      "lon": 1.85467,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/494455720",
+      "name": "Pico de la Espada",
+      "elevation": 2832,
+      "lat": 42.69321,
+      "lon": 0.26382,
+      "country": "ES",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    },
+    {
+      "osmId": "node/2423117252",
+      "name": "Alt de la Capa",
+      "elevation": 2573,
+      "lat": 42.56302,
+      "lon": 1.45401,
+      "country": "ES",
+      "massif": "Pallars / Andorra / Ariège"
+    },
+    {
+      "osmId": "node/46471604",
+      "name": "Puig Farinós",
+      "elevation": 2572,
+      "lat": 42.49036,
+      "lon": 1.8043,
+      "country": "FR",
+      "massif": "Cerdanya / Carlit / Cadí"
+    },
+    {
+      "osmId": "node/4273254140",
+      "name": "Pic d'Arrouye",
+      "elevation": 2566,
+      "lat": 42.81174,
+      "lon": 0.24803,
+      "country": "FR",
+      "massif": "Néouvielle / Cotiella / Bachimala"
+    }
+  ]
+}
