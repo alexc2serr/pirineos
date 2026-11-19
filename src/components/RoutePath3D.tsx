@@ -1,32 +1,44 @@
 import { useMemo, useRef, type ComponentRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html, Line } from '@react-three/drei'
+import * as THREE from 'three'
 import { hutsById, type Route } from '../data/pyrenees'
 import type { HeightField } from '../lib/heightField'
-import { buildRoutePoints } from '../lib/routes'
+import { sampleRouteElevationProfile } from '../lib/routes'
 
 interface RoutePath3DProps {
   route: Route
   heightField: HeightField
+  hoveredProgress?: number | null
 }
 
 const PIN_STEM_HEIGHT = 0.55
+const HOVER_BEAM_HEIGHT = 0.72
 
 /**
  * Renderiza una ruta de ascensión 3D adherida al relieve real del DEM con:
  * - Halo oscuro de contraste debajo (visible sobre nieve y bosque)
- * - Línea principal brillante (cian eléctrico para Parking, dorado alpino para Refugio)
+ * - Línea principal brillante (turquesa GPX, cian Parking, dorado Refugio)
  * - Pulso luminoso animado en dirección de subida
- * - Pin 3D distintivo de inicio (Parking azul P / Refugio ámbar)
+ * - Pin 3D de inicio + marcador pulsante sincronizado con el perfil de elevación 2D
  */
-export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
-  const points = useMemo(() => buildRoutePoints(route, heightField), [route, heightField])
+export function RoutePath3D({ route, heightField, hoveredProgress = null }: RoutePath3DProps) {
+  const samples = useMemo(
+    () => sampleRouteElevationProfile(route, heightField),
+    [route, heightField],
+  )
+  const points = useMemo(() => samples.map((s) => s.position), [samples])
   const pulseRef = useRef<ComponentRef<typeof Line>>(null)
+  const beaconRef = useRef<THREE.Mesh>(null)
 
-  useFrame((_, dt) => {
+  useFrame(({ clock }, dt) => {
     const mat = pulseRef.current?.material as { dashOffset?: number } | undefined
     if (mat && typeof mat.dashOffset === 'number') {
       mat.dashOffset -= dt * 0.65
+    }
+    if (beaconRef.current) {
+      const scale = 1 + Math.sin(clock.elapsedTime * 6) * 0.22
+      beaconRef.current.scale.setScalar(scale)
     }
   })
 
@@ -42,6 +54,11 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
     : isParking
       ? (route.parkingInfo?.name ?? 'Parking de acceso')
       : (route.hutId ? hutsById[route.hutId]?.name : undefined) ?? 'Refugio de salida'
+
+  const hoveredSample =
+    hoveredProgress !== null && samples.length > 1
+      ? samples[Math.min(samples.length - 1, Math.max(0, Math.round(hoveredProgress * (samples.length - 1))))]
+      : null
 
   return (
     <group>
@@ -117,6 +134,56 @@ export function RoutePath3D({ route, heightField }: RoutePath3DProps) {
           </div>
         </div>
       </Html>
+
+      {/* Marcador pulsante sincronizado con el hover del Perfil de Elevación 2D */}
+      {hoveredSample && (
+        <group>
+          <mesh ref={beaconRef} position={hoveredSample.position}>
+            <sphereGeometry args={[0.095, 16, 12]} />
+            <meshBasicMaterial color="#ffffff" />
+          </mesh>
+          <mesh position={hoveredSample.position}>
+            <sphereGeometry args={[0.15, 16, 12]} />
+            <meshBasicMaterial color={mainColor} transparent opacity={0.4} depthWrite={false} />
+          </mesh>
+          <Line
+            points={[
+              [hoveredSample.position.x, hoveredSample.position.y, hoveredSample.position.z],
+              [
+                hoveredSample.position.x,
+                hoveredSample.position.y + HOVER_BEAM_HEIGHT,
+                hoveredSample.position.z,
+              ],
+            ]}
+            color="#ffffff"
+            lineWidth={2}
+            transparent
+            opacity={0.9}
+          />
+          <Html
+            position={[
+              hoveredSample.position.x,
+              hoveredSample.position.y + HOVER_BEAM_HEIGHT,
+              hoveredSample.position.z,
+            ]}
+            center
+            zIndexRange={[35, 30]}
+            style={{ pointerEvents: 'none' }}
+          >
+            <div className="-translate-y-1/2 whitespace-nowrap rounded-lg border border-white/30 bg-slate-950/90 px-2.5 py-1 font-mono text-[10px] text-white shadow-xl backdrop-blur-md">
+              <span className="font-semibold text-amber-200">
+                {hoveredSample.elevationM.toLocaleString('es-ES')} m
+              </span>
+              <span className="mx-1.5 text-white/35">·</span>
+              <span className="text-sky-200">
+                {hoveredSample.slopePct >= 0 ? `+${hoveredSample.slopePct}%` : `${hoveredSample.slopePct}%`}
+              </span>
+              <span className="mx-1.5 text-white/35">·</span>
+              <span className="text-white/75">Km {hoveredSample.distanceKm.toFixed(1)}</span>
+            </div>
+          </Html>
+        </group>
+      )}
 
       {/* Baliza luminosa en el punto de llegada */}
       <mesh position={[end.x, end.y + 0.02, end.z]}>

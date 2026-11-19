@@ -1,13 +1,24 @@
 import { useState } from 'react'
 import type { Country, Difficulty, Peak, Route } from '../../data/pyrenees'
+import type { PassportEntry } from '../../hooks/useMountaineerPassport'
+import type { HeightField } from '../../lib/heightField'
+import type { ElevationSample } from '../../lib/routes'
 import type { ViewMode } from '../../lib/views'
 import { MountainWeatherCard } from './MountainWeatherCard'
+import { PassportStampControl } from './PassportStampControl'
 import { RouteSelector } from './RouteSelector'
 
 interface PeakPanelProps {
   peak: Peak | null
   mode: ViewMode
   activeRoute: Route | null
+  heightField: HeightField | null
+  hoveredProgress: number | null
+  passportEntry: PassportEntry | undefined
+  onToggleCompleted: () => void
+  onUpdatePassport: (patch: Partial<Pick<PassportEntry, 'date' | 'notes'>>) => void
+  onHoverProgress: (progress: number | null) => void
+  onFocusSample: (sample: ElevationSample) => void
   onSelectRoute: (route: Route) => void
   onViewFullRoute: (route: Route) => void
   onStartReplay: (route: Route) => void
@@ -40,6 +51,13 @@ export function PeakPanel({
   peak,
   mode,
   activeRoute,
+  heightField,
+  hoveredProgress,
+  passportEntry,
+  onToggleCompleted,
+  onUpdatePassport,
+  onHoverProgress,
+  onFocusSample,
   onSelectRoute,
   onViewFullRoute,
   onStartReplay,
@@ -98,6 +116,14 @@ export function PeakPanel({
               </span>
             </div>
 
+            <PassportStampControl
+              key={`stamp-${shown.id}`}
+              kind="peak"
+              entry={passportEntry}
+              onToggle={onToggleCompleted}
+              onUpdate={onUpdatePassport}
+            />
+
             <div className="mt-5 grid grid-cols-2 gap-1 rounded-lg border border-white/10 bg-white/5 p-1">
               <button
                 type="button"
@@ -137,6 +163,10 @@ export function PeakPanel({
               key={shown.id}
               routes={shown.routes}
               activeRoute={activeRoute}
+              heightField={heightField}
+              hoveredProgress={hoveredProgress}
+              onHoverProgress={onHoverProgress}
+              onFocusSample={onFocusSample}
               onSelectRoute={onSelectRoute}
               onViewFullRoute={onViewFullRoute}
               onStartReplay={onStartReplay}

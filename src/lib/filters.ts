@@ -3,12 +3,14 @@ import { HUTS, peaks, type Country, type Difficulty, type Hut, type HutType, typ
 export type SideFilter = 'all' | 'ES' | 'FR'
 export type DifficultyFilter = 'all' | Difficulty
 export type AltitudeFilter = 'all' | 'under2500' | '2500to3000' | 'over3000'
+export type PassportStatusFilter = 'all' | 'completed' | 'pending'
 export type HutTypeFilter = 'all' | HutType
 
 export interface Filters {
   side: SideFilter
   difficulty: DifficultyFilter
   altitude: AltitudeFilter
+  passport: PassportStatusFilter
   query: string
 }
 
@@ -25,6 +27,7 @@ export const DEFAULT_FILTERS: Filters = {
   side: 'all',
   difficulty: 'all',
   altitude: 'all',
+  passport: 'all',
   query: '',
 }
 
@@ -57,13 +60,17 @@ const matchesAltitude = (elevation: number, filter: AltitudeFilter) => {
   }
 }
 
-export function applyFilters(filters: Filters): Peak[] {
+export function applyFilters(filters: Filters, completedPeakIds?: Set<string>): Peak[] {
   const q = normalize(filters.query.trim())
   return peaks.filter(
     (p) =>
       onSide(p.country, filters.side) &&
       (filters.difficulty === 'all' || p.difficulty === filters.difficulty) &&
       matchesAltitude(p.elevation, filters.altitude) &&
+      (filters.passport === 'all' ||
+        (filters.passport === 'completed'
+          ? Boolean(completedPeakIds?.has(p.id))
+          : !completedPeakIds?.has(p.id))) &&
       (q === '' || normalize(`${p.name} ${p.massif}`).includes(q)),
   )
 }

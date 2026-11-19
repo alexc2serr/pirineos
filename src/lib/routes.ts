@@ -1,7 +1,20 @@
 import * as THREE from 'three'
-import { VERTICAL_EXAGGERATION, latLonToWorld, type Route } from '../data/pyrenees'
+import { VERTICAL_EXAGGERATION, latLonToWorld, worldYToElevation, type Route } from '../data/pyrenees'
 import type { HeightField } from './heightField'
 import type { CameraView } from './views'
+
+export interface ElevationSample {
+  /** Progreso normalizado 0..1 */
+  progress: number
+  /** Distancia acumulada en km */
+  distanceKm: number
+  /** Elevación real en metros */
+  elevationM: number
+  /** Pendiente porcentual suavizada (%) */
+  slopePct: number
+  /** Posición 3D exacta sobre la ruta */
+  position: THREE.Vector3
+}
 
 /** Offset vertical sobre la malla DEM (0.045 unidades ≈ 19 m reales a escala ×2.4) para evitar clipping. */
 const ROUTE_LIFT = 0.045
@@ -191,4 +204,42 @@ export function computeRouteOverviewCamera(route: Route, field: HeightField): Ca
   camPos.y = Math.max(box.max.y + span * 0.45, groundAtCam + 1.8)
 
   return { position: camPos, target: center }
+}
+
+/**
+ * Genera el perfil de elevación 2D ↔ 3D muestreando la altura real del DEM
+ * a lo largo de toda la ruta, con distancia acumulada y pendiente suavizada (%).
+ */
+export function sampleRouteElevationProfile(route: Route, field: HeightField): ElevationSample[] {
+  const pts = buildRoutePoints(route, field)
+  if (pts.length < 2) return []
+
+  const rawDist: number[] = [0]
+  for (let i = 1; i < pts.length; i++) {
+    const segKm = Math.hypot(pts[i].x - pts[i - 1].x, pts[i].z - pts[i - 1].z)
+    rawDist.push(rawDist[i - 1] + segKm)
+  }
+  const totalRawKm = Math.max(0.05, rawDist[rawDist.length - 1])
+  const scaleDist = route.distanceKm > 0 ? route.distanceKm / totalRawKm : 1
+
+  const elevations = pts.map((p) => Math.max(0, worldYToElevation(p.y - ROUTE_LIFT)))
+  const samples: ElevationSample[] = []
+
+  for (let i = 0; i < pts.length; i++) {
+    const prevIdx = Math.max(0, i - 2)
+    const nextIdx = Math.min(pts.length - 1, i + 2)
+    const runM = Math.max(15, (rawDist[nextIdx] - rawDist[prevIdx]) * scaleDist * 1000)
+    const riseM = elevations[nextIdx] - elevations[prevIdx]
+    const slopePct = THREE.MathUtils.clamp(Math.round((riseM / runM) * 100), -65, 65)
+
+    samples.push({
+      progress: i / (pts.length - 1),
+      distanceKm: Number((rawDist[i] * scaleDist).toFixed(2)),
+      elevationM: Math.round(elevations[i]),
+      slopePct,
+      position: pts[i],
+    })
+  }
+
+  return samples
 }

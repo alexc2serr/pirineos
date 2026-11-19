@@ -1,11 +1,22 @@
 import { useState } from 'react'
 import type { Country, Hut, HutServices, Route } from '../../data/pyrenees'
+import type { PassportEntry } from '../../hooks/useMountaineerPassport'
+import type { HeightField } from '../../lib/heightField'
+import type { ElevationSample } from '../../lib/routes'
 import { MountainWeatherCard } from './MountainWeatherCard'
+import { PassportStampControl } from './PassportStampControl'
 import { RouteSelector } from './RouteSelector'
 
 interface HutPanelProps {
   hut: Hut | null
   activeRoute: Route | null
+  heightField: HeightField | null
+  hoveredProgress: number | null
+  passportEntry: PassportEntry | undefined
+  onToggleVisited: () => void
+  onUpdatePassport: (patch: Partial<Pick<PassportEntry, 'date' | 'notes'>>) => void
+  onHoverProgress: (progress: number | null) => void
+  onFocusSample: (sample: ElevationSample) => void
   onSelectRoute: (route: Route) => void
   onViewFullRoute: (route: Route) => void
   onStartReplay: (route: Route) => void
@@ -36,6 +47,13 @@ const SERVICE_LIST: ServiceMeta[] = [
 export function HutPanel({
   hut,
   activeRoute,
+  heightField,
+  hoveredProgress,
+  passportEntry,
+  onToggleVisited,
+  onUpdatePassport,
+  onHoverProgress,
+  onFocusSample,
   onSelectRoute,
   onViewFullRoute,
   onStartReplay,
@@ -109,6 +127,14 @@ export function HutPanel({
               </div>
             </div>
 
+            <PassportStampControl
+              key={`stamp-hut-${shown.id}`}
+              kind="hut"
+              entry={passportEntry}
+              onToggle={onToggleVisited}
+              onUpdate={onUpdatePassport}
+            />
+
             {open && (
               <MountainWeatherCard
                 cacheKey={`hut-${shown.id}`}
@@ -164,6 +190,10 @@ export function HutPanel({
                 key={shown.id}
                 routes={shown.routes}
                 activeRoute={activeRoute}
+                heightField={heightField}
+                hoveredProgress={hoveredProgress}
+                onHoverProgress={onHoverProgress}
+                onFocusSample={onFocusSample}
                 onSelectRoute={onSelectRoute}
                 onViewFullRoute={onViewFullRoute}
                 onStartReplay={onStartReplay}

@@ -36,6 +36,11 @@ export interface RouteViewRequest {
   route: Route
 }
 
+export interface PointFocusRequest {
+  id: number
+  point: THREE.Vector3
+}
+
 const HUT_ORBIT_OFFSET = new THREE.Vector3(2.2, elevationToWorldY(900), -2.2)
 
 interface CameraRigProps {
@@ -45,8 +50,10 @@ interface CameraRigProps {
   heightField: HeightField | null
   viewRequest: ViewRequest | null
   routeViewRequest: RouteViewRequest | null
+  pointFocusRequest: PointFocusRequest | null
   tourActive: boolean
   replayActive: boolean
+  compassActive: boolean
   onTourStop: () => void
 }
 
@@ -57,8 +64,10 @@ export function CameraRig({
   heightField,
   viewRequest,
   routeViewRequest,
+  pointFocusRequest,
   tourActive,
   replayActive,
+  compassActive,
   onTourStop,
 }: CameraRigProps) {
   const camera = useThree((s) => s.camera)
@@ -69,8 +78,9 @@ export function CameraRig({
   const modeRef = useRef<ViewMode>(mode)
   const flyingRef = useRef(false)
   const tourRef = useRef(false)
-  const replayRef = useRef(replayActive)
-  replayRef.current = replayActive
+  const externalControl = replayActive || compassActive
+  const externalRef = useRef(externalControl)
+  externalRef.current = externalControl
   const keys = useRef(new Set<string>())
   const shiftRef = useRef(false)
   const velocity = useRef(new THREE.Vector3())
@@ -168,11 +178,11 @@ export function CameraRig({
     })
   }
 
-  // Pausa controles durante el modo vídeo Relive Cozy para que HikerAnimation3D controle la cámara
+  // Pausa controles durante Vídeo Cozy o Modo Brújula para ceder control de cámara
   useEffect(() => {
     const c = controlsRef.current
     if (!c) return
-    if (replayActive) {
+    if (externalControl) {
       tweenRef.current?.kill()
       flyingRef.current = false
       tourRef.current = false
@@ -184,11 +194,11 @@ export function CameraRig({
       c.update()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [replayActive])
+  }, [externalControl])
 
   useEffect(() => {
     const c = controlsRef.current
-    if (!c || replayActive) return
+    if (!c || externalControl) return
 
     if (!selected && !selectedHut) {
       if (firstRun.current) {
@@ -237,7 +247,7 @@ export function CameraRig({
 
   // Encuadre panorámico completo de la ruta activa ("Ver Ruta Completa")
   useEffect(() => {
-    if (!routeViewRequest || !heightField) return
+    if (!routeViewRequest || !heightField || externalControl) return
     firstRun.current = false
     const overview = computeRouteOverviewCamera(routeViewRequest.route, heightField)
     if (overview) {
@@ -245,6 +255,18 @@ export function CameraRig({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeViewRequest, heightField])
+
+  // Centrar cámara en un tramo concreto al hacer clic en el perfil de elevación 2D
+  useEffect(() => {
+    if (!pointFocusRequest || !heightField || externalControl) return
+    firstRun.current = false
+    const pt = pointFocusRequest.point
+    const camPos = pt.clone().add(new THREE.Vector3(1.6, elevationToWorldY(550), 1.6))
+    const groundY = heightField.sampleWorld(camPos.x, camPos.z)
+    camPos.y = Math.max(camPos.y, groundY + 0.65)
+    flyTo(camPos, pt, 'aerial')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pointFocusRequest, heightField])
 
   // Tour cinematográfico oeste → este; cualquier interacción devuelve el control manual
   useEffect(() => {
@@ -353,7 +375,7 @@ export function CameraRig({
 
   useFrame((_, dt) => {
     const c = controlsRef.current
-    if (!c || replayRef.current) return
+    if (!c || externalRef.current) return
     const p = camera.position
     const summit = modeRef.current === 'summit' && !flyingRef.current
 

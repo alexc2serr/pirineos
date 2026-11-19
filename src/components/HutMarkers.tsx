@@ -15,6 +15,7 @@ interface HutMarkersProps {
   visibleHuts: Hut[]
   heightField: HeightField
   selectedHutId: string | null
+  visitedHutIds: Set<string>
   hasActiveFilter: boolean
   onSelectHut: (id: string) => void
 }
@@ -27,6 +28,7 @@ export function HutMarkers({
   visibleHuts,
   heightField,
   selectedHutId,
+  visitedHutIds,
   hasActiveFilter,
   onSelectHut,
 }: HutMarkersProps) {
@@ -111,6 +113,7 @@ export function HutMarkers({
         const isSelected = selectedHutId === hut.id
         const isHover = hovered === hut.id
         const isFree = hut.type === 'Libre / Vivac'
+        const isVisited = visitedHutIds.has(hut.id)
 
         return (
           <Html
@@ -129,9 +132,13 @@ export function HutMarkers({
             >
               {(isHover || isSelected) && (
                 <div className="pointer-events-none absolute bottom-full mb-2 whitespace-nowrap rounded-lg border border-amber-200/40 bg-slate-950/85 px-2.5 py-1.5 text-center text-white shadow-xl backdrop-blur-md">
-                  <p className="font-sans text-[11px] font-semibold leading-tight">{hut.name}</p>
+                  <p className="font-sans text-[11px] font-semibold leading-tight">
+                    {isVisited && <span className="mr-1 text-emerald-300">✓</span>}
+                    {hut.name}
+                  </p>
                   <p className="mt-0.5 font-mono text-[10px] text-amber-200/85">
                     {hut.elevation.toLocaleString('es-ES')} m · {hut.type}
+                    {isVisited && <span className="text-emerald-300"> · Visitado</span>}
                   </p>
                 </div>
               )}
@@ -145,17 +152,24 @@ export function HutMarkers({
                 }}
                 onPointerEnter={() => setHovered(hut.id)}
                 onPointerLeave={() => setHovered((cur) => (cur === hut.id ? null : cur))}
-                className={`flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 text-slate-950 transition-transform hover:scale-125 ${
+                className={`relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border-2 text-slate-950 transition-transform hover:scale-125 ${
                   isSelected
                     ? 'scale-125 border-white bg-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.9)]'
-                    : isFree
-                      ? 'border-amber-100/80 bg-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.65)]'
-                      : 'border-amber-100/85 bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.65)]'
+                    : isVisited
+                      ? 'border-emerald-200 bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.75)]'
+                      : isFree
+                        ? 'border-amber-100/80 bg-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.65)]'
+                        : 'border-amber-100/85 bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.65)]'
                 }`}
               >
                 <svg viewBox="0 0 16 16" className="h-3 w-3" fill="currentColor" aria-hidden>
                   <path d="M8 1.5 1 8h2v6.5h4v-4h2v4h4V8h2L8 1.5Z" />
                 </svg>
+                {isVisited && (
+                  <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full border border-slate-950 bg-emerald-300 font-mono text-[8px] font-bold text-slate-950">
+                    ✓
+                  </span>
+                )}
               </button>
             </div>
           </Html>

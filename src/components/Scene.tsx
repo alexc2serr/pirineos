@@ -3,11 +3,13 @@ import { useState } from 'react'
 import * as THREE from 'three'
 import type { Hut, Peak, Route } from '../data/pyrenees'
 import type { SeasonMode, TimeOfDay } from '../lib/atmosphere'
+import type { CompassViewpoint } from '../lib/compassState'
 import type { HeightField } from '../lib/heightField'
 import type { ReplayTarget } from '../lib/replayState'
 import { INITIAL_VIEW, type ViewMode } from '../lib/views'
 import { Atmosphere } from './Atmosphere'
-import { CameraRig, type RouteViewRequest, type ViewRequest } from './CameraRig'
+import { CameraRig, type PointFocusRequest, type RouteViewRequest, type ViewRequest } from './CameraRig'
+import { CompassARScene } from './CompassARMode'
 import { HikerAnimation3D } from './HikerAnimation3D'
 import { HutMarkers } from './HutMarkers'
 import { PeakMarkers } from './PeakMarkers'
@@ -21,22 +23,30 @@ interface SceneProps {
   selected: Peak | null
   selectedHut: Hut | null
   activeRoute: Route | null
+  hoveredRouteProgress: number | null
   replayTarget: ReplayTarget | null
   replayRunId: number
+  compassActive: boolean
+  compassViewpoint: CompassViewpoint
+  gyroEnabled: boolean
   mode: ViewMode
   timeOfDay: TimeOfDay
   seasonMode: SeasonMode
   viewRequest: ViewRequest | null
   routeViewRequest: RouteViewRequest | null
+  pointFocusRequest: PointFocusRequest | null
   showPeaks: boolean
   showHuts: boolean
   hasHutFilter: boolean
+  completedPeakIds: Set<string>
+  visitedHutIds: Set<string>
   tourActive: boolean
   onTourStop: () => void
   onSelectPeak: (id: string) => void
   onSelectHut: (id: string) => void
   onReplayComplete: () => void
   onCanvasReady: (canvas: HTMLCanvasElement) => void
+  onHeightFieldReady: (field: HeightField) => void
 }
 
 export function Scene({
@@ -45,26 +55,40 @@ export function Scene({
   selected,
   selectedHut,
   activeRoute,
+  hoveredRouteProgress,
   replayTarget,
   replayRunId,
+  compassActive,
+  compassViewpoint,
+  gyroEnabled,
   mode,
   timeOfDay,
   seasonMode,
   viewRequest,
   routeViewRequest,
+  pointFocusRequest,
   showPeaks,
   showHuts,
   hasHutFilter,
+  completedPeakIds,
+  visitedHutIds,
   tourActive,
   onTourStop,
   onSelectPeak,
   onSelectHut,
   onReplayComplete,
   onCanvasReady,
+  onHeightFieldReady,
 }: SceneProps) {
   const [error, setError] = useState<string | null>(null)
   const [heightField, setHeightField] = useState<HeightField | null>(null)
   const isReplaying = replayTarget !== null
+  const isNormalMode = !isReplaying && !compassActive
+
+  const handleTerrainLoaded = (field: HeightField) => {
+    setHeightField(field)
+    onHeightFieldReady(field)
+  }
 
   return (
     <div className="fixed inset-0 h-screen w-screen touch-none overflow-hidden">
@@ -82,15 +106,16 @@ export function Scene({
       >
         <Atmosphere timeOfDay={timeOfDay} seasonMode={seasonMode} />
 
-        <PyreneesTerrain onLoaded={setHeightField} onError={(e) => setError(e.message)} />
+        <PyreneesTerrain onLoaded={handleTerrainLoaded} onError={(e) => setError(e.message)} />
 
-        {heightField && !isReplaying && (
+        {heightField && isNormalMode && (
           <>
             {(showPeaks || selected !== null) && (
               <PeakMarkers
                 visiblePeaks={visiblePeaks}
                 heightField={heightField}
                 selectedId={selected?.id ?? null}
+                completedPeakIds={completedPeakIds}
                 mode={mode}
                 onSelect={onSelectPeak}
               />
@@ -100,11 +125,18 @@ export function Scene({
                 visibleHuts={visibleHuts}
                 heightField={heightField}
                 selectedHutId={selectedHut?.id ?? null}
+                visitedHutIds={visitedHutIds}
                 hasActiveFilter={hasHutFilter}
                 onSelectHut={onSelectHut}
               />
             )}
-            {activeRoute && <RoutePath3D route={activeRoute} heightField={heightField} />}
+            {activeRoute && (
+              <RoutePath3D
+                route={activeRoute}
+                heightField={heightField}
+                hoveredProgress={hoveredRouteProgress}
+              />
+            )}
             {selected && mode === 'summit' && <SummitHorizon peak={selected} heightField={heightField} />}
           </>
         )}
@@ -118,6 +150,14 @@ export function Scene({
           />
         )}
 
+        {heightField && compassActive && (
+          <CompassARScene
+            viewpoint={compassViewpoint}
+            heightField={heightField}
+            gyroEnabled={gyroEnabled}
+          />
+        )}
+
         <CameraRig
           selected={selected}
           selectedHut={selectedHut}
@@ -125,8 +165,10 @@ export function Scene({
           heightField={heightField}
           viewRequest={viewRequest}
           routeViewRequest={routeViewRequest}
+          pointFocusRequest={pointFocusRequest}
           tourActive={tourActive}
           replayActive={isReplaying}
+          compassActive={compassActive}
           onTourStop={onTourStop}
         />
       </Canvas>

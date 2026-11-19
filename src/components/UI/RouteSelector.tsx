@@ -1,9 +1,16 @@
 import { useMemo, useState } from 'react'
 import type { Route, RouteOriginType } from '../../data/pyrenees'
+import type { HeightField } from '../../lib/heightField'
+import type { ElevationSample } from '../../lib/routes'
+import { ElevationProfileChart } from './ElevationProfileChart'
 
 interface RouteSelectorProps {
   routes: Route[]
   activeRoute: Route | null
+  heightField: HeightField | null
+  hoveredProgress: number | null
+  onHoverProgress: (progress: number | null) => void
+  onFocusSample: (sample: ElevationSample) => void
   onSelectRoute: (route: Route) => void
   onViewFullRoute: (route: Route) => void
   onStartReplay: (route: Route) => void
@@ -13,6 +20,10 @@ interface RouteSelectorProps {
 export function RouteSelector({
   routes,
   activeRoute,
+  heightField,
+  hoveredProgress,
+  onHoverProgress,
+  onFocusSample,
   onSelectRoute,
   onViewFullRoute,
   onStartReplay,
@@ -151,6 +162,14 @@ export function RouteSelector({
                       </p>
                     </div>
                   )}
+
+                  <ElevationProfileChart
+                    route={route}
+                    heightField={heightField}
+                    hoveredProgress={hoveredProgress}
+                    onHoverProgress={onHoverProgress}
+                    onFocusSample={onFocusSample}
+                  />
 
                   <div className="mt-2.5 grid grid-cols-1 gap-1.5">
                     <button

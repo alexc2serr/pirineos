@@ -16,6 +16,7 @@ interface NavbarProps {
   onSelectPeak: (id: string) => void
   onSelectHut: (id: string) => void
   onUploadGpx: () => void
+  onOpenCompass: () => void
   hasActiveFilters: boolean
 }
 
@@ -74,6 +75,7 @@ export function Navbar({
   onSelectPeak,
   onSelectHut,
   onUploadGpx,
+  onOpenCompass,
   hasActiveFilters,
 }: NavbarProps) {
   const [query, setQuery] = useState('')
@@ -191,7 +193,18 @@ export function Navbar({
           )}
         </div>
 
-        {/* 2. Botón acción rápida Subir GPX */}
+        {/* 2. Acceso rápido Modo Brújula ("¿Qué pico estoy viendo?") */}
+        <button
+          type="button"
+          onClick={onOpenCompass}
+          title="Modo Brújula: ¿Qué pico estoy viendo?"
+          aria-label="Modo Brújula: ¿Qué pico estoy viendo?"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-400/15 text-base transition-colors hover:bg-amber-400/30"
+        >
+          🧭
+        </button>
+
+        {/* 3. Botón acción rápida Subir GPX */}
         <button
           type="button"
           onClick={onUploadGpx}

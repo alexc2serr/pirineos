@@ -37,11 +37,19 @@ interface PeakMarkersProps {
   visiblePeaks: Peak[]
   heightField: HeightField | null
   selectedId: string | null
+  completedPeakIds: Set<string>
   mode: ViewMode
   onSelect: (id: string) => void
 }
 
-export function PeakMarkers({ visiblePeaks, heightField, selectedId, mode, onSelect }: PeakMarkersProps) {
+export function PeakMarkers({
+  visiblePeaks,
+  heightField,
+  selectedId,
+  completedPeakIds,
+  mode,
+  onSelect,
+}: PeakMarkersProps) {
   const camera = useThree((s) => s.camera)
   const [hovered, setHovered] = useState<string | null>(null)
   const labelRefs = useRef(new Map<string, HTMLDivElement>())
@@ -119,6 +127,7 @@ export function PeakMarkers({ visiblePeaks, heightField, selectedId, mode, onSel
         if (!top) return null
         const isHover = hovered === peak.id
         const isSelected = selectedId === peak.id
+        const isCompleted = completedPeakIds.has(peak.id)
         const anchor: [number, number, number] = summitMode
           ? [top.x, top.y, top.z]
           : [top.x, top.y + LINE_HEIGHT, top.z]
@@ -133,10 +142,10 @@ export function PeakMarkers({ visiblePeaks, heightField, selectedId, mode, onSel
                   [top.x, top.y, top.z],
                   [top.x, top.y + LINE_HEIGHT, top.z],
                 ]}
-                color={isHover || isSelected ? '#ffd9a0' : '#ffffff'}
-                lineWidth={isHover || isSelected ? 2 : 1.2}
+                color={isHover || isSelected ? '#ffd9a0' : isCompleted ? '#34d399' : '#ffffff'}
+                lineWidth={isHover || isSelected ? 2 : isCompleted ? 1.8 : 1.2}
                 transparent
-                opacity={isHover || isSelected ? 1 : 0.75}
+                opacity={isHover || isSelected || isCompleted ? 1 : 0.75}
               />
             )}
 
@@ -176,11 +185,18 @@ export function PeakMarkers({ visiblePeaks, heightField, selectedId, mode, onSel
                 className={`-translate-y-1/2 cursor-pointer select-none whitespace-nowrap rounded-md border px-2.5 py-1 text-center backdrop-blur-md transition-all duration-200 ${
                   isHover || isSelected
                     ? 'border-amber-200/60 bg-slate-950/80 shadow-[0_0_18px_rgba(255,217,160,0.35)]'
-                    : 'border-white/10 bg-slate-950/45'
+                    : isCompleted
+                      ? 'border-emerald-300/65 bg-emerald-950/75 shadow-[0_0_14px_rgba(52,211,153,0.35)]'
+                      : 'border-white/10 bg-slate-950/45'
                 }`}
               >
-                <div className="font-sans text-[11px] font-semibold leading-tight tracking-wide text-white">
-                  {peak.name}
+                <div className="flex items-center justify-center gap-1 font-sans text-[11px] font-semibold leading-tight tracking-wide text-white">
+                  {isCompleted && (
+                    <span className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-emerald-400 font-mono text-[9px] font-bold text-slate-950">
+                      ✓
+                    </span>
+                  )}
+                  <span>{peak.name}</span>
                 </div>
                 <div className="font-mono text-[10px] leading-tight text-amber-100/80">
                   {peak.elevation.toLocaleString('es-ES')} m

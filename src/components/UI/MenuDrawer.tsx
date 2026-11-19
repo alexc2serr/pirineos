@@ -1,5 +1,10 @@
-import { useState } from 'react'
-import { HUTS, peaks } from '../../data/pyrenees'
+import { useMemo, useRef, useState } from 'react'
+import { HUTS, hutsById, peaks, peaksById } from '../../data/pyrenees'
+import type {
+  ImportPassportResult,
+  PassportData,
+  PassportStats,
+} from '../../hooks/useMountaineerPassport'
 import { TIME_LABEL, TIME_ORDER, type SeasonMode, type TimeOfDay } from '../../lib/atmosphere'
 import {
   DIFFICULTIES,
@@ -8,11 +13,12 @@ import {
   type Filters,
   type HutFilters,
   type HutTypeFilter,
+  type PassportStatusFilter,
   type SideFilter,
 } from '../../lib/filters'
 import type { ParsedGpxTrack } from '../../utils/gpxParser'
 
-export type DrawerTab = 'filters' | 'visual' | 'gpx'
+export type DrawerTab = 'filters' | 'visual' | 'gpx' | 'passport'
 export type ExplorerMode = 'peaks' | 'huts'
 
 interface MenuDrawerProps {
@@ -37,10 +43,17 @@ interface MenuDrawerProps {
   onTogglePeaks: () => void
   tourActive: boolean
   onToggleTour: () => void
+  onOpenCompass: () => void
   gpxHistory: ParsedGpxTrack[]
   onUploadGpx: () => void
   onOpenGpxTrack: (track: ParsedGpxTrack) => void
   onReplayGpxTrack: (track: ParsedGpxTrack) => void
+  passportData: PassportData
+  passportStats: PassportStats
+  onExportPassport: () => void
+  onImportPassport: (file: File) => Promise<ImportPassportResult>
+  onSelectPeak: (id: string) => void
+  onSelectHut: (id: string) => void
 }
 
 const SIDES: { value: SideFilter; label: string }[] = [
@@ -54,6 +67,12 @@ const ALTITUDES: { value: AltitudeFilter; label: string }[] = [
   { value: 'under2500', label: '< 2.500m' },
   { value: '2500to3000', label: '2.500–3.000m' },
   { value: 'over3000', label: '+3.000m' },
+]
+
+const PASSPORT_FILTERS: { value: PassportStatusFilter; label: string }[] = [
+  { value: 'all', label: 'Todos' },
+  { value: 'completed', label: '✓ Coronados' },
+  { value: 'pending', label: 'Pendientes' },
 ]
 
 const HUT_TYPES: { value: HutTypeFilter; label: string }[] = [
@@ -116,7 +135,34 @@ function SwitchRow({
   )
 }
 
-/** Menú hamburguesa lateral organizado en 3 pestañas: Filtros, Visual y Rutas GPX. */
+function ProgressRow({
+  label,
+  current,
+  total,
+  barClass,
+}: {
+  label: string
+  current: number
+  total: number
+  barClass: string
+}) {
+  const pct = total > 0 ? Math.min(100, (current / total) * 100) : 0
+  return (
+    <div>
+      <div className="flex items-center justify-between font-mono text-[10.5px]">
+        <span className="text-white/75">{label}</span>
+        <span className="font-semibold text-white">
+          {current} <span className="text-white/45">/ {total}</span>
+        </span>
+      </div>
+      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+        <div className={`h-full rounded-full transition-all duration-500 ${barClass}`} style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  )
+}
+
+/** Menú hamburguesa lateral organizado en 4 pestañas: Filtros, Visual, GPX y Pasaporte. */
 export function MenuDrawer({
   open,
   onClose,
@@ -139,39 +185,113 @@ export function MenuDrawer({
   onTogglePeaks,
   tourActive,
   onToggleTour,
+  onOpenCompass,
   gpxHistory,
   onUploadGpx,
   onOpenGpxTrack,
   onReplayGpxTrack,
+  passportData,
+  passportStats,
+  onExportPassport,
+  onImportPassport,
+  onSelectPeak,
+  onSelectHut,
 }: MenuDrawerProps) {
   const [tab, setTab] = useState<DrawerTab>('filters')
+  const [importFeedback, setImportFeedback] = useState<string | null>(null)
+  const importInputRef = useRef<HTMLInputElement>(null)
+
+  const timelineItems = useMemo(() => {
+    const items: {
+      key: string
+      id: string
+      kind: 'peak' | 'hut'
+      name: string
+      elevation: number
+      date: string
+      notes: string
+    }[] = []
+
+    for (const entry of Object.values(passportData.completedPeaks)) {
+      const p = peaksById[entry.id]
+      if (!p) continue
+      items.push({
+        key: `peak-${p.id}`,
+        id: p.id,
+        kind: 'peak',
+        name: p.name,
+        elevation: p.elevation,
+        date: entry.date,
+        notes: entry.notes,
+      })
+    }
+    for (const entry of Object.values(passportData.visitedHuts)) {
+      const h = hutsById[entry.id]
+      if (!h) continue
+      items.push({
+        key: `hut-${h.id}`,
+        id: h.id,
+        kind: 'hut',
+        name: h.name,
+        elevation: h.elevation,
+        date: entry.date,
+        notes: entry.notes,
+      })
+    }
+
+    items.sort((a, b) => b.date.localeCompare(a.date))
+    return items
+  }, [passportData])
+
+  const handleImportFile = async (file: File) => {
+    const res = await onImportPassport(file)
+    if (res.ok) {
+      setImportFeedback(`Importado: ${res.peaksCount} cumbres y ${res.hutsCount} refugios.`)
+    } else {
+      setImportFeedback(res.error)
+    }
+    window.setTimeout(() => setImportFeedback(null), 5000)
+  }
 
   return (
     <aside
       aria-hidden={!open}
-      className={`pointer-events-auto fixed right-4 top-20 z-40 flex max-h-[calc(100vh-96px)] w-[min(92vw,384px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-slate-950/85 text-white shadow-2xl backdrop-blur-md transition-all duration-300 ease-out sm:w-96 ${
-        open
-          ? 'translate-x-0 opacity-100'
-          : 'pointer-events-none translate-x-[115%] opacity-0'
+      className={`pointer-events-auto fixed right-4 top-20 z-40 flex max-h-[calc(100vh-96px)] w-[min(92vw,392px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-slate-950/85 text-white shadow-2xl backdrop-blur-md transition-all duration-300 ease-out sm:w-96 ${
+        open ? 'translate-x-0 opacity-100' : 'pointer-events-none translate-x-[115%] opacity-0'
       }`}
     >
-      {/* Cabecera de 3 pestañas */}
-      <div className="border-b border-white/10 p-3">
-        <div className="grid grid-cols-3 gap-1 rounded-xl border border-white/10 bg-white/5 p-1">
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0]
+          if (file) void handleImportFile(file)
+          e.target.value = ''
+        }}
+      />
+
+      {/* Cabecera de 4 pestañas */}
+      <div className="border-b border-white/10 p-2.5">
+        <div className="grid grid-cols-4 gap-1 rounded-xl border border-white/10 bg-white/5 p-1">
           {(
             [
               { id: 'filters', label: 'Filtros' },
               { id: 'visual', label: 'Visual' },
-              { id: 'gpx', label: `Rutas GPX${gpxHistory.length ? ` (${gpxHistory.length})` : ''}` },
+              { id: 'gpx', label: gpxHistory.length ? `GPX (${gpxHistory.length})` : 'GPX' },
+              { id: 'passport', label: '🏅 Pasaporte' },
             ] as { id: DrawerTab; label: string }[]
           ).map((t) => (
             <button
               key={t.id}
               type="button"
               onClick={() => setTab(t.id)}
-              className={`rounded-lg px-2 py-1.5 font-mono text-[11px] font-medium tracking-wide transition-colors ${
+              className={`truncate rounded-lg px-1.5 py-1.5 font-mono text-[10px] font-medium tracking-wide transition-colors ${
                 tab === t.id
-                  ? 'bg-white text-slate-950 shadow'
+                  ? t.id === 'passport'
+                    ? 'bg-emerald-400 font-semibold text-slate-950 shadow'
+                    : 'bg-white text-slate-950 shadow'
                   : 'text-white/70 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -185,7 +305,6 @@ export function MenuDrawer({
       <div className="overflow-y-auto p-4">
         {tab === 'filters' && (
           <div className="space-y-4">
-            {/* Selector Picos / Refugios */}
             <div>
               <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">EXPLORAR</p>
               <div className="mt-2 grid grid-cols-2 gap-1.5 rounded-xl border border-white/10 bg-white/5 p-1">
@@ -193,9 +312,7 @@ export function MenuDrawer({
                   type="button"
                   onClick={() => onExplorerModeChange('peaks')}
                   className={`rounded-lg py-2 font-mono text-[11px] font-semibold transition-colors ${
-                    explorerMode === 'peaks'
-                      ? 'bg-white text-slate-950'
-                      : 'text-white/70 hover:text-white'
+                    explorerMode === 'peaks' ? 'bg-white text-slate-950' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   PICOS ({peakCount}/{peaks.length})
@@ -259,6 +376,26 @@ export function MenuDrawer({
                         onClick={() => onFiltersChange({ ...filters, altitude: a.value })}
                       >
                         {a.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">MI PASAPORTE</p>
+                  <div className="mt-2 grid grid-cols-3 gap-1.5">
+                    {PASSPORT_FILTERS.map((pf) => (
+                      <button
+                        key={pf.value}
+                        type="button"
+                        className={`rounded-lg px-2 py-1.5 font-mono text-[10.5px] tracking-wide transition-colors ${
+                          filters.passport === pf.value
+                            ? 'bg-emerald-400 font-semibold text-slate-950'
+                            : 'bg-white/5 text-white/75 hover:bg-white/10 hover:text-white'
+                        }`}
+                        onClick={() => onFiltersChange({ ...filters, passport: pf.value })}
+                      >
+                        {pf.label}
                       </button>
                     ))}
                   </div>
@@ -405,17 +542,27 @@ export function MenuDrawer({
               />
             </div>
 
-            <div className="pt-1">
+            <div className="space-y-2 pt-1">
               <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
                 EXPLORACIÓN CINEMATOGRÁFICA
               </p>
               <button
                 type="button"
                 onClick={() => {
+                  onClose()
+                  onOpenCompass()
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-amber-300/40 bg-amber-400/20 px-4 py-3 font-mono text-xs font-semibold text-amber-100 transition-colors hover:bg-amber-400/30"
+              >
+                🧭 ¿Qué pico estoy viendo?
+              </button>
+              <button
+                type="button"
+                onClick={() => {
                   onToggleTour()
                   if (!tourActive) onClose()
                 }}
-                className={`mt-2 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-xs font-semibold transition-colors ${
+                className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-mono text-xs font-semibold transition-colors ${
                   tourActive
                     ? 'bg-sky-300 text-slate-950 hover:bg-sky-200'
                     : 'bg-gradient-to-r from-sky-400 to-teal-300 text-slate-950 hover:opacity-95'
@@ -492,6 +639,139 @@ export function MenuDrawer({
                     </li>
                   ))}
                 </ul>
+              )}
+            </div>
+          </div>
+        )}
+
+        {tab === 'passport' && (
+          <div className="space-y-4">
+            {/* Tarjeta de rango montañero */}
+            <div className="rounded-2xl border border-emerald-300/30 bg-gradient-to-br from-emerald-500/15 via-slate-900/60 to-amber-500/10 p-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-950/70 text-2xl">
+                  {passportStats.rank.badge}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-mono text-[9.5px] tracking-[0.2em] text-emerald-300/90">
+                    RANGO MONTAÑERO
+                  </p>
+                  <h3 className="truncate font-display text-base font-semibold text-white">
+                    {passportStats.rank.title}
+                  </h3>
+                  <p className="truncate text-[11px] text-white/60">{passportStats.rank.subtitle}</p>
+                </div>
+              </div>
+
+              <div className="mt-3.5 grid grid-cols-2 gap-2 font-mono">
+                <div className="rounded-lg bg-slate-950/50 px-2.5 py-2">
+                  <span className="block text-[8.5px] tracking-[0.16em] text-white/45">COTA MÁXIMA</span>
+                  <span className="mt-0.5 block text-sm font-semibold text-amber-200">
+                    {passportStats.maxElevationM > 0
+                      ? `${passportStats.maxElevationM.toLocaleString('es-ES')} m`
+                      : '—'}
+                  </span>
+                </div>
+                <div className="rounded-lg bg-slate-950/50 px-2.5 py-2">
+                  <span className="block text-[8.5px] tracking-[0.16em] text-white/45">ALTITUD ACUM.</span>
+                  <span className="mt-0.5 block text-sm font-semibold text-emerald-200">
+                    {passportStats.accumulatedElevationM > 0
+                      ? `${passportStats.accumulatedElevationM.toLocaleString('es-ES')} m`
+                      : '—'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-3.5 space-y-2.5">
+                <ProgressRow
+                  label="Picos Totales"
+                  current={passportStats.completedPeaksCount}
+                  total={passportStats.totalPeaks}
+                  barClass="bg-emerald-400"
+                />
+                <ProgressRow
+                  label="Tresmiles (+3.000 m)"
+                  current={passportStats.completed3000Count}
+                  total={passportStats.total3000}
+                  barClass="bg-amber-400"
+                />
+                <ProgressRow
+                  label="Refugios Visitados"
+                  current={passportStats.visitedHutsCount}
+                  total={passportStats.totalHuts}
+                  barClass="bg-sky-400"
+                />
+              </div>
+            </div>
+
+            {/* Listado cronológico clicable */}
+            <div>
+              <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
+                MIS CUMBRES Y REFUGIOS ({timelineItems.length})
+              </p>
+
+              {timelineItems.length === 0 ? (
+                <p className="mt-2 rounded-xl border border-white/10 bg-white/[0.03] p-3.5 text-xs leading-relaxed text-white/50">
+                  Abre cualquier pico o refugio en el mapa 3D y pulsa{' '}
+                  <strong className="text-emerald-300">Marcar como Coronado</strong> o{' '}
+                  <strong className="text-emerald-300">Visitado</strong> para sellar tu pasaporte.
+                </p>
+              ) : (
+                <ul className="mt-2 space-y-1.5">
+                  {timelineItems.map((item) => (
+                    <li key={item.key}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onClose()
+                          if (item.kind === 'peak') onSelectPeak(item.id)
+                          else onSelectHut(item.id)
+                        }}
+                        className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-left transition-colors hover:border-emerald-300/40 hover:bg-white/[0.08]"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="truncate text-xs font-semibold text-white">
+                            {item.kind === 'peak' ? '🏔 ' : '🏠 '}
+                            {item.name}
+                          </span>
+                          <span className="shrink-0 font-mono text-[10.5px] text-emerald-300">
+                            {item.elevation.toLocaleString('es-ES')} m
+                          </span>
+                        </div>
+                        <div className="mt-0.5 flex items-center justify-between gap-2 font-mono text-[9.5px] text-white/45">
+                          <span>{item.date}</span>
+                          {item.notes && <span className="truncate text-white/65">“{item.notes}”</span>}
+                        </div>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            {/* Copia de seguridad JSON */}
+            <div className="border-t border-white/10 pt-3">
+              <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
+                COPIA DE SEGURIDAD (JSON)
+              </p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={onExportPassport}
+                  className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 font-mono text-[11px] font-medium text-white/85 transition-colors hover:bg-white/15"
+                >
+                  ⬇ Exportar JSON
+                </button>
+                <button
+                  type="button"
+                  onClick={() => importInputRef.current?.click()}
+                  className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 font-mono text-[11px] font-medium text-white/85 transition-colors hover:bg-white/15"
+                >
+                  ⬆ Importar JSON
+                </button>
+              </div>
+              {importFeedback && (
+                <p className="mt-2 font-mono text-[10.5px] text-emerald-300">{importFeedback}</p>
               )}
             </div>
           </div>

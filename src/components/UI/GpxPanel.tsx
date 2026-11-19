@@ -1,8 +1,15 @@
 import { useState } from 'react'
+import type { HeightField } from '../../lib/heightField'
+import type { ElevationSample } from '../../lib/routes'
 import type { ParsedGpxTrack } from '../../utils/gpxParser'
+import { ElevationProfileChart } from './ElevationProfileChart'
 
 interface GpxPanelProps {
   track: ParsedGpxTrack | null
+  heightField: HeightField | null
+  hoveredProgress: number | null
+  onHoverProgress: (progress: number | null) => void
+  onFocusSample: (sample: ElevationSample) => void
   onViewFullRoute: () => void
   onStartReplay: () => void
   onUploadAnother: () => void
@@ -12,6 +19,10 @@ interface GpxPanelProps {
 /** Ficha técnica del track GPX importado (Bottom Sheet en móvil, panel lateral en escritorio). */
 export function GpxPanel({
   track,
+  heightField,
+  hoveredProgress,
+  onHoverProgress,
+  onFocusSample,
   onViewFullRoute,
   onStartReplay,
   onUploadAnother,
@@ -74,6 +85,14 @@ export function GpxPanel({
                 Ver Ruta Completa en 3D
               </button>
             </div>
+
+            <ElevationProfileChart
+              route={shown.route}
+              heightField={heightField}
+              hoveredProgress={hoveredProgress}
+              onHoverProgress={onHoverProgress}
+              onFocusSample={onFocusSample}
+            />
 
             {/* Cuadrícula de estadísticas reales */}
             <h3 className="mt-5 font-mono text-[10px] tracking-[0.25em] text-white/50">

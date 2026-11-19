@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { RouteViewRequest, ViewRequest } from './components/CameraRig'
+import type { PointFocusRequest, RouteViewRequest, ViewRequest } from './components/CameraRig'
+import { CompassAROverlay } from './components/CompassARMode'
 import { Scene } from './components/Scene'
 import { GpxPanel } from './components/UI/GpxPanel'
 import { HutPanel } from './components/UI/HutPanel'
@@ -9,8 +10,10 @@ import { Navbar } from './components/UI/Navbar'
 import { PeakPanel } from './components/UI/PeakPanel'
 import { RouteReplayOverlay } from './components/UI/RouteReplayOverlay'
 import { TelemetryHUD } from './components/UI/TelemetryHUD'
-import { hutsById, peaksById, type Route } from './data/pyrenees'
+import { TERRAIN_BOUNDS, hutsById, peaksById, type Route } from './data/pyrenees'
+import { useMountaineerPassport } from './hooks/useMountaineerPassport'
 import type { SeasonMode, TimeOfDay } from './lib/atmosphere'
+import { COMPASS_VIEWPOINTS, type CompassViewpoint } from './lib/compassState'
 import {
   DEFAULT_FILTERS,
   DEFAULT_HUT_FILTERS,
@@ -19,7 +22,9 @@ import {
   type Filters,
   type HutFilters,
 } from './lib/filters'
+import type { HeightField } from './lib/heightField'
 import { resetReplayState, type ReplayTarget } from './lib/replayState'
+import type { ElevationSample } from './lib/routes'
 import type { CameraView, ViewMode } from './lib/views'
 import { parseGpxText, type ParsedGpxTrack } from './utils/gpxParser'
 import {
@@ -38,14 +43,23 @@ export default function App() {
   const [gpxTrack, setGpxTrack] = useState<ParsedGpxTrack | null>(null)
   const [gpxHistory, setGpxHistory] = useState<ParsedGpxTrack[]>([])
   const [activeRoute, setActiveRoute] = useState<Route | null>(null)
+  const [hoveredRouteProgress, setHoveredRouteProgress] = useState<number | null>(null)
+  const [heightField, setHeightField] = useState<HeightField | null>(null)
   const [mode, setMode] = useState<ViewMode>('aerial')
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('dawn')
   const [seasonMode, setSeasonMode] = useState<SeasonMode>('summer')
   const [viewRequest, setViewRequest] = useState<ViewRequest | null>(null)
   const [routeViewRequest, setRouteViewRequest] = useState<RouteViewRequest | null>(null)
+  const [pointFocusRequest, setPointFocusRequest] = useState<PointFocusRequest | null>(null)
   const [showPeaks, setShowPeaks] = useState(true)
   const [showHuts, setShowHuts] = useState(false)
   const [tourActive, setTourActive] = useState(false)
+
+  // Modo Brújula ("¿Qué pico estoy viendo?")
+  const [compassActive, setCompassActive] = useState(false)
+  const [compassViewpoint, setCompassViewpoint] = useState<CompassViewpoint>(COMPASS_VIEWPOINTS[1])
+  const [gyroEnabled, setGyroEnabled] = useState(false)
+  const [gpsStatus, setGpsStatus] = useState<string | null>(null)
 
   // Drag & Drop GPX y avisos
   const [isDraggingGpx, setIsDraggingGpx] = useState(false)
@@ -61,7 +75,12 @@ export default function App() {
   const webglCanvasRef = useRef<HTMLCanvasElement | null>(null)
   const recorderRef = useRef<CozyVideoRecorder | null>(null)
 
-  const visiblePeaks = useMemo(() => applyFilters(filters), [filters])
+  const passport = useMountaineerPassport()
+
+  const visiblePeaks = useMemo(
+    () => applyFilters(filters, passport.completedPeakIds),
+    [filters, passport.completedPeakIds],
+  )
   const visibleHuts = useMemo(() => applyHutFilters(hutFilters), [hutFilters])
   const hasHutFilter =
     hutFilters.query.trim() !== '' ||
@@ -74,11 +93,96 @@ export default function App() {
     filters.query.trim() !== '' ||
     filters.side !== 'all' ||
     filters.difficulty !== 'all' ||
-    filters.altitude !== 'all'
+    filters.altitude !== 'all' ||
+    filters.passport !== 'all'
   const hasAnyFilter = hasPeakFilter || hasHutFilter
 
   const selectedPeak = selectedPeakId ? (peaksById[selectedPeakId] ?? null) : null
   const selectedHut = selectedHutId ? (hutsById[selectedHutId] ?? null) : null
+
+  /* ---------- Modo Brújula (GPS + Giroscopio + Miradores) ---------- */
+
+  const requestUserGps = useCallback(() => {
+    if (!('geolocation' in navigator)) {
+      setGpsStatus('GPS no disponible en este dispositivo · Usando mirador seleccionado.')
+      return
+    }
+    setGpsStatus('Localizando tu posición GPS…')
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude: lat, longitude: lon } = pos.coords
+        const inside =
+          lat >= TERRAIN_BOUNDS.south &&
+          lat <= TERRAIN_BOUNDS.north &&
+          lon >= TERRAIN_BOUNDS.west &&
+          lon <= TERRAIN_BOUNDS.east
+        if (inside) {
+          setCompassViewpoint({
+            id: 'user-gps',
+            name: 'Mi ubicación GPS',
+            lat,
+            lon,
+            note: `${lat.toFixed(4)}°N · ${lon.toFixed(4)}°`,
+          })
+          setGpsStatus(null)
+        } else {
+          setGpsStatus('Tu GPS está fuera de los Pirineos · Puedes elegir cualquier mirador abajo.')
+        }
+      },
+      () => {
+        setGpsStatus('Permiso de GPS denegado · Elige un mirador en la barra inferior.')
+      },
+      { enableHighAccuracy: true, timeout: 7000, maximumAge: 60000 },
+    )
+  }, [])
+
+  const openCompassMode = useCallback(() => {
+    setMenuOpen(false)
+    setTourActive(false)
+    setSelectedPeakId(null)
+    setSelectedHutId(null)
+    setGpxTrack(null)
+    setActiveRoute(null)
+    setHoveredRouteProgress(null)
+    setCompassActive(true)
+    requestUserGps()
+  }, [requestUserGps])
+
+  const exitCompassMode = useCallback(() => {
+    setCompassActive(false)
+    setGyroEnabled(false)
+    setGpsStatus(null)
+  }, [])
+
+  const toggleGyro = useCallback(async () => {
+    if (gyroEnabled) {
+      setGyroEnabled(false)
+      return
+    }
+    const DevOrient = window.DeviceOrientationEvent as unknown as {
+      requestPermission?: () => Promise<'granted' | 'denied'>
+    }
+    if (typeof DevOrient?.requestPermission === 'function') {
+      try {
+        const res = await DevOrient.requestPermission()
+        if (res === 'granted') {
+          setGyroEnabled(true)
+          setGpsStatus(null)
+        } else {
+          setGpsStatus('Permiso de giroscopio denegado en iOS/Safari.')
+        }
+      } catch {
+        setGpsStatus('No se pudo activar el giroscopio en este navegador.')
+      }
+    } else if ('DeviceOrientationEvent' in window) {
+      setGyroEnabled(true)
+      setGpsStatus(null)
+    } else {
+      setGpsStatus('Este dispositivo no dispone de sensores de orientación.')
+    }
+  }, [gyroEnabled])
+
+  /* ---------- Vídeo Cozy (Relive 3D) ---------- */
 
   const clearRecordedVideo = useCallback(() => {
     setRecordedVideo((prev) => {
@@ -112,7 +216,9 @@ export default function App() {
   const launchReplayTarget = useCallback(
     (target: ReplayTarget) => {
       setMenuOpen(false)
+      setCompassActive(false)
       setTourActive(false)
+      setHoveredRouteProgress(null)
       setActiveRoute(target.route)
       setReplayTarget(target)
       setReplayRunId((n) => n + 1)
@@ -197,6 +303,8 @@ export default function App() {
     setReplayTarget(null)
   }, [clearRecordedVideo])
 
+  /* ---------- GPX Drag & Drop ---------- */
+
   useEffect(() => {
     if (!gpxNotice) return
     const timer = window.setTimeout(() => setGpxNotice(null), 6000)
@@ -205,11 +313,13 @@ export default function App() {
 
   const openGpxTrack = useCallback((track: ParsedGpxTrack) => {
     setMenuOpen(false)
+    setCompassActive(false)
     setTourActive(false)
     setSelectedPeakId(null)
     setSelectedHutId(null)
     setGpxTrack(track)
     setActiveRoute(track.route)
+    setHoveredRouteProgress(null)
     setMode('aerial')
     setRouteViewRequest((prev) => ({ id: (prev?.id ?? 0) + 1, route: track.route }))
   }, [])
@@ -241,7 +351,6 @@ export default function App() {
     fileInputRef.current?.click()
   }, [])
 
-  // Drag & Drop global de archivos .GPX en toda la ventana
   useEffect(() => {
     const hasFiles = (e: DragEvent) => Array.from(e.dataTransfer?.types ?? []).includes('Files')
 
@@ -283,7 +392,8 @@ export default function App() {
     }
   }, [handleGpxFile])
 
-  // Regla de convivencia: abrir el menú hamburguesa cierra cualquier ficha de detalle abierta
+  /* ---------- Navegación y convivencia de paneles ---------- */
+
   const toggleMenu = useCallback(() => {
     setMenuOpen((prev) => {
       const next = !prev
@@ -292,6 +402,7 @@ export default function App() {
         setSelectedHutId(null)
         setGpxTrack(null)
         setActiveRoute(null)
+        setHoveredRouteProgress(null)
       }
       return next
     })
@@ -307,29 +418,36 @@ export default function App() {
     setHutFilters(DEFAULT_HUT_FILTERS)
   }, [])
 
-  // Seleccionar un pico cierra el menú hamburguesa, vuela a la cumbre y abre su ficha
   const selectPeak = useCallback((id: string) => {
     setMenuOpen(false)
+    setCompassActive(false)
     setTourActive(false)
     setSelectedHutId(null)
     setGpxTrack(null)
+    setHoveredRouteProgress(null)
     setSelectedPeakId(id)
     setMode('summit')
     const peak = peaksById[id]
     setActiveRoute(peak?.routes[0] ?? null)
   }, [])
 
-  // Seleccionar un refugio cierra el menú hamburguesa, vuela a él y abre su ficha
   const selectHut = useCallback((id: string) => {
     setMenuOpen(false)
+    setCompassActive(false)
     setTourActive(false)
     setSelectedPeakId(null)
     setGpxTrack(null)
+    setHoveredRouteProgress(null)
     setSelectedHutId(id)
     setShowHuts(true)
     setMode('orbit')
     const hut = hutsById[id]
     setActiveRoute(hut?.routes?.[0] ?? null)
+  }, [])
+
+  const handleSelectRoute = useCallback((route: Route) => {
+    setActiveRoute(route)
+    setHoveredRouteProgress(null)
   }, [])
 
   const handleViewFullRoute = useCallback((route: Route) => {
@@ -340,9 +458,19 @@ export default function App() {
     setRouteViewRequest((prev) => ({ id: (prev?.id ?? 0) + 1, route }))
   }, [])
 
+  const handleFocusSample = useCallback((sample: ElevationSample) => {
+    setTourActive(false)
+    setMode('aerial')
+    setPointFocusRequest((prev) => ({ id: (prev?.id ?? 0) + 1, point: sample.position.clone() }))
+  }, [])
+
   const back = useCallback(() => {
     if (replayTarget) {
       exitReplay()
+      return
+    }
+    if (compassActive) {
+      exitCompassMode()
       return
     }
     setMenuOpen(false)
@@ -351,8 +479,9 @@ export default function App() {
     setSelectedHutId(null)
     setGpxTrack(null)
     setActiveRoute(null)
+    setHoveredRouteProgress(null)
     setMode('aerial')
-  }, [replayTarget, exitReplay])
+  }, [replayTarget, exitReplay, compassActive, exitCompassMode])
 
   const goToView = useCallback((view: CameraView) => {
     setMenuOpen(false)
@@ -361,6 +490,7 @@ export default function App() {
     setSelectedHutId(null)
     setGpxTrack(null)
     setActiveRoute(null)
+    setHoveredRouteProgress(null)
     setMode('aerial')
     setViewRequest((prev) => ({ id: (prev?.id ?? 0) + 1, view }))
   }, [])
@@ -372,6 +502,7 @@ export default function App() {
         setSelectedHutId(null)
         setGpxTrack(null)
         setActiveRoute(null)
+        setHoveredRouteProgress(null)
         setMode('aerial')
       }
       return !prev
@@ -380,7 +511,6 @@ export default function App() {
 
   const stopTour = useCallback(() => setTourActive(false), [])
 
-  // Pantalla completa automática en la primera interacción del usuario
   useEffect(() => {
     const enterFullscreen = () => {
       if (!document.fullscreenElement) {
@@ -410,6 +540,7 @@ export default function App() {
   )
 
   const isReplaying = replayTarget !== null
+  const isNormalUI = !isReplaying && !compassActive
   const hasDetailOpen = Boolean(selectedPeak || selectedHut || gpxTrack)
 
   return (
@@ -432,16 +563,23 @@ export default function App() {
         selected={selectedPeak}
         selectedHut={selectedHut}
         activeRoute={activeRoute}
+        hoveredRouteProgress={hoveredRouteProgress}
         replayTarget={replayTarget}
         replayRunId={replayRunId}
+        compassActive={compassActive}
+        compassViewpoint={compassViewpoint}
+        gyroEnabled={gyroEnabled}
         mode={mode}
         timeOfDay={timeOfDay}
         seasonMode={seasonMode}
         viewRequest={viewRequest}
         routeViewRequest={routeViewRequest}
+        pointFocusRequest={pointFocusRequest}
         showPeaks={showPeaks}
         showHuts={showHuts}
         hasHutFilter={hasHutFilter}
+        completedPeakIds={passport.completedPeakIds}
+        visitedHutIds={passport.visitedHutIds}
         tourActive={tourActive}
         onTourStop={stopTour}
         onSelectPeak={selectPeak}
@@ -450,11 +588,11 @@ export default function App() {
         onCanvasReady={(c) => {
           webglCanvasRef.current = c
         }}
+        onHeightFieldReady={setHeightField}
       />
 
-      {!isReplaying ? (
+      {isNormalUI && (
         <>
-          {/* Degradado superior sutil para legibilidad de la Navbar */}
           <div className="pointer-events-none fixed inset-x-0 top-0 z-20 h-28 bg-gradient-to-b from-[#050b1c]/75 via-[#050b1c]/25 to-transparent" />
 
           <Navbar
@@ -463,6 +601,7 @@ export default function App() {
             onSelectPeak={selectPeak}
             onSelectHut={selectHut}
             onUploadGpx={openGpxPicker}
+            onOpenCompass={openCompassMode}
             hasActiveFilters={hasAnyFilter}
           />
 
@@ -488,17 +627,31 @@ export default function App() {
             onTogglePeaks={() => setShowPeaks((v) => !v)}
             tourActive={tourActive}
             onToggleTour={toggleTour}
+            onOpenCompass={openCompassMode}
             gpxHistory={gpxHistory}
             onUploadGpx={openGpxPicker}
             onOpenGpxTrack={openGpxTrack}
             onReplayGpxTrack={startReplayForGpx}
+            passportData={passport.data}
+            passportStats={passport.stats}
+            onExportPassport={passport.exportPassportJSON}
+            onImportPassport={passport.importPassportJSON}
+            onSelectPeak={selectPeak}
+            onSelectHut={selectHut}
           />
 
           <PeakPanel
             peak={selectedPeak}
             mode={mode}
             activeRoute={activeRoute}
-            onSelectRoute={setActiveRoute}
+            heightField={heightField}
+            hoveredProgress={hoveredRouteProgress}
+            passportEntry={selectedPeak ? passport.data.completedPeaks[selectedPeak.id] : undefined}
+            onToggleCompleted={() => selectedPeak && passport.togglePeakCompleted(selectedPeak.id)}
+            onUpdatePassport={(patch) => selectedPeak && passport.updatePeakEntry(selectedPeak.id, patch)}
+            onHoverProgress={setHoveredRouteProgress}
+            onFocusSample={handleFocusSample}
+            onSelectRoute={handleSelectRoute}
             onViewFullRoute={handleViewFullRoute}
             onStartReplay={startReplay}
             onModeChange={setMode}
@@ -509,7 +662,14 @@ export default function App() {
           <HutPanel
             hut={selectedHut}
             activeRoute={activeRoute}
-            onSelectRoute={setActiveRoute}
+            heightField={heightField}
+            hoveredProgress={hoveredRouteProgress}
+            passportEntry={selectedHut ? passport.data.visitedHuts[selectedHut.id] : undefined}
+            onToggleVisited={() => selectedHut && passport.toggleHutVisited(selectedHut.id)}
+            onUpdatePassport={(patch) => selectedHut && passport.updateHutEntry(selectedHut.id, patch)}
+            onHoverProgress={setHoveredRouteProgress}
+            onFocusSample={handleFocusSample}
+            onSelectRoute={handleSelectRoute}
             onViewFullRoute={handleViewFullRoute}
             onStartReplay={startReplay}
             onBack={back}
@@ -517,6 +677,10 @@ export default function App() {
 
           <GpxPanel
             track={gpxTrack}
+            heightField={heightField}
+            hoveredProgress={hoveredRouteProgress}
+            onHoverProgress={setHoveredRouteProgress}
+            onFocusSample={handleFocusSample}
             onViewFullRoute={() => gpxTrack && handleViewFullRoute(gpxTrack.route)}
             onStartReplay={() => gpxTrack && startReplayForGpx(gpxTrack)}
             onUploadAnother={openGpxPicker}
@@ -532,7 +696,9 @@ export default function App() {
             <TelemetryHUD />
           </div>
         </>
-      ) : (
+      )}
+
+      {isReplaying && (
         <RouteReplayOverlay
           target={replayTarget}
           recording={recording}
@@ -542,7 +708,21 @@ export default function App() {
         />
       )}
 
-      {/* Notificación amigable para validación de GPX */}
+      {compassActive && (
+        <CompassAROverlay
+          viewpoint={compassViewpoint}
+          gpsStatus={gpsStatus}
+          gyroEnabled={gyroEnabled}
+          onSelectViewpoint={(vp) => {
+            setCompassViewpoint(vp)
+            setGpsStatus(null)
+          }}
+          onRequestGps={requestUserGps}
+          onToggleGyro={() => void toggleGyro()}
+          onExit={exitCompassMode}
+        />
+      )}
+
       {gpxNotice && (
         <div
           role="alert"
@@ -560,7 +740,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Overlay Drag & Drop global para archivos .GPX */}
       {isDraggingGpx && (
         <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-6 backdrop-blur-md">
           <div className="flex max-w-lg flex-col items-center rounded-3xl border-2 border-dashed border-amber-300/80 bg-slate-900/75 px-8 py-12 text-center shadow-[0_0_50px_rgba(45,212,191,0.25)]">
