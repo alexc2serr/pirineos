@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useState } from 'react'
 import * as THREE from 'three'
 import type { Hut, Peak, Route } from '../data/pyrenees'
+import type { Trek } from '../data/treks'
 import type { SeasonMode, TimeOfDay } from '../lib/atmosphere'
 import type { CompassViewpoint } from '../lib/compassState'
 import type { HeightField } from '../lib/heightField'
@@ -12,6 +13,7 @@ import { CameraRig, type PointFocusRequest, type RouteViewRequest, type ViewRequ
 import { CompassARScene } from './CompassARMode'
 import { HikerAnimation3D } from './HikerAnimation3D'
 import { HutMarkers } from './HutMarkers'
+import { MultiStageTrek3D } from './MultiStageTrek3D'
 import { PeakMarkers } from './PeakMarkers'
 import { PyreneesTerrain } from './PyreneesTerrain'
 import { RoutePath3D } from './RoutePath3D'
@@ -23,7 +25,10 @@ interface SceneProps {
   selected: Peak | null
   selectedHut: Hut | null
   activeRoute: Route | null
+  activeTrek: Trek | null
+  selectedTrekStageDay: number | null
   hoveredRouteProgress: number | null
+  onSelectTrekStage: (day: number) => void
   replayTarget: ReplayTarget | null
   replayRunId: number
   compassActive: boolean
@@ -55,7 +60,10 @@ export function Scene({
   selected,
   selectedHut,
   activeRoute,
+  activeTrek,
+  selectedTrekStageDay,
   hoveredRouteProgress,
+  onSelectTrekStage,
   replayTarget,
   replayRunId,
   compassActive,
@@ -130,11 +138,20 @@ export function Scene({
                 onSelectHut={onSelectHut}
               />
             )}
-            {activeRoute && (
+            {activeRoute && !activeTrek && (
               <RoutePath3D
                 route={activeRoute}
                 heightField={heightField}
                 hoveredProgress={hoveredRouteProgress}
+              />
+            )}
+            {activeTrek && (
+              <MultiStageTrek3D
+                trek={activeTrek}
+                heightField={heightField}
+                selectedStageDay={selectedTrekStageDay}
+                hoveredProgress={hoveredRouteProgress}
+                onSelectStage={onSelectTrekStage}
               />
             )}
             {selected && mode === 'summit' && <SummitHorizon peak={selected} heightField={heightField} />}

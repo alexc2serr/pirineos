@@ -27,6 +27,7 @@ export function RouteReplayOverlay({
   const distRef = useRef<HTMLSpanElement>(null)
   const pctRef = useRef<HTMLSpanElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
     let raf = 0
@@ -43,6 +44,9 @@ export function RouteReplayOverlay({
       }
       if (barRef.current) {
         barRef.current.style.width = `${Math.max(2, replayState.progress * 100)}%`
+      }
+      if (stageRef.current) {
+        stageRef.current.textContent = replayState.currentStageLabel
       }
       if (replayState.phase !== lastPhase) {
         lastPhase = replayState.phase
@@ -91,6 +95,12 @@ export function RouteReplayOverlay({
                 style={{ width: '2%' }}
               />
             </div>
+            {target.stageMarkers && target.stageMarkers.length > 0 && (
+              <p
+                ref={stageRef}
+                className="mt-2 truncate text-center font-mono text-[10.5px] font-medium text-sky-200"
+              />
+            )}
           </div>
         ) : (
           <div />
@@ -110,7 +120,11 @@ export function RouteReplayOverlay({
         <div className="pointer-events-none flex w-full flex-1 items-end justify-center pb-2 md:items-center md:justify-end md:pb-0 md:pr-4">
           <div className="pointer-events-auto w-full max-w-sm rounded-3xl border-2 border-amber-700/30 bg-gradient-to-b from-[#fef9ef]/95 to-[#f6ebd7]/95 p-4 text-center text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.55)] backdrop-blur-md sm:p-5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3 py-0.5 font-mono text-[10px] font-bold tracking-[0.18em] text-amber-300">
-              {target.kind === 'peak' ? '¡CUMBRE ALCANZADA!' : '¡REFUGIO ALCANZADO!'}
+              {target.kind === 'trek'
+                ? '¡TRAVESÍA COMPLETADA!'
+                : target.kind === 'peak'
+                  ? '¡CUMBRE ALCANZADA!'
+                  : '¡REFUGIO ALCANZADO!'}
             </span>
 
             <h2 className="mt-2.5 font-display text-xl font-bold tracking-wide text-slate-900 sm:text-2xl">

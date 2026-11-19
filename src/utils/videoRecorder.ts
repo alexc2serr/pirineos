@@ -173,8 +173,9 @@ export class CozyVideoRecorder {
 
     // 4. Barra de progreso superior durante la caminata
     if (replayState.phase === 'hiking') {
-      const barW = Math.round(430 * s)
-      const barH = Math.round(64 * s)
+      const hasStage = Boolean(replayState.currentStageLabel)
+      const barW = Math.round(450 * s)
+      const barH = Math.round((hasStage ? 82 : 64) * s)
       const bx = (w - barW) / 2
       const by = Math.round(26 * s)
 
@@ -214,6 +215,13 @@ export class CozyVideoRecorder {
       grad.addColorStop(1, '#fde68a')
       ctx.fillStyle = grad
       ctx.fill()
+
+      if (hasStage) {
+        ctx.fillStyle = '#bae6fd'
+        ctx.font = `600 ${Math.round(11 * s)}px "JetBrains Mono", monospace`
+        ctx.textAlign = 'center'
+        ctx.fillText(replayState.currentStageLabel, bx + barW / 2, by + 68 * s)
+      }
       ctx.restore()
     }
 
@@ -246,7 +254,12 @@ export class CozyVideoRecorder {
       ctx.lineWidth = Math.max(1.5, 2 * cs)
       ctx.stroke()
 
-      const badgeText = target.kind === 'peak' ? '¡CUMBRE ALCANZADA!' : '¡REFUGIO ALCANZADO!'
+      const badgeText =
+        target.kind === 'trek'
+          ? '¡TRAVESÍA COMPLETADA!'
+          : target.kind === 'peak'
+            ? '¡CUMBRE ALCANZADA!'
+            : '¡REFUGIO ALCANZADO!'
       const badgeW = 175 * cs
       const badgeH = 24 * cs
       roundRect(ctx, cx + (cardW - badgeW) / 2, cy + 16 * cs, badgeW, badgeH, 12 * cs)

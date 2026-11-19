@@ -176,12 +176,21 @@ export function HikerAnimation3D({ target, heightField, runId, onComplete }: Hik
       // Guardar ángulo inicial para la órbita final de celebración
       orbitAngleRef.current = Math.atan2(camera.position.x - pos.x, camera.position.z - pos.z)
 
-      // Actualizar telemetría en vivo
+      // Actualizar telemetría en vivo (incluyendo etapa activa en travesías multi-etapa)
       replayState.phase = 'hiking'
       replayState.progress = progress
       replayState.currentAltitudeM = worldYToElevation(pos.y - 0.045)
       replayState.currentDistanceKm = progress * target.route.distanceKm
       replayState.celebrationT = 0
+      if (target.stageMarkers && target.stageMarkers.length > 0) {
+        let label = target.stageMarkers[0].label
+        for (const m of target.stageMarkers) {
+          if (progress >= m.startProgress) label = m.label
+        }
+        replayState.currentStageLabel = label
+      } else {
+        replayState.currentStageLabel = ''
+      }
     } else {
       // Celebración en la cima + giro orbital suave
       const celElapsed = t - HIKING_DURATION_S

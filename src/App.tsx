@@ -10,8 +10,11 @@ import { Navbar } from './components/UI/Navbar'
 import { PeakPanel } from './components/UI/PeakPanel'
 import { RouteReplayOverlay } from './components/UI/RouteReplayOverlay'
 import { TelemetryHUD } from './components/UI/TelemetryHUD'
+import { TrekPanel } from './components/UI/TrekPanel'
 import { TERRAIN_BOUNDS, hutsById, peaksById, type Route } from './data/pyrenees'
+import { stageToRoute, trekToCombinedRoute, type Trek } from './data/treks'
 import { useMountaineerPassport } from './hooks/useMountaineerPassport'
+import { useTrekPlanner } from './hooks/useTrekPlanner'
 import type { SeasonMode, TimeOfDay } from './lib/atmosphere'
 import { COMPASS_VIEWPOINTS, type CompassViewpoint } from './lib/compassState'
 import {
@@ -42,6 +45,8 @@ export default function App() {
   const [selectedHutId, setSelectedHutId] = useState<string | null>(null)
   const [gpxTrack, setGpxTrack] = useState<ParsedGpxTrack | null>(null)
   const [gpxHistory, setGpxHistory] = useState<ParsedGpxTrack[]>([])
+  const [viewedTrek, setViewedTrek] = useState<Trek | null>(null)
+  const [selectedTrekStageDay, setSelectedTrekStageDay] = useState<number | null>(null)
   const [activeRoute, setActiveRoute] = useState<Route | null>(null)
   const [hoveredRouteProgress, setHoveredRouteProgress] = useState<number | null>(null)
   const [heightField, setHeightField] = useState<HeightField | null>(null)
@@ -76,6 +81,8 @@ export default function App() {
   const recorderRef = useRef<CozyVideoRecorder | null>(null)
 
   const passport = useMountaineerPassport()
+  const trekPlanner = useTrekPlanner()
+  const activeTrek = trekPlanner.isBuilding ? trekPlanner.draftTrek : viewedTrek
 
   const visiblePeaks = useMemo(
     () => applyFilters(filters, passport.completedPeakIds),
@@ -276,6 +283,78 @@ export default function App() {
     [launchReplayTarget],
   )
 
+  const startReplayForTrek = useCallback(
+    (trek: Trek) => {
+      const { route, stageMarkers } = trekToCombinedRoute(trek)
+      const maxStopEle = Math.max(...trek.stops.map((s) => s.elevation), 2200)
+      launchReplayTarget({
+        id: trek.id,
+        name: trek.name,
+        elevation: maxStopEle,
+        massif: trek.region,
+        kind: 'trek',
+        route,
+        originLabel: `${trek.stops[0]?.name ?? 'Salida'} (${trek.stages.length} etapas)`,
+        stageMarkers,
+      })
+    },
+    [launchReplayTarget],
+  )
+
+  const openTrek = useCallback((trek: Trek) => {
+    setMenuOpen(false)
+    setCompassActive(false)
+    setTourActive(false)
+    setSelectedPeakId(null)
+    setSelectedHutId(null)
+    setGpxTrack(null)
+    setActiveRoute(null)
+    setHoveredRouteProgress(null)
+    setViewedTrek(trek)
+    setSelectedTrekStageDay(null)
+    setShowHuts(true)
+    setMode('aerial')
+    const { route } = trekToCombinedRoute(trek)
+    setRouteViewRequest((prev) => ({ id: (prev?.id ?? 0) + 1, route }))
+  }, [])
+
+  const handleSelectTrekStage = useCallback(
+    (day: number | null) => {
+      setSelectedTrekStageDay(day)
+      setHoveredRouteProgress(null)
+      if (!activeTrek || day === null) return
+      const stage = activeTrek.stages.find((s) => s.day === day)
+      if (!stage) return
+      setMode('aerial')
+      setRouteViewRequest((prev) => ({
+        id: (prev?.id ?? 0) + 1,
+        route: stageToRoute(activeTrek, stage),
+      }))
+    },
+    [activeTrek],
+  )
+
+  const handleViewFullTrek = useCallback((trek: Trek) => {
+    const { route } = trekToCombinedRoute(trek)
+    setMode('aerial')
+    setRouteViewRequest((prev) => ({ id: (prev?.id ?? 0) + 1, route }))
+  }, [])
+
+  const handleStartBuildingTrek = useCallback(() => {
+    setViewedTrek(null)
+    setSelectedPeakId(null)
+    setSelectedHutId(null)
+    setGpxTrack(null)
+    setActiveRoute(null)
+    setShowHuts(true)
+    trekPlanner.startBuilding()
+  }, [trekPlanner])
+
+  const handleSaveDraftTrek = useCallback(() => {
+    const saved = trekPlanner.saveDraftTrek()
+    if (saved) openTrek(saved)
+  }, [trekPlanner, openTrek])
+
   const handleReplayAgain = useCallback(() => {
     if (!replayTarget) return
     setReplayRunId((n) => n + 1)
@@ -401,6 +480,8 @@ export default function App() {
         setSelectedPeakId(null)
         setSelectedHutId(null)
         setGpxTrack(null)
+        setViewedTrek(null)
+        setSelectedTrekStageDay(null)
         setActiveRoute(null)
         setHoveredRouteProgress(null)
       }
@@ -418,32 +499,64 @@ export default function App() {
     setHutFilters(DEFAULT_HUT_FILTERS)
   }, [])
 
-  const selectPeak = useCallback((id: string) => {
-    setMenuOpen(false)
-    setCompassActive(false)
-    setTourActive(false)
-    setSelectedHutId(null)
-    setGpxTrack(null)
-    setHoveredRouteProgress(null)
-    setSelectedPeakId(id)
-    setMode('summit')
-    const peak = peaksById[id]
-    setActiveRoute(peak?.routes[0] ?? null)
-  }, [])
+  const selectPeak = useCallback(
+    (id: string) => {
+      const peak = peaksById[id]
+      if (trekPlanner.isBuilding && peak) {
+        trekPlanner.addStop({
+          id: peak.id,
+          name: peak.name,
+          kind: 'peak',
+          lat: peak.coordinates.lat,
+          lon: peak.coordinates.lon,
+          elevation: peak.elevation,
+        })
+        return
+      }
+      setMenuOpen(false)
+      setCompassActive(false)
+      setTourActive(false)
+      setSelectedHutId(null)
+      setGpxTrack(null)
+      setViewedTrek(null)
+      setSelectedTrekStageDay(null)
+      setHoveredRouteProgress(null)
+      setSelectedPeakId(id)
+      setMode('summit')
+      setActiveRoute(peak?.routes[0] ?? null)
+    },
+    [trekPlanner],
+  )
 
-  const selectHut = useCallback((id: string) => {
-    setMenuOpen(false)
-    setCompassActive(false)
-    setTourActive(false)
-    setSelectedPeakId(null)
-    setGpxTrack(null)
-    setHoveredRouteProgress(null)
-    setSelectedHutId(id)
-    setShowHuts(true)
-    setMode('orbit')
-    const hut = hutsById[id]
-    setActiveRoute(hut?.routes?.[0] ?? null)
-  }, [])
+  const selectHut = useCallback(
+    (id: string) => {
+      const hut = hutsById[id]
+      if (trekPlanner.isBuilding && hut) {
+        trekPlanner.addStop({
+          id: hut.id,
+          name: hut.name,
+          kind: 'hut',
+          lat: hut.coordinates.lat,
+          lon: hut.coordinates.lon,
+          elevation: hut.elevation,
+        })
+        return
+      }
+      setMenuOpen(false)
+      setCompassActive(false)
+      setTourActive(false)
+      setSelectedPeakId(null)
+      setGpxTrack(null)
+      setViewedTrek(null)
+      setSelectedTrekStageDay(null)
+      setHoveredRouteProgress(null)
+      setSelectedHutId(id)
+      setShowHuts(true)
+      setMode('orbit')
+      setActiveRoute(hut?.routes?.[0] ?? null)
+    },
+    [trekPlanner],
+  )
 
   const handleSelectRoute = useCallback((route: Route) => {
     setActiveRoute(route)
@@ -478,6 +591,8 @@ export default function App() {
     setSelectedPeakId(null)
     setSelectedHutId(null)
     setGpxTrack(null)
+    setViewedTrek(null)
+    setSelectedTrekStageDay(null)
     setActiveRoute(null)
     setHoveredRouteProgress(null)
     setMode('aerial')
@@ -489,6 +604,8 @@ export default function App() {
     setSelectedPeakId(null)
     setSelectedHutId(null)
     setGpxTrack(null)
+    setViewedTrek(null)
+    setSelectedTrekStageDay(null)
     setActiveRoute(null)
     setHoveredRouteProgress(null)
     setMode('aerial')
@@ -541,7 +658,7 @@ export default function App() {
 
   const isReplaying = replayTarget !== null
   const isNormalUI = !isReplaying && !compassActive
-  const hasDetailOpen = Boolean(selectedPeak || selectedHut || gpxTrack)
+  const hasDetailOpen = Boolean(selectedPeak || selectedHut || gpxTrack || viewedTrek)
 
   return (
     <div className="fixed inset-0 m-0 h-screen w-screen overflow-hidden p-0">
@@ -563,7 +680,10 @@ export default function App() {
         selected={selectedPeak}
         selectedHut={selectedHut}
         activeRoute={activeRoute}
+        activeTrek={activeTrek}
+        selectedTrekStageDay={selectedTrekStageDay}
         hoveredRouteProgress={hoveredRouteProgress}
+        onSelectTrekStage={handleSelectTrekStage}
         replayTarget={replayTarget}
         replayRunId={replayRunId}
         compassActive={compassActive}
@@ -638,7 +758,50 @@ export default function App() {
             onImportPassport={passport.importPassportJSON}
             onSelectPeak={selectPeak}
             onSelectHut={selectHut}
+            customTreks={trekPlanner.customTreks}
+            isBuildingTrek={trekPlanner.isBuilding}
+            draftTrekName={trekPlanner.draftName}
+            draftStops={trekPlanner.draftStops}
+            draftTrek={trekPlanner.draftTrek}
+            onDraftNameChange={trekPlanner.setDraftName}
+            onStartBuildingTrek={handleStartBuildingTrek}
+            onCancelBuildingTrek={trekPlanner.cancelBuilding}
+            onRemoveDraftStop={trekPlanner.removeStop}
+            onMoveDraftStop={trekPlanner.moveStop}
+            onSaveDraftTrek={handleSaveDraftTrek}
+            onDeleteCustomTrek={trekPlanner.deleteCustomTrek}
+            onOpenTrek={openTrek}
+            onReplayTrek={startReplayForTrek}
           />
+
+          <TrekPanel
+            trek={viewedTrek}
+            selectedStageDay={selectedTrekStageDay}
+            heightField={heightField}
+            hoveredProgress={hoveredRouteProgress}
+            onSelectStage={handleSelectTrekStage}
+            onHoverProgress={setHoveredRouteProgress}
+            onFocusSample={handleFocusSample}
+            onViewFullTrek={handleViewFullTrek}
+            onStartTrekReplay={startReplayForTrek}
+            onClose={back}
+          />
+
+          {/* Banner compacto cuando el usuario está encadenando paradas en el 3D */}
+          {trekPlanner.isBuilding && !menuOpen && (
+            <div className="pointer-events-auto fixed left-1/2 top-20 z-30 flex w-[min(92vw,520px)] -translate-x-1/2 items-center justify-between gap-3 rounded-xl border border-sky-300/45 bg-slate-950/85 px-3.5 py-2 font-mono text-[11px] text-sky-100 shadow-2xl backdrop-blur-md">
+              <span className="truncate">
+                Modo Travesía ({trekPlanner.draftStops.length} paradas) · Pulsa refugios o picos en el 3D
+              </span>
+              <button
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                className="shrink-0 rounded-lg bg-sky-400 px-2.5 py-1 text-[10px] font-bold text-slate-950"
+              >
+                Ver / Guardar
+              </button>
+            </div>
+          )}
 
           <PeakPanel
             peak={selectedPeak}

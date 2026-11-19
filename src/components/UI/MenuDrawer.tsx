@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { HUTS, hutsById, peaks, peaksById } from '../../data/pyrenees'
+import { CLASSIC_TREKS, exportTrekToGpx, type Trek, type TrekStop } from '../../data/treks'
 import type {
   ImportPassportResult,
   PassportData,
@@ -18,7 +19,7 @@ import {
 } from '../../lib/filters'
 import type { ParsedGpxTrack } from '../../utils/gpxParser'
 
-export type DrawerTab = 'filters' | 'visual' | 'gpx' | 'passport'
+export type DrawerTab = 'filters' | 'visual' | 'gpx' | 'passport' | 'treks'
 export type ExplorerMode = 'peaks' | 'huts'
 
 interface MenuDrawerProps {
@@ -54,6 +55,21 @@ interface MenuDrawerProps {
   onImportPassport: (file: File) => Promise<ImportPassportResult>
   onSelectPeak: (id: string) => void
   onSelectHut: (id: string) => void
+  // Travesías Multi-Etapa
+  customTreks: Trek[]
+  isBuildingTrek: boolean
+  draftTrekName: string
+  draftStops: TrekStop[]
+  draftTrek: Trek | null
+  onDraftNameChange: (name: string) => void
+  onStartBuildingTrek: () => void
+  onCancelBuildingTrek: () => void
+  onRemoveDraftStop: (idx: number) => void
+  onMoveDraftStop: (idx: number, delta: -1 | 1) => void
+  onSaveDraftTrek: () => void
+  onDeleteCustomTrek: (id: string) => void
+  onOpenTrek: (trek: Trek) => void
+  onReplayTrek: (trek: Trek) => void
 }
 
 const SIDES: { value: SideFilter; label: string }[] = [
@@ -196,6 +212,20 @@ export function MenuDrawer({
   onImportPassport,
   onSelectPeak,
   onSelectHut,
+  customTreks,
+  isBuildingTrek,
+  draftTrekName,
+  draftStops,
+  draftTrek,
+  onDraftNameChange,
+  onStartBuildingTrek,
+  onCancelBuildingTrek,
+  onRemoveDraftStop,
+  onMoveDraftStop,
+  onSaveDraftTrek,
+  onDeleteCustomTrek,
+  onOpenTrek,
+  onReplayTrek,
 }: MenuDrawerProps) {
   const [tab, setTab] = useState<DrawerTab>('filters')
   const [importFeedback, setImportFeedback] = useState<string | null>(null)
@@ -272,26 +302,30 @@ export function MenuDrawer({
         }}
       />
 
-      {/* Cabecera de 4 pestañas */}
-      <div className="border-b border-white/10 p-2.5">
-        <div className="grid grid-cols-4 gap-1 rounded-xl border border-white/10 bg-white/5 p-1">
+      {/* Cabecera de 5 pestañas */}
+      <div className="border-b border-white/10 p-2">
+        <div className="grid grid-cols-5 gap-1 rounded-xl border border-white/10 bg-white/5 p-1">
           {(
             [
               { id: 'filters', label: 'Filtros' },
               { id: 'visual', label: 'Visual' },
-              { id: 'gpx', label: gpxHistory.length ? `GPX (${gpxHistory.length})` : 'GPX' },
-              { id: 'passport', label: '🏅 Pasaporte' },
+              { id: 'treks', label: 'Travesías' },
+              { id: 'gpx', label: gpxHistory.length ? `GPX(${gpxHistory.length})` : 'GPX' },
+              { id: 'passport', label: '🏅' },
             ] as { id: DrawerTab; label: string }[]
           ).map((t) => (
             <button
               key={t.id}
               type="button"
+              title={t.id === 'passport' ? 'Pasaporte Montañero' : t.label}
               onClick={() => setTab(t.id)}
-              className={`truncate rounded-lg px-1.5 py-1.5 font-mono text-[10px] font-medium tracking-wide transition-colors ${
+              className={`truncate rounded-lg px-1 py-1.5 font-mono text-[9.5px] font-medium tracking-tight transition-colors ${
                 tab === t.id
                   ? t.id === 'passport'
                     ? 'bg-emerald-400 font-semibold text-slate-950 shadow'
-                    : 'bg-white text-slate-950 shadow'
+                    : t.id === 'treks'
+                      ? 'bg-sky-400 font-semibold text-slate-950 shadow'
+                      : 'bg-white text-slate-950 shadow'
                   : 'text-white/70 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -570,6 +604,250 @@ export function MenuDrawer({
               >
                 {tourActive ? '⏹ Detener Tour Cordillera' : '▶ Iniciar Tour Sobrevolar Cordillera'}
               </button>
+            </div>
+          </div>
+        )}
+
+        {tab === 'treks' && (
+          <div className="space-y-5">
+            {/* Sección 1: Constructor Personalizado Multi-Etapa */}
+            <div>
+              <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
+                MI PLANIFICADOR MULTI-ETAPA
+              </p>
+
+              {!isBuildingTrek ? (
+                <button
+                  type="button"
+                  onClick={onStartBuildingTrek}
+                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl border border-sky-300/45 bg-sky-400/20 px-4 py-3 font-mono text-xs font-semibold text-sky-100 transition-colors hover:bg-sky-400/30"
+                >
+                  ➕ Crear Nueva Travesía en 3D
+                </button>
+              ) : (
+                <div className="mt-2 space-y-3 rounded-2xl border border-sky-300/40 bg-sky-950/35 p-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-[10px] font-semibold tracking-[0.16em] text-sky-300">
+                      MODO CREACIÓN ACTIVO
+                    </span>
+                    <button
+                      type="button"
+                      onClick={onCancelBuildingTrek}
+                      className="font-mono text-[10px] text-white/60 hover:text-white"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+
+                  <input
+                    value={draftTrekName}
+                    onChange={(e) => onDraftNameChange(e.target.value)}
+                    placeholder="Nombre de tu travesía…"
+                    className="h-8 w-full rounded-lg border border-white/15 bg-slate-950/70 px-2.5 font-sans text-xs text-white focus:border-sky-300 focus:outline-none"
+                  />
+
+                  <p className="text-[11px] leading-relaxed text-sky-100/80">
+                    Haz clic en los <strong>refugios o picos</strong> del mapa 3D (o en el buscador
+                    superior) para ir encadenando paradas.
+                  </p>
+
+                  {draftStops.length > 0 && (
+                    <ol className="space-y-1.5">
+                      {draftStops.map((stop, idx) => (
+                        <li
+                          key={`${stop.id}-${idx}`}
+                          className="flex items-center justify-between gap-1.5 rounded-lg border border-white/10 bg-slate-950/60 px-2.5 py-1.5"
+                        >
+                          <div className="min-w-0">
+                            <span className="font-mono text-[9.5px] font-bold text-sky-300">
+                              {idx === 0 ? 'SALIDA' : `NOCHE ${idx}`}
+                            </span>
+                            <span className="ml-1.5 truncate text-xs text-white">{stop.name}</span>
+                          </div>
+                          <div className="flex shrink-0 items-center gap-0.5 font-mono text-[10px]">
+                            <button
+                              type="button"
+                              disabled={idx === 0}
+                              onClick={() => onMoveDraftStop(idx, -1)}
+                              className="rounded px-1 text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-25"
+                            >
+                              ↑
+                            </button>
+                            <button
+                              type="button"
+                              disabled={idx === draftStops.length - 1}
+                              onClick={() => onMoveDraftStop(idx, 1)}
+                              className="rounded px-1 text-white/60 hover:bg-white/10 hover:text-white disabled:opacity-25"
+                            >
+                              ↓
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => onRemoveDraftStop(idx)}
+                              className="rounded px-1 text-rose-300/80 hover:bg-rose-400/20 hover:text-rose-200"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+
+                  {draftTrek && (
+                    <>
+                      <div className="grid grid-cols-3 gap-1.5 rounded-lg bg-slate-950/60 p-2 text-center font-mono text-[10px]">
+                        <div>
+                          <span className="block text-white/45">ETAPAS</span>
+                          <span className="font-semibold text-white">{draftTrek.stages.length} d</span>
+                        </div>
+                        <div>
+                          <span className="block text-white/45">DIST.</span>
+                          <span className="font-semibold text-sky-200">{draftTrek.totalDistanceKm} km</span>
+                        </div>
+                        <div>
+                          <span className="block text-white/45">DESNIVEL</span>
+                          <span className="font-semibold text-amber-200">
+                            +{draftTrek.totalElevationGain} m
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-1.5">
+                        <button
+                          type="button"
+                          onClick={onSaveDraftTrek}
+                          className="w-full rounded-lg bg-sky-400 py-2 font-mono text-[11px] font-bold text-slate-950 hover:bg-sky-300"
+                        >
+                          ✓ Guardar Travesía
+                        </button>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onClose()
+                              onReplayTrek(draftTrek)
+                            }}
+                            className="rounded-lg bg-amber-400 py-1.5 font-mono text-[10px] font-bold text-slate-950 hover:bg-amber-300"
+                          >
+                            🎬 Vídeo Cozy
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => exportTrekToGpx(draftTrek)}
+                            className="rounded-lg border border-white/15 bg-white/5 py-1.5 font-mono text-[10px] font-semibold text-white/85 hover:bg-white/15"
+                          >
+                            ⬇ .GPX
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Travesías personalizadas guardadas */}
+              {customTreks.length > 0 && (
+                <div className="mt-3 space-y-2">
+                  <p className="font-mono text-[9.5px] tracking-[0.2em] text-white/45">
+                    GUARDADAS ({customTreks.length})
+                  </p>
+                  {customTreks.map((trek) => (
+                    <div
+                      key={trek.id}
+                      className="rounded-xl border border-sky-300/25 bg-white/[0.04] p-3"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <p className="truncate text-xs font-semibold text-white">{trek.name}</p>
+                          <p className="mt-0.5 font-mono text-[10px] text-white/55">
+                            {trek.stages.length} etapas · {trek.totalDistanceKm} km · +
+                            {trek.totalElevationGain} m
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => onDeleteCustomTrek(trek.id)}
+                          title="Eliminar travesía"
+                          className="shrink-0 font-mono text-[10px] text-white/40 hover:text-rose-300"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="mt-2.5 flex gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose()
+                            onOpenTrek(trek)
+                          }}
+                          className="flex-1 rounded-lg bg-sky-400/20 py-1.5 font-mono text-[10px] font-semibold text-sky-200 hover:bg-sky-400/30"
+                        >
+                          Ver en 3D
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => exportTrekToGpx(trek)}
+                          className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 font-mono text-[10px] text-white/80 hover:bg-white/15"
+                        >
+                          ⬇ .GPX
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Sección 2: Travesías Clásicas */}
+            <div>
+              <p className="font-mono text-[10px] tracking-[0.22em] text-white/45">
+                TRAVESÍAS CLÁSICAS ({CLASSIC_TREKS.length})
+              </p>
+              <div className="mt-2 space-y-2.5">
+                {CLASSIC_TREKS.map((trek) => (
+                  <div
+                    key={trek.id}
+                    className="rounded-xl border border-white/10 bg-white/[0.04] p-3 transition-colors hover:border-sky-300/35"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h4 className="text-xs font-semibold text-white">{trek.name}</h4>
+                        <p className="mt-0.5 text-[10.5px] text-white/55">{trek.region}</p>
+                      </div>
+                      <span className="shrink-0 rounded-md bg-sky-400/20 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-sky-200">
+                        {trek.stages.length} d
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center gap-3 font-mono text-[10px] text-white/65">
+                      <span>{trek.totalDistanceKm} km</span>
+                      <span>+{trek.totalElevationGain.toLocaleString('es-ES')} m</span>
+                    </div>
+                    <div className="mt-2.5 flex gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onClose()
+                          onOpenTrek(trek)
+                        }}
+                        className="flex-1 rounded-lg bg-white/90 py-1.5 font-mono text-[10.5px] font-semibold text-slate-950 transition-colors hover:bg-white"
+                      >
+                        Ver en 3D
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onClose()
+                          onReplayTrek(trek)
+                        }}
+                        className="rounded-lg bg-amber-400 px-2.5 py-1.5 font-mono text-[10.5px] font-bold text-slate-950 transition-colors hover:bg-amber-300"
+                      >
+                        🎬 Vídeo
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
